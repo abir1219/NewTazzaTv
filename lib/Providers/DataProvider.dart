@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:new_tazza_tv_flutter/Models/MenuModel.dart';
 import 'package:new_tazza_tv_flutter/Screens/Category/ViewAllModel.dart';
 import 'package:new_tazza_tv_flutter/Screens/Home/CategoryWiseSportsArticles/CategoryWiseSportsArticlesModel.dart';
@@ -60,9 +63,10 @@ class DataProvider extends ChangeNotifier {
   MenuModel? menuModel;
   ViewAllModel? viewAllModel;
 
-  String strNews="";
+  String strNews = "";
 
   bool isLoading = false;
+  bool isLoggedIn = false;
 
   getAllData() async {
     ////isLoading = true;
@@ -77,20 +81,19 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }*/
 
-  breakingNews() async{
+  breakingNews() async {
     breakingNewsModel = (await showBreakingNews())!;
 
-    for(var i=0;i<breakingNewsModel!.newsList!.length;i++){
-      strNews += breakingNewsModel!.newsList![i].title+". ";
-      if(i == breakingNewsModel!.newsList!.length-1){
+    for (var i = 0; i < breakingNewsModel!.newsList!.length; i++) {
+      strNews += breakingNewsModel!.newsList![i].title + ". ";
+      if (i == breakingNewsModel!.newsList!.length - 1) {
         notifyListeners();
       }
     }
     notifyListeners();
   }
 
-
-  showTopNewsWithImage() async{
+  showTopNewsWithImage() async {
     ////isLoading = true;
     notifyListeners();
     topNewsModel = await showTopNews();
@@ -98,7 +101,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showSecondTopNewsWithImage() async{
+  showSecondTopNewsWithImage() async {
     ////isLoading = true;
     notifyListeners();
     secondTopNewsModel = await showSecondTopNews();
@@ -106,7 +109,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showThirdTopNewsWithImage() async{
+  showThirdTopNewsWithImage() async {
     ////isLoading = true;
     notifyListeners();
     thirdTopNewsModel = await showThirdTopNews();
@@ -114,7 +117,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showFourthTopNewsWithImage() async{
+  showFourthTopNewsWithImage() async {
     ////isLoading = true;
     notifyListeners();
     fourthTopNewsModel = await showFourthTopNews();
@@ -122,7 +125,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showStateList() async{
+  showStateList() async {
     //isLoading = true;
     //notifyListeners();
     stateModel = await showStates();
@@ -130,7 +133,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showstateTopNewsList(String state) async{
+  showstateTopNewsList(String state) async {
     print("ST_RES=>$state");
     ////isLoading = true;
     //notifyListeners();
@@ -139,7 +142,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showstateSecondTopNewsList(String state) async{
+  showstateSecondTopNewsList(String state) async {
     print("ST_RES=>$state");
     ////isLoading = true;
     //notifyListeners();
@@ -148,7 +151,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showstateThirdTopNewsList(String state) async{
+  showstateThirdTopNewsList(String state) async {
     print("ST_RES=>$state");
     ////isLoading = true;
     //notifyListeners();
@@ -157,7 +160,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showstateFourthTopNewsList(String state) async{
+  showstateFourthTopNewsList(String state) async {
     print("ST4_RES=>$state");
     ////isLoading = true;
     //notifyListeners();
@@ -166,7 +169,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showTopNatioalNewsList() async{
+  showTopNatioalNewsList() async {
     ////isLoading = true;
     //notifyListeners();
     topNationalNewsModel = await showTopNatioalNews();
@@ -174,7 +177,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showBelowNatioalNewsList() async{
+  showBelowNatioalNewsList() async {
     ////isLoading = true;
     //notifyListeners();
     belowNationalNewsModel = await showBelowNatioalNews();
@@ -182,7 +185,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showInternatioalNewsList() async{
+  showInternatioalNewsList() async {
     ////isLoading = true;
     //notifyListeners();
     topInternationalNewsModel = await showInternationalNews();
@@ -190,7 +193,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showTopEntertainmentNewsList() async{
+  showTopEntertainmentNewsList() async {
     ////isLoading = true;
     //notifyListeners();
     topEntertainmentNewsModel = await showTopEntertainmentNews();
@@ -198,7 +201,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showSecondEntertainmentNewsList() async{
+  showSecondEntertainmentNewsList() async {
     ////isLoading = true;
     //notifyListeners();
     secondEntertainmentNewsModel = await showSecondEntertainmentNews();
@@ -206,7 +209,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showThirdEntertainmentNewsList() async{
+  showThirdEntertainmentNewsList() async {
     ////isLoading = true;
     //notifyListeners();
     thirdEntertainmentNewsModel = await showThirdEntertainmentNews();
@@ -214,7 +217,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showFourthEntertainmentNewsList() async{
+  showFourthEntertainmentNewsList() async {
     ////isLoading = true;
     //notifyListeners();
     fourthEntertainmentNewsModel = await showFourthEntertainmentNews();
@@ -222,7 +225,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showTopSportsNewsList() async{
+  showTopSportsNewsList() async {
     ////isLoading = true;
     //notifyListeners();
     topSportsNewsModel = await showTopSportsNews();
@@ -230,7 +233,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showSecondSportsNewsList() async{
+  showSecondSportsNewsList() async {
     ////isLoading = true;
     //notifyListeners();
     secondSportsNewsModel = await showSecondSportsNews();
@@ -238,7 +241,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showThirdSportsNewsList() async{
+  showThirdSportsNewsList() async {
     ////isLoading = true;
     //notifyListeners();
     thirdSportsNewsModel = await showThirdSportsNews();
@@ -246,7 +249,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showAllVideoNewsList() async{
+  showAllVideoNewsList() async {
     ////isLoading = true;
     //notifyListeners();
     videoNewsModel = await showAllVideoNews();
@@ -254,7 +257,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showCategoryWiseSportsList() async{
+  showCategoryWiseSportsList() async {
     isLoading = true;
     notifyListeners();
     cateforyWiseSportsModel = await categoryWiseSports();
@@ -262,7 +265,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  getNewsFromNewsId(String newsId) async{
+  getNewsFromNewsId(String newsId) async {
     //isLoading = true;
     //notifyListeners();
     newsDetailsModel = await showNewsDetails(newsId);
@@ -270,7 +273,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  getRelatedNewsId(String newsId) async{
+  getRelatedNewsId(String newsId) async {
     isLoading = true;
     notifyListeners();
     relatedNewsModel = await showRelatedNews(newsId);
@@ -278,7 +281,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showCategoryWiseSportsArticleList(String catName) async{
+  showCategoryWiseSportsArticleList(String catName) async {
     isLoading = true;
     notifyListeners();
     categoryWiseSportsArticlesModel = await showCategoryWiseSportsNews(catName);
@@ -286,7 +289,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showMenuList() async{
+  showMenuList() async {
     isLoading = true;
     notifyListeners();
     menuModel = await showMenu();
@@ -294,7 +297,7 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  showViewAllList(String type) async{
+  showViewAllList(String type) async {
     isLoading = true;
     notifyListeners();
     viewAllModel = await showViewAllNews(type);
@@ -302,5 +305,21 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<bool> loginUser(String email, String password) async {
+    isLoggedIn = true;
+    notifyListeners();
+    var response = await login(email, password);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print("UID => ${data['user_id']}");
+      print("UNAME => ${data['username']}");
+      GetStorage().write("uid",data['user_id']);
+      GetStorage().write("uname",data['username']);
+      isLoggedIn = false;
+      notifyListeners();
+      return true;
+    }
+    return false;
+  }
 }
 //categoryWiseSportsArticles

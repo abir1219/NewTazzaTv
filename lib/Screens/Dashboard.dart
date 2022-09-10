@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_tazza_tv_flutter/Screens/Category/Category.dart';
 import 'package:new_tazza_tv_flutter/Screens/Home/Home.dart';
+import 'package:new_tazza_tv_flutter/Screens/VideoPlayer/VideoPlayer.dart';
 
 class Dashboard extends StatefulWidget {
   //const Dashboard({Key? key}) : super(key: key);
@@ -25,9 +26,7 @@ class _DashboardState extends State<Dashboard> {
     const Center(
       child: Text("Live Streaming"),
     ),
-    const Center(
-      child: Text("Video Player"),
-    ),
+    const VideoPlayer(),
     const Center(
       child: Text("Reporter Journal"),
     ),

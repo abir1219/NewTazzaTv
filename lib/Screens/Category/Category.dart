@@ -86,7 +86,7 @@ class _CategoryState extends State<Category> {
                 itemBuilder: (context, index) {
                 return InkWell(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  CategoryDetails(type:value.menuModel!.list![index].name),));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  CategoryDetails(type:value.menuModel!.list![index].name, index: 0,),));
                   },
                   child: SizedBox(
                     height:100,// size.height * .15,

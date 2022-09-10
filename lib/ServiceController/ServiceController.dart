@@ -39,12 +39,12 @@ Future<AllNewsDataModel?> getAllNewsData() async {
   AllNewsDataModel? dataModel;
   try {
     final response = await http.get(Uri.parse(Urls.BASE_URL));
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       final item = json.decode(response.body);
       print("ITEMS_RES : $item");
       dataModel = AllNewsDataModel.fromJson(item);
-    }else{
-     print("Getting some troubles");
+    } else {
+      print("Getting some troubles");
     }
   } catch (e) {
     print(e.toString());
@@ -53,13 +53,13 @@ Future<AllNewsDataModel?> getAllNewsData() async {
   return dataModel;
 }
 
-Future<List<StateListModel>> showAllStates() async{
+Future<List<StateListModel>> showAllStates() async {
   List<StateListModel> stateList = [];
-  Map<String,dynamic> body = {
-    'type':'showstate'
+  Map<String, dynamic> body = {
+    'type': 'showstate'
   };
-  var response = await http.post(Uri.parse(Urls.BASE_URL),body:body);
-  if(response.statusCode == 200){
+  var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
+  if (response.statusCode == 200) {
     var data = json.decode(response.body);
     List<dynamic> state = data['list'];
     state.forEach((element) {
@@ -67,546 +67,581 @@ Future<List<StateListModel>> showAllStates() async{
       stateList.add(model);
     });
     return stateList;
-  }else{
+  } else {
     return [];
   }
 }
 
-Future<BreakingNewsModel?> showBreakingNews() async{
+Future<BreakingNewsModel?> showBreakingNews() async {
   BreakingNewsModel? model;
-  Map<String,dynamic> body ={
-    'type' : 'showbreaking',
-    'lang' : 'en'
+  Map<String, dynamic> body = {
+    'type': 'showbreaking',
+    'lang': 'en'
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("BREAKING_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       model = BreakingNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return model;
 }
 
-Future<TopNewsModel?> showTopNews() async{
+Future<TopNewsModel?> showTopNews() async {
   TopNewsModel? topNewsModel;
-  Map<String,dynamic> body ={
-    'type' : 'showarticles2',
-    'lang' : 'en',
-    'state' : GetStorage().read("state").toString(), //GetStorage().read('state'),
+  Map<String, dynamic> body = {
+    'type': 'showarticles2',
+    'lang': 'en',
+    'state': GetStorage().read("state").toString(),
+    //GetStorage().read('state'),
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("BREAKING_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       topNewsModel = TopNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return topNewsModel;
 }
 
-Future<SecondTopNewsModel?> showSecondTopNews() async{
+Future<SecondTopNewsModel?> showSecondTopNews() async {
   print("STORAGE_STATE => ${GetStorage().read('state')}");
   SecondTopNewsModel? secondTopNewsModel;
-  Map<String,dynamic> body ={
-    'type' : 'showarticles3',
-    'lang' : 'en',
-    'state' : GetStorage().read("state").toString(), //GetStorage().read('state'),
+  Map<String, dynamic> body = {
+    'type': 'showarticles3',
+    'lang': 'en',
+    'state': GetStorage().read("state").toString(),
+    //GetStorage().read('state'),
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("BREAKING_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      secondTopNewsModel = SecondTopNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      secondTopNewsModel =
+          SecondTopNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return secondTopNewsModel;
 }
 
-Future<ThirdTopNewsModel?> showThirdTopNews() async{
+Future<ThirdTopNewsModel?> showThirdTopNews() async {
   ThirdTopNewsModel? thirdTopNewsModel;
-  Map<String,dynamic> body ={
-    'type' : 'showarticles4',
-    'lang' : 'en',
-    'state' : GetStorage().read("state").toString(), //GetStorage().read('state'),
+  Map<String, dynamic> body = {
+    'type': 'showarticles4',
+    'lang': 'en',
+    'state': GetStorage().read("state").toString(),
+    //GetStorage().read('state'),
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("BREAKING_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      thirdTopNewsModel = ThirdTopNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      thirdTopNewsModel =
+          ThirdTopNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return thirdTopNewsModel;
 }
 
-Future<FourthTopNewsModel?> showFourthTopNews() async{
+Future<FourthTopNewsModel?> showFourthTopNews() async {
   FourthTopNewsModel? fourthTopNewsModel;
-  Map<String,dynamic> body ={
-    'type' : 'showarticles1',
-    'lang' : 'en',
-    'state' : GetStorage().read("state").toString(), //GetStorage().read('state'),
+  Map<String, dynamic> body = {
+    'type': 'showarticles1',
+    'lang': 'en',
+    'state': GetStorage().read("state").toString(),
+    //GetStorage().read('state'),
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("4_TOp_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      fourthTopNewsModel = FourthTopNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      fourthTopNewsModel =
+          FourthTopNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return fourthTopNewsModel;
 }
 
-Future<StateModel?> showStates() async{
+Future<StateModel?> showStates() async {
   StateModel? stateModel;
-  Map<String,dynamic> body ={
-    'type' : 'showstate',
+  Map<String, dynamic> body = {
+    'type': 'showstate',
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("STATE_RES_MENU => ${response.body}");
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       stateModel = StateModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return stateModel;
 }
 
-Future<StateTopNewsModel?> showStatesTopNews(String state) async{
+Future<StateTopNewsModel?> showStatesTopNews(String state) async {
   StateTopNewsModel? stateTopNewsModel;
   print("St=>$state");
-  Map<String,dynamic> body ={
-    'type':'statewise',
-    'state':state,
-    'lang':'en',
-    'limit':"1"
+  Map<String, dynamic> body = {
+    'type': 'statewise',
+    'state': state,
+    'lang': 'en',
+    'limit': "1"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("STATE_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      stateTopNewsModel = StateTopNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      stateTopNewsModel =
+          StateTopNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return stateTopNewsModel;
 }
 
-Future<StateSecondTopNewsModel?> showStatesSecondTopNews(String state) async{
+Future<StateSecondTopNewsModel?> showStatesSecondTopNews(String state) async {
   StateSecondTopNewsModel? stateSecondTopNewsModel;
   print("St=>$state");
-  Map<String,dynamic> body ={
-    'type':'statewise',
-    'state':state,
-    'lang':'en',
-    'limit':"1,2"
+  Map<String, dynamic> body = {
+    'type': 'statewise',
+    'state': state,
+    'lang': 'en',
+    'limit': "1,2"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("STATE_2_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      stateSecondTopNewsModel = StateSecondTopNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      stateSecondTopNewsModel =
+          StateSecondTopNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return stateSecondTopNewsModel;
 }
 
-Future<StateThirdTopNewsModel?> showStatesThirdTopNews(String state) async{
+Future<StateThirdTopNewsModel?> showStatesThirdTopNews(String state) async {
   StateThirdTopNewsModel? stateThirdTopNewsModel;
   print("St=>$state");
-  Map<String,dynamic> body ={
-    'type':'statewise',
-    'state':state,
-    'lang':'en',
-    'limit':"3,4"
+  Map<String, dynamic> body = {
+    'type': 'statewise',
+    'state': state,
+    'lang': 'en',
+    'limit': "3,4"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("STATE_3_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      stateThirdTopNewsModel = StateThirdTopNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      stateThirdTopNewsModel =
+          StateThirdTopNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return stateThirdTopNewsModel;
 }
 
-Future<StateFourthTopNewsModel?> showStatesFourthTopNews(String state) async{
+Future<StateFourthTopNewsModel?> showStatesFourthTopNews(String state) async {
   StateFourthTopNewsModel? stateFourthTopNewsModel;
   print("St4=>$state");
-  Map<String,dynamic> body ={
-    'type':'statewise',
-    'state':state,
-    'lang':'en',
-    'limit':"7,2"
+  Map<String, dynamic> body = {
+    'type': 'statewise',
+    'state': state,
+    'lang': 'en',
+    'limit': "7,2"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("STATE_4_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      stateFourthTopNewsModel = StateFourthTopNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      stateFourthTopNewsModel =
+          StateFourthTopNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return stateFourthTopNewsModel;
 }
 
-Future<ViewAllModel?> showViewAllNews(String type) async{
+Future<ViewAllModel?> showViewAllNews(String type) async {
   print("TYPE => $type");
   ViewAllModel? viewAllModel;
-  Map<String,dynamic> body ={
-    'type':'CategoryWiseNews',
-    'lang':'en',
-    'category':type,
+  Map<String, dynamic> body = {
+    'type': 'CategoryWiseNews',
+    'lang': 'en',
+    'category': type,
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("TYPE => ${response.body}");
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       viewAllModel = ViewAllModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return viewAllModel;
 }
 
-Future<TopNationalNewsModel?> showTopNatioalNews() async{
+Future<TopNationalNewsModel?> showTopNatioalNews() async {
   print("NATIONAL");
   TopNationalNewsModel? topNationalNewsModel;
-  Map<String,dynamic> body ={
-    'type':'CategoryWiseNews',
-    'lang':'en',
-    'category':'National',
-    'limit':"4"
+  Map<String, dynamic> body = {
+    'type': 'CategoryWiseNews',
+    'lang': 'en',
+    'category': 'National',
+    'limit': "4"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("NATIONAL_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      topNationalNewsModel = TopNationalNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      topNationalNewsModel =
+          TopNationalNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return topNationalNewsModel;
 }
 
-Future<BelowNationalNewsModel?> showBelowNatioalNews() async{
+Future<BelowNationalNewsModel?> showBelowNatioalNews() async {
   print("NATIONAL");
   BelowNationalNewsModel? belowNationalNewsModel;
-  Map<String,dynamic> body ={
-    'type':'CategoryWiseNews',
-    'lang':'en',
-    'category':'National',
-    'limit':"4,3"
+  Map<String, dynamic> body = {
+    'type': 'CategoryWiseNews',
+    'lang': 'en',
+    'category': 'National',
+    'limit': "4,3"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("NATIONAL_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      belowNationalNewsModel = BelowNationalNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      belowNationalNewsModel =
+          BelowNationalNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return belowNationalNewsModel;
 }
 
-Future<TopInternationalNewsModel?> showInternationalNews() async{
+Future<TopInternationalNewsModel?> showInternationalNews() async {
   print("INTERNATIONAL");
   TopInternationalNewsModel? topInternationalNewsModel;
-  Map<String,dynamic> body ={
-    'type':'CategoryWiseNews',
-    'lang':'en',
-    'category':'International',
-    'limit':"3"
+  Map<String, dynamic> body = {
+    'type': 'CategoryWiseNews',
+    'lang': 'en',
+    'category': 'International',
+    'limit': "3"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("INTERNATIONAL_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      topInternationalNewsModel = TopInternationalNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      topInternationalNewsModel =
+          TopInternationalNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return topInternationalNewsModel;
 }
 
-Future<TopEntertainmentNewsModel?> showTopEntertainmentNews() async{
+Future<TopEntertainmentNewsModel?> showTopEntertainmentNews() async {
   print("ENTERTAINMENT");
   TopEntertainmentNewsModel? topEntertainmentNewsModel;
-  Map<String,dynamic> body ={
-    'type':'CategoryWiseNews',
-    'lang':'en',
-    'category':'Entertainment',
-    'limit':"1"
+  Map<String, dynamic> body = {
+    'type': 'CategoryWiseNews',
+    'lang': 'en',
+    'category': 'Entertainment',
+    'limit': "1"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("INTERNATIONAL_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      topEntertainmentNewsModel = TopEntertainmentNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      topEntertainmentNewsModel =
+          TopEntertainmentNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return topEntertainmentNewsModel;
 }
 
-Future<SecondEntertainmentNewsModel?> showSecondEntertainmentNews() async{
+Future<SecondEntertainmentNewsModel?> showSecondEntertainmentNews() async {
   print("ENTERTAINMENT");
   SecondEntertainmentNewsModel? secondEntertainmentNewsModel;
-  Map<String,dynamic> body ={
-    'type':'CategoryWiseNews',
-    'lang':'en',
-    'category':'Entertainment',
-    'limit':"1,3"
+  Map<String, dynamic> body = {
+    'type': 'CategoryWiseNews',
+    'lang': 'en',
+    'category': 'Entertainment',
+    'limit': "1,3"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("SECOND_ENTERTAINMENT_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      secondEntertainmentNewsModel = SecondEntertainmentNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      secondEntertainmentNewsModel =
+          SecondEntertainmentNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return secondEntertainmentNewsModel;
 }
 
-Future<ThirdEntertainmentNewsModel?> showThirdEntertainmentNews() async{
+Future<ThirdEntertainmentNewsModel?> showThirdEntertainmentNews() async {
   print("ENTERTAINMENT");
   ThirdEntertainmentNewsModel? thirdEntertainmentNewsModel;
-  Map<String,dynamic> body ={
-    'type':'CategoryWiseNews',
-    'lang':'en',
-    'category':'Entertainment',
-    'limit':"4,5"
+  Map<String, dynamic> body = {
+    'type': 'CategoryWiseNews',
+    'lang': 'en',
+    'category': 'Entertainment',
+    'limit': "4,5"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("INTERNATIONAL_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      thirdEntertainmentNewsModel = ThirdEntertainmentNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      thirdEntertainmentNewsModel =
+          ThirdEntertainmentNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return thirdEntertainmentNewsModel;
 }
 
-Future<FourthEntertainmentNewsModel?> showFourthEntertainmentNews() async{
+Future<FourthEntertainmentNewsModel?> showFourthEntertainmentNews() async {
   print("ENTERTAINMENT");
   FourthEntertainmentNewsModel? fourthEntertainmentNewsModel;
-  Map<String,dynamic> body ={
-    'type':'CategoryWiseNews',
-    'lang':'en',
-    'category':'Entertainment',
-    'limit':"9,3"
+  Map<String, dynamic> body = {
+    'type': 'CategoryWiseNews',
+    'lang': 'en',
+    'category': 'Entertainment',
+    'limit': "9,3"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("INTERNATIONAL_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      fourthEntertainmentNewsModel = FourthEntertainmentNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      fourthEntertainmentNewsModel =
+          FourthEntertainmentNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return fourthEntertainmentNewsModel;
 }
 
-Future<TopSportsNewsModel?> showTopSportsNews() async{
+Future<TopSportsNewsModel?> showTopSportsNews() async {
   print("ENTERTAINMENT");
   TopSportsNewsModel? topSportsNewsModel;
-  Map<String,dynamic> body ={
-    'type':'CategoryWiseNews',
-    'lang':'en',
-    'category':'Sports',
-    'limit':"2"
+  Map<String, dynamic> body = {
+    'type': 'CategoryWiseNews',
+    'lang': 'en',
+    'category': 'Sports',
+    'limit': "2"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("SPORTS_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      topSportsNewsModel = TopSportsNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      topSportsNewsModel =
+          TopSportsNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return topSportsNewsModel;
 }
 
-Future<SecondSportsNewsModel?> showSecondSportsNews() async{
+Future<SecondSportsNewsModel?> showSecondSportsNews() async {
   print("ENTERTAINMENT");
   SecondSportsNewsModel? secondSportsNewsModel;
-  Map<String,dynamic> body ={
-    'type':'CategoryWiseNews',
-    'lang':'en',
-    'category':'Sports',
-    'limit':"2,4"
+  Map<String, dynamic> body = {
+    'type': 'CategoryWiseNews',
+    'lang': 'en',
+    'category': 'Sports',
+    'limit': "2,4"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("INTERNATIONAL_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      secondSportsNewsModel = SecondSportsNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      secondSportsNewsModel =
+          SecondSportsNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return secondSportsNewsModel;
 }
 
-Future<ThirdSportsNewsModel?> showThirdSportsNews() async{
+Future<ThirdSportsNewsModel?> showThirdSportsNews() async {
   print("ENTERTAINMENT");
   ThirdSportsNewsModel? thirdSportsNewsModel;
-  Map<String,dynamic> body ={
-    'type':'CategoryWiseNews',
-    'lang':'en',
-    'category':'Sports',
-    'limit':"6,1"
+  Map<String, dynamic> body = {
+    'type': 'CategoryWiseNews',
+    'lang': 'en',
+    'category': 'Sports',
+    'limit': "6,1"
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("INTERNATIONAL_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      thirdSportsNewsModel = ThirdSportsNewsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      thirdSportsNewsModel =
+          ThirdSportsNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return thirdSportsNewsModel;
 }
 
-Future<CateforyWiseSportsModel?> categoryWiseSports() async{
+Future<CateforyWiseSportsModel?> categoryWiseSports() async {
   print("ENTERTAINMENT");
   CateforyWiseSportsModel? cateforyWiseSportsModel;
-  Map<String,dynamic> body ={
-    'type':'categorywisesports',
-    'lang':'en',
+  Map<String, dynamic> body = {
+    'type': 'categorywisesports',
+    'lang': 'en',
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("CATEGORY_WISE_SPORTS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      cateforyWiseSportsModel = CateforyWiseSportsModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      cateforyWiseSportsModel =
+          CateforyWiseSportsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return cateforyWiseSportsModel;
 }
 
-Future<VideoNewsModel?> showAllVideoNews() async{
+Future<VideoNewsModel?> showAllVideoNews() async {
   print("VideoNews");
   VideoNewsModel? videoNewsModel;
-  Map<String,dynamic> body ={
-    'type':'VideosNews',
+  Map<String, dynamic> body = {
+    'type': 'VideosNews',
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("INTERNATIONAL_TOP_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       videoNewsModel = VideoNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return videoNewsModel;
 }
 
-Future<NewsDetailsModel?> showNewsDetails(String newsId) async{
+Future<NewsDetailsModel?> showNewsDetails(String newsId) async {
   print("NewsDetails => $newsId");
   NewsDetailsModel? newsDetailsModel;
-  Map<String,dynamic> body ={
-    'type':'ViewArticlesNews',
-    'id':newsId,
+  Map<String, dynamic> body = {
+    'type': 'ViewArticlesNews',
+    'id': newsId,
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("News_Details_RES => ${response.body}");
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       newsDetailsModel = NewsDetailsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return newsDetailsModel;
 }
 
-Future<RelatedNewsModel?> showRelatedNews(String newsId) async{
+Future<RelatedNewsModel?> showRelatedNews(String newsId) async {
   RelatedNewsModel? relatedNewsModel;
-  Map<String,dynamic> body ={
-    'type':'relatedArticles',
-    'id':newsId,
+  Map<String, dynamic> body = {
+    'type': 'relatedArticles',
+    'id': newsId,
     'lang': 'en',
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("RELATED_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       relatedNewsModel = RelatedNewsModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return relatedNewsModel;
 }
 
-Future<CategoryWiseSportsArticlesModel?> showCategoryWiseSportsNews(String catName) async{
+Future<CategoryWiseSportsArticlesModel?> showCategoryWiseSportsNews(
+    String catName) async {
   CategoryWiseSportsArticlesModel? categoryWiseSportsArticles;
-  Map<String,dynamic> body ={
-    'type':'subcategorywise',
-    'sub_category':catName,
+  Map<String, dynamic> body = {
+    'type': 'subcategorywise',
+    'sub_category': catName,
     'lang': 'en',
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("CATEGORY_SPORTS_NEWS_RES => ${response.body}");
-    if(response.statusCode == 200){
-      categoryWiseSportsArticles = CategoryWiseSportsArticlesModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      categoryWiseSportsArticles =
+          CategoryWiseSportsArticlesModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return categoryWiseSportsArticles;
 }
 
-Future<MenuModel?> showMenu() async{
+Future<MenuModel?> showMenu() async {
   MenuModel? menuModel;
-  Map<String,dynamic> body ={
-    'type':'showmenu',
+  Map<String, dynamic> body = {
+    'type': 'showmenu',
     'lang': 'en',
   };
-  try{
-    var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("Menu_RES => ${response.body}");
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       menuModel = MenuModel.fromJson(json.decode(response.body));
     }
-  }catch(e){
+  } catch (e) {
 
   }
   return menuModel;
+}
+
+Future<http.Response> login(String email, String password) async{
+  Map<String, dynamic>body = {
+    'type':'login',
+    'email':email,
+    'password':password,
+  };
+  var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+
+  return response;
 }
 

@@ -11,8 +11,9 @@ import 'package:provider/provider.dart';
 
 class CategoryDetails extends StatefulWidget {
   final type;
+  final index;
 
-  const CategoryDetails({Key? key, required this.type}) : super(key: key);
+  const CategoryDetails({Key? key, required this.type,required  this.index}) : super(key: key);
 
   @override
   State<CategoryDetails> createState() => _CategoryDetailsState();
@@ -52,7 +53,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => Dashboard(
-                    indexing: 1,
+                    indexing: widget.index,
                   ),
                 ));
           },

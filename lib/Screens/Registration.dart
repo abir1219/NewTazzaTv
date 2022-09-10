@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:new_tazza_tv_flutter/Screens/LoginPage.dart';
 import 'package:new_tazza_tv_flutter/Utils/AppColors.dart';
 
-import 'Home/OtpVerification.dart';
+import 'OtpVerification.dart';
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
@@ -21,6 +21,7 @@ class _RegistrationState extends State<Registration> {
   final _emailAddressController = TextEditingController();
   final _stateController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _cnfirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +99,17 @@ class _RegistrationState extends State<Registration> {
                   obscureText: true,
                   decoration: const InputDecoration(
                       hintText: "Enter Password",
+                      focusColor: Colors.grey
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: _cnfirmPasswordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                      hintText: "Confirm Password",
                       focusColor: Colors.grey
                   ),
                 ),

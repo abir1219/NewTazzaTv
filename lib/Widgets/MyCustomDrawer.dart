@@ -14,7 +14,6 @@ class MyCustomDrawer extends StatefulWidget {
 }
 
 class _MyCustomDrawerState extends State<MyCustomDrawer> {
-
   var name = "";
   var language = "Hindi";
 
@@ -22,14 +21,13 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
   void initState() {
     super.initState();
     setState(() {
-      //name = "Abir";
+      name = GetStorage().read("uname") ?? "";
       //language = GetStorage().read("lang") == "en" ? "Hindi" : "English";
-      if(GetStorage().read("lang") == "en"){
+      if (GetStorage().read("lang") == "en") {
         language = "Hindi";
-      }else if(GetStorage().read("lang") == "hin"){
+      } else if (GetStorage().read("lang") == "hin") {
         language = "English";
       }
-
     });
   }
 
@@ -41,47 +39,70 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
 
     return Drawer(
       backgroundColor: Colors.white,
-      child:ListView(
+      child: ListView(
         children: [
-           SizedBox(
-             height: 200,
-             child: DrawerHeader(
-                 decoration: const BoxDecoration(
-                   color: Colors.blueAccent,
-                 ),
-                child: Column(
+          SizedBox(
+            height: 200,
+            child: DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.blueAccent,
+              ),
+              child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: size.height*.15,
+                      height: size.height * .15,
                       child: const Image(
-                        image: AssetImage("assets/images/taazalogo.png",),
+                        image: AssetImage(
+                          "assets/images/taazalogo.png",
+                        ),
                       ),
                     ),
                     const Gap(15),
-                    Text("Welcome $name",style: const TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.white),)
-                  ]
-                ),
+                    Text(
+                      "Welcome $name",
+                      style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    )
+                  ]),
+            ),
           ),
-           ),
           ListTile(
-            title: const Text('Choose State',style: TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Icon(Icons.place,color: Colors.black,size: 24,),
+            title: const Text(
+              'Choose State',
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            leading: const Icon(
+              Icons.place,
+              color: Colors.black,
+              size: 24,
+            ),
             onTap: () {
               showStateDialog();
               //Navigator.pop(context);
             },
           ),
           ListTile(
-            title: Text('Switch to $language',style: const TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Image(image: AssetImage("assets/images/change_lang.png",),width: 24,height: 24,color: Colors.black),
+            title: Text(
+              'Switch to $language',
+              style: const TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            leading: const Image(
+                image: AssetImage(
+                  "assets/images/change_lang.png",
+                ),
+                width: 24,
+                height: 24,
+                color: Colors.black),
             //const Icon(Icons.change,color: Colors.black,size: 24,),
             onTap: () {
               print("CLICKED");
-              if(language == "Hindi"){
-                GetStorage().write("lang","hin");
-              }else if(language == "English"){
-                GetStorage().write("lang","en");
+              if (language == "Hindi") {
+                GetStorage().write("lang", "hin");
+              } else if (language == "English") {
+                GetStorage().write("lang", "en");
               }
               Navigator.pop(context);
               Navigator.push(
@@ -171,8 +192,17 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
             },
           ),*/
           ListTile(
-            title: const Text('About Us',style: TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Image(image: AssetImage("assets/images/information.png",),width: 24,height: 24,color: Colors.black),
+            title: const Text(
+              'About Us',
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            leading: const Image(
+                image: AssetImage(
+                  "assets/images/information.png",
+                ),
+                width: 24,
+                height: 24,
+                color: Colors.black),
             //const Icon(Icons.change,color: Colors.black,size: 24,),
             onTap: () {
               // Update the state of the app
@@ -182,8 +212,17 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
             },
           ),
           ListTile(
-            title: const Text('Saved News',style: TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Image(image: AssetImage("assets/images/save_news.png",),width: 24,height: 24,color: Colors.black),
+            title: const Text(
+              'Saved News',
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            leading: const Image(
+                image: AssetImage(
+                  "assets/images/save_news.png",
+                ),
+                width: 24,
+                height: 24,
+                color: Colors.black),
             //const Icon(Icons.change,color: Colors.black,size: 24,),
             onTap: () {
               // Update the state of the app
@@ -193,8 +232,17 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
             },
           ),
           ListTile(
-            title: const Text('Contact Us',style: TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Image(image: AssetImage("assets/images/contact.png",),width: 24,height: 24,color: Colors.black),
+            title: const Text(
+              'Contact Us',
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            leading: const Image(
+                image: AssetImage(
+                  "assets/images/contact.png",
+                ),
+                width: 24,
+                height: 24,
+                color: Colors.black),
             //const Icon(Icons.change,color: Colors.black,size: 24,),
             onTap: () {
               // Update the state of the app
@@ -204,8 +252,17 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
             },
           ),
           ListTile(
-            title: const Text('Terms and Conditions',style: TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Image(image: AssetImage("assets/images/tnc.png",),width: 24,height: 24,color: Colors.black),
+            title: const Text(
+              'Terms and Conditions',
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            leading: const Image(
+                image: AssetImage(
+                  "assets/images/tnc.png",
+                ),
+                width: 24,
+                height: 24,
+                color: Colors.black),
             //const Icon(Icons.change,color: Colors.black,size: 24,),
             onTap: () {
               // Update the state of the app
@@ -215,8 +272,17 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
             },
           ),
           ListTile(
-            title: const Text('Logout',style: TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Image(image: AssetImage("assets/images/power.png",),width: 24,height: 24,color: Colors.black),
+            title: const Text(
+              'Logout',
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            leading: const Image(
+                image: AssetImage(
+                  "assets/images/power.png",
+                ),
+                width: 24,
+                height: 24,
+                color: Colors.black),
             //const Icon(Icons.change,color: Colors.black,size: 24,),
             onTap: () {
               // Update the state of the app
@@ -236,82 +302,79 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
       builder: (BuildContext context) {
         return Consumer<DataProvider>(
           builder: (context, value, child) {
-            return StatefulBuilder(builder: (context, setState) {
-              return Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                elevation: 16,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    print(
-                        "LOGO->${value.stateModel!.list![index].logo}");
-                    return InkWell(
-                      onTap: () {
-                        print(
-                            "STATE_NAME=>${value.stateModel!.list![index].name}");
-                        GetStorage().write("state",value.stateModel!.list![index].name);
-                        Navigator.pop(context);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Dashboard(
-                                indexing: 0,
-                              ),
-                            ));
-                        //setState(() {});
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
-                              crossAxisAlignment:
-                              CrossAxisAlignment.center,
-                              children: [
-                                ClipRRect(
-                                  borderRadius:
-                                  BorderRadius.circular(8.0),
-                                  child: Image.network(
-                                    value.stateModel!.list![index].logo ??
-                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJLICBu_i2rNNd8l9Zz-DUNSwFXR9xAzCutg&usqp=CAU",
-                                    fit: BoxFit.cover,
-                                    width: 80,
-                                  ),
+            return StatefulBuilder(
+              builder: (context, setState) {
+                return Dialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  elevation: 16,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      print("LOGO->${value.stateModel!.list![index].logo}");
+                      return InkWell(
+                        onTap: () {
+                          print(
+                              "STATE_NAME=>${value.stateModel!.list![index].name}");
+                          GetStorage().write(
+                              "state", value.stateModel!.list![index].name);
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Dashboard(
+                                  indexing: 0,
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding:
-                                    const EdgeInsets.symmetric(
-                                        horizontal: 8.0),
-                                    child: Text(
-                                      value.stateModel!.list![index]
-                                          .name,
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
+                              ));
+                          //setState(() {});
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.network(
+                                      value.stateModel!.list![index].logo ??
+                                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJLICBu_i2rNNd8l9Zz-DUNSwFXR9xAzCutg&usqp=CAU",
+                                      fit: BoxFit.cover,
+                                      width: 80,
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            const Gap(5),
-                            const Divider(
-                              height: 1,
-                              color: Colors.black,
-                            )
-                          ],
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: Text(
+                                        value.stateModel!.list![index].name,
+                                        style: const TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Gap(5),
+                              const Divider(
+                                height: 1,
+                                color: Colors.black,
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  itemCount: value.stateModel!.list!.length,
-                ),
-              );
-            },);
+                      );
+                    },
+                    itemCount: value.stateModel!.list!.length,
+                  ),
+                );
+              },
+            );
           },
         );
       },

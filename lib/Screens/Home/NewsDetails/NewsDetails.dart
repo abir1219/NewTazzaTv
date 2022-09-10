@@ -19,32 +19,36 @@ class NewsDetails extends StatefulWidget {
 }
 
 class _NewsDetailsState extends State<NewsDetails> {
-
   var strState = "West Bengal";
+
+  final _commentController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    GetStorage().read("state")!=null ? strState = GetStorage().read("state") : "West Bengal";
+    GetStorage().read("state") != null
+        ? strState = GetStorage().read("state")
+        : "West Bengal";
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<DataProvider>(context,listen: false);
+    var provider = Provider.of<DataProvider>(context, listen: false);
     provider.getNewsFromNewsId(widget.newsId);
     provider.getRelatedNewsId(widget.newsId);
 
     final GlobalKey<ScaffoldState> _key = GlobalKey();
     final size = MediaQuery.of(context).size;
 
-    return SafeArea(child: Scaffold(
+    return SafeArea(
+        child: Scaffold(
       endDrawer: const MyCustomDrawer(),
       appBar: AppBar(
         backgroundColor: const Color(0xFF196df9),
         elevation: 0,
         leading: InkWell(
-          onTap: (){
+          onTap: () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -60,10 +64,10 @@ class _NewsDetailsState extends State<NewsDetails> {
         ),
         title: Center(
             child: Text(
-              strState,
-              style: const TextStyle(color: Colors.white, fontSize: 16),
-              textAlign: TextAlign.center,
-            )),
+          strState,
+          style: const TextStyle(color: Colors.white, fontSize: 16),
+          textAlign: TextAlign.center,
+        )),
         actions: [
           const Icon(
             Icons.search,
@@ -84,224 +88,363 @@ class _NewsDetailsState extends State<NewsDetails> {
           ),
         ],
       ),
-      body: Consumer<DataProvider>(builder: (context, value, child) {
-        return !value.isLoading ? SingleChildScrollView(
-          child: Column(
-            children: [
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 10),
-                    child: Text(value.newsDetailsModel!.list![0].title,style: const TextStyle(color: Colors.black,
-                        fontWeight: FontWeight.bold,fontSize: 18),),
-                  ),
-                  HtmlWidget(value.newsDetailsModel!.list![0].shortDesc,
-                    textStyle: const TextStyle(color: Colors.black,fontSize: 15),),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    height: size.height * .35,
-                    decoration: BoxDecoration(
-                        borderRadius:
-                        BorderRadius.circular(12)),
-                    child: Card(
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)
-                      ),
-                      child: SizedBox(
-                        width: size.width,
-                        child: CachedNetworkImage(
-                          imageUrl: value.newsDetailsModel!.list![0].bannerImage,
-                          placeholder: (context, url) => Image.asset("assets/images/loader.png"),
-                          errorWidget: (context, url, error) => const Icon(Icons.error),
-                          fit: BoxFit.cover,
+      body: Consumer<DataProvider>(
+        builder: (context, value, child) {
+          return !value.isLoading
+              ? SingleChildScrollView(
+                  child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 10),
+                          child: Text(
+                            value.newsDetailsModel!.list![0].title,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                   Padding(padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          value
-                              .newsDetailsModel!
-                              .list![0]
-                              .createdOn,
-                          style: const TextStyle(
-                              fontSize:
-                              13,
-                              color: AppColors.smallTextColor),
+                        HtmlWidget(
+                          value.newsDetailsModel!.list![0].shortDesc,
+                          textStyle: const TextStyle(
+                              color: Colors.black, fontSize: 15),
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            IconButton(icon: Image.asset("assets/images/facebook.png",),onPressed: (){
-                            },),
-                            IconButton(icon: Image.asset("assets/images/whatsapp.png",),onPressed: (){
-
-                            },),
-                            IconButton(icon: Image.asset("assets/images/twitter.png",),onPressed: (){
-
-                            },)
-                          ],
-                        ),
-                      )
-                    ],
-                  ),),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 10),
-                    child: HtmlWidget(
-                      value.newsDetailsModel!.list![0].description,
-                      textStyle: const TextStyle(fontSize: 16),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: (){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Dashboard(
-                                indexing: 0,
-                              ),
-                            ));
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Text("Tags:  ",style: TextStyle(fontSize: 13),),
-                          //Flexible(child: Text(value.newsDetailsModel!.list![0].tags,style: TextStyle(color: Colors.blue[800],fontSize: 13,decoration: TextDecoration.underline),maxLines: 3,overflow: TextOverflow.ellipsis,)),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Gap(20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Other Relevant Stories",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                      ],
-                    ),
-                  ),
-                  const Gap(20),
-                  Consumer<DataProvider>(
-                    builder: (context, value, child) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 8.0),
-                        child: SizedBox(
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
                           height: size.height * .35,
-                          width: double.infinity,
-                          child: ListView.builder(
-                            //physics: const NeverScrollableScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              NewsDetails(
-                                                newsId: value
-                                                    .relatedNewsModel!.list![index].id.toString(),
-                                              ),
-                                        ));
-                                  },
-                                  child: SizedBox(
-                                    width: size.width * .85,
-                                    child: Card(
-                                      elevation: 2,
-                                      shadowColor: Colors.grey,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(
-                                              12)),
-                                      child: Column(
-                                        mainAxisSize:
-                                        MainAxisSize.min,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            height:
-                                            size.height * .20,
-                                            width: size.width,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius
-                                                    .circular(
-                                                    12)),
-                                            child: CachedNetworkImage(
-                                              imageUrl: value.relatedNewsModel!.list![index].image,
-                                              errorWidget: (context, url, error) => const Icon(Icons.error),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          const Gap(10),
-                                          Padding(
-                                            padding:
-                                            const EdgeInsets
-                                                .symmetric(
-                                                horizontal:
-                                                4.0),
-                                            child: Text(
-                                              value.relatedNewsModel!.list![index].createdOn,
-                                              maxLines: 5,
-                                              style: const TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight:
-                                                  FontWeight.bold,
-                                                  color: AppColors.smallTextColor),
-                                            ),
-                                          ),
-                                          const Gap(10),
-                                          Padding(
-                                            padding:
-                                            const EdgeInsets.symmetric(horizontal: 4.0),
-                                            child: Text(
-                                              value.relatedNewsModel!.list![index].title,
-                                              maxLines: 5,
-                                              style:
-                                              const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight:
-                                                  FontWeight.bold,
-                                                  color: Colors.black),
-                                            ),
-                                          ),
-                                          const Gap(10),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                              itemCount: value.relatedNewsModel!.list!.length),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Card(
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                            child: SizedBox(
+                              width: size.width,
+                              child: CachedNetworkImage(
+                                imageUrl: value
+                                    .newsDetailsModel!.list![0].bannerImage,
+                                placeholder: (context, url) =>
+                                    Image.asset("assets/images/loader.png"),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
                         ),
-                      );
-                    },
-                  ),
-                ],
-              )
-            ],
-          )
-        ):const Center(child: CircularProgressIndicator(),);
-      },),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: Row(
+                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                value.newsDetailsModel!.list![0].createdOn,
+                                style: const TextStyle(
+                                    fontSize: 13,
+                                    color: AppColors.smallTextColor),
+                              ),
+                              const Spacer(),
+                              Row(
+                                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  IconButton(
+                                    icon: Image.asset(
+                                      "assets/images/facebook.png",
+                                      height: 25,
+                                    ),
+                                    onPressed: () {},
+                                  ),
+                                  IconButton(
+                                    icon: Image.asset(
+                                      "assets/images/whatsapp.png",
+                                      height: 25,
+                                    ),
+                                    onPressed: () {},
+                                  ),
+                                  IconButton(
+                                    icon: Image.asset(
+                                      "assets/images/twitter.png",
+                                      height: 25,
+                                    ),
+                                    onPressed: () {},
+                                  ),
+                                  IconButton(
+                                    icon: GetStorage().read("uid") != null
+                                        ? Image.asset(
+                                            "assets/images/before_save.png",
+                                            height: 25,
+                                          )
+                                        : Container(
+                                            width: 0,
+                                          ),
+                                    onPressed: () {},
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 10),
+                          child: HtmlWidget(
+                            value.newsDetailsModel!.list![0].description,
+                            textStyle: const TextStyle(fontSize: 16),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Dashboard(
+                                      indexing: 0,
+                                    ),
+                                  ));
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  "Tags:  ",
+                                  style: TextStyle(fontSize: 13),
+                                ),
+                                //Flexible(child: Text(value.newsDetailsModel!.list![0].tags,style: TextStyle(color: Colors.blue[800],fontSize: 13,decoration: TextDecoration.underline),maxLines: 3,overflow: TextOverflow.ellipsis,)),
+                              ],
+                            ),
+                          ),
+                        ),
+                        GetStorage().read("uid") != null ?
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: (){
+                                  showCommentBox();
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF196df9),
+                                    borderRadius: BorderRadius.circular(8)
+                                  ),
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 12.0,vertical: 8),
+                                    child: Text("Comment",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                                  ),
+                                ),
+                              ),
+                              const Gap(10),
+                              IconButton(onPressed: () {  }, icon: Image.asset("assets/images/before_like.png",height: 25,),)
+                            ],
+                          ),
+                        ):Container(),
+                        const Gap(20),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Other Relevant Stories",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        const Gap(20),
+                        Consumer<DataProvider>(
+                          builder: (context, value, child) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 8.0),
+                              child: SizedBox(
+                                height: size.height * .35,
+                                width: double.infinity,
+                                child: ListView.builder(
+                                    //physics: const NeverScrollableScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    NewsDetails(
+                                                  newsId: value
+                                                      .relatedNewsModel!
+                                                      .list![index]
+                                                      .id
+                                                      .toString(),
+                                                ),
+                                              ));
+                                        },
+                                        child: SizedBox(
+                                          width: size.width * .85,
+                                          child: Card(
+                                            elevation: 2,
+                                            shadowColor: Colors.grey,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12)),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  height: size.height * .20,
+                                                  width: size.width,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12)),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: value
+                                                        .relatedNewsModel!
+                                                        .list![index]
+                                                        .image,
+                                                    errorWidget: (context, url,
+                                                            error) =>
+                                                        const Icon(Icons.error),
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                const Gap(10),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 4.0),
+                                                  child: Text(
+                                                    value.relatedNewsModel!
+                                                        .list![index].createdOn,
+                                                    maxLines: 5,
+                                                    style: const TextStyle(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: AppColors
+                                                            .smallTextColor),
+                                                  ),
+                                                ),
+                                                const Gap(10),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 4.0),
+                                                  child: Text(
+                                                    value.relatedNewsModel!
+                                                        .list![index].title,
+                                                    maxLines: 5,
+                                                    style: const TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.black),
+                                                  ),
+                                                ),
+                                                const Gap(10),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    itemCount:
+                                        value.relatedNewsModel!.list!.length),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                ))
+              : const Center(
+                  child: CircularProgressIndicator(),
+                );
+        },
+      ),
     ));
+  }
+
+  void showCommentBox() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10)),
+            elevation: 16,
+            title: const Text("Write your comment",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15),),
+            content: Container(
+              height: 150,
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Colors.grey,
+                      width: 1.0
+                  ),
+                  borderRadius: BorderRadius.circular(8.0)
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: const InputDecoration.collapsed(
+                    hintText: "Write a comment",
+                  ),
+                  maxLines: 5,
+                  controller: _commentController,
+                ),
+              ),
+            ),
+            actions:[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: const Color(0xFF196df9),
+                      borderRadius: BorderRadius.circular(8)
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.0,vertical: 12),
+                    child: Text("Submit",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                  ),
+                ),
+              ),
+              //const Gap(15),
+              InkWell(
+                onTap: (){
+                  _commentController.text = "";
+                  Navigator.pop(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: const Color(0xFF196df9),
+                        borderRadius: BorderRadius.circular(8)
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.0,vertical: 12),
+                      child: Text("Close",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                    ),
+                  ),
+                ),
+              ),
+            ]
+          );
+        });
   }
 }
