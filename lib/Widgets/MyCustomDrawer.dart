@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:new_tazza_tv_flutter/Providers/DataProvider.dart';
 import 'package:new_tazza_tv_flutter/Screens/Dashboard.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyCustomDrawer extends StatefulWidget {
   const MyCustomDrawer({Key? key}) : super(key: key);
@@ -17,11 +18,18 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
   var name = "";
   var language = "Hindi";
 
+  Future<void> getName() async{
+    final prefs = await SharedPreferences.getInstance();
+    name = prefs.getString("uname")!;
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
     setState(() {
-      name = GetStorage().read("uname") ?? "";
+      getName();
+      //name = GetStorage().read("uname") ?? "";
       //language = GetStorage().read("lang") == "en" ? "Hindi" : "English";
       if (GetStorage().read("lang") == "en") {
         language = "Hindi";

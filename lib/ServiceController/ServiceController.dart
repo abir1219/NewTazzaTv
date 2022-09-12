@@ -634,14 +634,49 @@ Future<MenuModel?> showMenu() async {
   return menuModel;
 }
 
-Future<http.Response> login(String email, String password) async{
+Future<Map<String,dynamic>> login(String email, String password) async{
   Map<String, dynamic>body = {
     'type':'login',
     'email':email,
     'password':password,
   };
   var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  var data = jsonDecode(response.body);
 
-  return response;
+  return data;
 }
 
+Future<Map<String,dynamic>> signup(String name, String email, String number,String state, String password)async{
+
+  print('name: ${name} \n email: ${email} \n number: ${number} \n state: ${state} \n password: ${password} \n ');
+
+  Map<String, dynamic>body = {
+    'type':'signup',
+    'name':name,
+    'email':email,
+    'mobile':number,
+    'state':state,
+    'password':password,
+    'confirm_password':password,
+  };
+  var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  print(response);
+  var data = jsonDecode(response.body);
+  print("DATA_TYPE => ${jsonDecode(response.body).runtimeType}");
+  return data;
+}
+
+
+Future<Map<String,dynamic>> saveArticle(var userId, var articleId)async{
+
+  Map<String, dynamic>body = {
+    'type':'SaveArtile',
+    'user_id':userId,
+    'article_id':articleId
+  };
+  var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  var data = jsonDecode(response.body);
+  print("<<<<<<<<<<<<<<<<<<<<<< response Save Artile");
+  // print()
+  return data;
+}

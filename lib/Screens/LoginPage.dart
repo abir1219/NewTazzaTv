@@ -2,6 +2,7 @@ import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_picker_dialog.dart';
 import 'package:country_pickers/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:new_tazza_tv_flutter/Providers/DataProvider.dart';
 import 'package:new_tazza_tv_flutter/Screens/Dashboard.dart';
@@ -31,10 +32,13 @@ class _LoginPageState extends State<LoginPage> {
     final provider = Provider.of<DataProvider>(context, listen: false);
 
     Future<void> _login() async{
-      if(await provider.loginUser(_emailController.text.toString(), _passwordController.text.toString()) == true){
+      if(await provider.loginUser(_emailController.text.toString(), _passwordController.text.toString()) == "Y"){
         print("LOGIN");
+        Fluttertoast.showToast(msg: provider.signinMsg);
         Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (context) => Dashboard(indexing: 0,)));
+      }else{
+        Fluttertoast.showToast(msg: provider.signinMsg);
       }
     }
 

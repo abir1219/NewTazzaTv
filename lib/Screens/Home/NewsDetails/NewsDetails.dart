@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:new_tazza_tv_flutter/Providers/DataProvider.dart';
@@ -8,6 +9,7 @@ import 'package:new_tazza_tv_flutter/Screens/Dashboard.dart';
 import 'package:new_tazza_tv_flutter/Utils/AppColors.dart';
 import 'package:new_tazza_tv_flutter/Widgets/MyCustomDrawer.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NewsDetails extends StatefulWidget {
   final newsId;
@@ -20,12 +22,21 @@ class NewsDetails extends StatefulWidget {
 
 class _NewsDetailsState extends State<NewsDetails> {
   var strState = "West Bengal";
+  var userId;
+  var prefs;
+
+  Future<void> getUserId() async{
+    prefs = await SharedPreferences.getInstance();
+    userId = prefs.getInt('uid');
+    setState(() {});
+  }
 
   final _commentController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    getUserId();
     GetStorage().read("state") != null
         ? strState = GetStorage().read("state")
         : "West Bengal";
@@ -40,6 +51,15 @@ class _NewsDetailsState extends State<NewsDetails> {
 
     final GlobalKey<ScaffoldState> _key = GlobalKey();
     final size = MediaQuery.of(context).size;
+
+    Future<void> _saveArticle() async{
+      print("_USERID => $userId");
+      if(await provider.saveArticleByUser(userId.toString(), widget.newsId.toString())=='Y'){
+        Fluttertoast.showToast(msg: provider.signupMsg);
+      }else{
+        Fluttertoast.showToast(msg: provider.signupMsg);
+      }
+    }
 
     return SafeArea(
         child: Scaffold(
@@ -172,7 +192,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                     onPressed: () {},
                                   ),
                                   IconButton(
-                                    icon: GetStorage().read("uid") != null
+                                    icon: userId != null
                                         ? Image.asset(
                                             "assets/images/before_save.png",
                                             height: 25,
@@ -180,7 +200,9 @@ class _NewsDetailsState extends State<NewsDetails> {
                                         : Container(
                                             width: 0,
                                           ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      _saveArticle();
+                                    },
                                   )
                                 ],
                               )
@@ -219,7 +241,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                             ),
                           ),
                         ),
-                        GetStorage().read("uid") != null ?
+                        userId != null ?
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 8),
                           child: Row(
@@ -447,4 +469,5 @@ class _NewsDetailsState extends State<NewsDetails> {
           );
         });
   }
+
 }

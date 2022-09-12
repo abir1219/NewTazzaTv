@@ -23,6 +23,7 @@ import 'package:new_tazza_tv_flutter/Screens/Home/StateNews/StateTopNews/StateTo
 import 'package:new_tazza_tv_flutter/Screens/Home/TopNewsModel/TopNewsModel.dart';
 import 'package:new_tazza_tv_flutter/Screens/Home/VideoNewsModel/VideoNewsModel.dart';
 import 'package:new_tazza_tv_flutter/ServiceController/ServiceController.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Models/AllNewsDataModel.dart';
 import '../Screens/Home/BreakingNewsModel/BreakingNewsModel.dart';
@@ -67,6 +68,11 @@ class DataProvider extends ChangeNotifier {
 
   bool isLoading = false;
   bool isLoggedIn = false;
+  bool isSignedUp = false;
+
+  var signupMsg = "";
+  var signinMsg = "";
+  var saveArticleMsg = "";
 
   getAllData() async {
     ////isLoading = true;
@@ -305,21 +311,85 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> loginUser(String email, String password) async {
+  Future<String> loginUser(String email, String password) async {
     isLoggedIn = true;
     notifyListeners();
-    var response = await login(email, password);
-    if (response.statusCode == 200) {
+    Map<String,dynamic>  response = await login(email, password);
+    /*if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       print("UID => ${data['user_id']}");
       print("UNAME => ${data['username']}");
-      GetStorage().write("uid",data['user_id']);
-      GetStorage().write("uname",data['username']);
+
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setInt("uid",data['user_id']);
+      prefs.setString("uname",data['username']);
+
+      *//*GetStorage().write("uid",data['user_id']);
+      GetStorage().write("uname",data['username']);*//*
       isLoggedIn = false;
       notifyListeners();
       return true;
+    }*/
+    if (response['flag'] == "Y") {
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setInt("uid",response['user_id']);
+      prefs.setString("uname",response['username']);
+      signinMsg=response['flag'];
+      isLoggedIn = true;
+      notifyListeners();
+      notifyListeners();
     }
-    return false;
+    signinMsg=response['flag'];
+    notifyListeners();
+    return response['flag'];
   }
+
+  Future<String> signupUser(String name, String email, String number,String state, String password) async {
+    isSignedUp = true;
+    notifyListeners();
+    //   work left
+    Map<String,dynamic> response = await signup(name, email, number,state, password);
+    print("RESPONSE_DATA_TYPE=>${response}");
+    print("FLAG_RES => ${response['flag']}");
+    if (response['flag'] == "Y") {
+      //var data = jsonDecode(response.body);
+      //print("SIGNUP_DATE => ${data.toString()}");
+      print("UID => ${response['user_id']}");
+      print("UNAME => ${response['username']}");
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setInt("uid",response['user_id']);
+      prefs.setString("uname",response['username']);
+      //GetStorage().write("uid",response['user_id']);
+      print('<<<<<<<<<<<<<<<<<<< ${GetStorage().read("uid").toString()}');
+      //GetStorage().write("uname",response['username']);
+      isSignedUp = false;
+      signupMsg = response['message'];
+      print("MESSAGE => ${response['message']}");
+      notifyListeners();
+    }
+    signupMsg = response['message'];
+    notifyListeners();
+    return response['flag'];
+  }
+
+
+  Future<String> saveArticleByUser(var userId, var articleId) async {
+    isLoading = true;
+    notifyListeners();
+    //   work left
+    print("<<<<<<<<<<<<<<<<<<<< ${userId}");
+    Map<String,dynamic> response = await saveArticle(userId, articleId);
+    if(response['flag'] == "Y"){
+      isLoading = false;
+      saveArticleMsg = response['message'];
+      print("MESSAGE => ${response['message']}");
+      notifyListeners();
+    }
+    isLoading = false;
+    saveArticleMsg = response['message'];
+    notifyListeners();
+    return response['flag'];
+  }
+
 }
 //categoryWiseSportsArticles
