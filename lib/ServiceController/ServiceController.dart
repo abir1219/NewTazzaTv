@@ -670,7 +670,7 @@ Future<Map<String,dynamic>> signup(String name, String email, String number,Stri
 Future<Map<String,dynamic>> saveArticle(var userId, var articleId)async{
 
   Map<String, dynamic>body = {
-    'type':'SaveArtile',
+    'type':'SaveArticle',
     'user_id':userId,
     'article_id':articleId
   };

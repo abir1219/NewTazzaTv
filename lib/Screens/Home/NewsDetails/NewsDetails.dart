@@ -55,9 +55,9 @@ class _NewsDetailsState extends State<NewsDetails> {
     Future<void> _saveArticle() async{
       print("_USERID => $userId");
       if(await provider.saveArticleByUser(userId.toString(), widget.newsId.toString())=='Y'){
-        Fluttertoast.showToast(msg: provider.signupMsg);
+        Fluttertoast.showToast(msg: provider.saveArticleMsg);
       }else{
-        Fluttertoast.showToast(msg: provider.signupMsg);
+        Fluttertoast.showToast(msg: provider.saveArticleMsg);
       }
     }
 
