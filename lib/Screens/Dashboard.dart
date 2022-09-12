@@ -115,6 +115,7 @@ class _DashboardState extends State<Dashboard> {
                 label: ""),
             BottomNavigationBarItem(
                 icon: Image.asset(
+
                   "assets/images/microphone.png",
                   height: 40,
                   width: 40,
