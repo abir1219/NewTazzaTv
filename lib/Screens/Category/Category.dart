@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:new_tazza_tv_flutter/Providers/DataProvider.dart';
 import 'package:new_tazza_tv_flutter/Screens/Category/CategoryDetails.dart';
+import 'package:new_tazza_tv_flutter/Widgets/MyAppBar.dart';
 import 'package:new_tazza_tv_flutter/Widgets/MyCustomDrawer.dart';
 import 'package:provider/provider.dart';
 
@@ -36,39 +37,7 @@ class _CategoryState extends State<Category> {
       child: Scaffold(
         key: _key,
         endDrawer: const MyCustomDrawer(),
-        appBar: AppBar(
-          backgroundColor: const Color(0xFF196df9),
-          elevation: 0,
-          leading: Container(
-            margin: const EdgeInsets.only(left: 5),
-            child: Image.asset("assets/images/logo.png"),
-          ),
-          title: Center(
-              child: Text(
-                strState,
-                style: const TextStyle(color: Colors.white, fontSize: 16),
-                textAlign: TextAlign.center,
-              )),
-          actions: [
-            const Icon(
-              Icons.search,
-              color: Colors.white,
-              size: 28,
-            ),
-            const SizedBox(
-              width: 15,
-            ),
-            IconButton(
-              icon: const Icon(Icons.menu, color: Colors.white),
-              onPressed: () {
-                _key.currentState!.openEndDrawer();
-              },
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-          ],
-        ),
+        appBar: MyAppBar(strState: strState),
         body: Consumer<DataProvider>(builder: (context, value, child) {
           return !value.isLoading ?
           RefreshIndicator(

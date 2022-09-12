@@ -10,7 +10,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.blueAccent,
+      statusBarColor: Color.fromARGB(255, 73, 32, 188),
     ),
   );
   final adInitialize = MobileAds.instance.initialize();

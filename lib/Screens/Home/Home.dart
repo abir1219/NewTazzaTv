@@ -10,6 +10,7 @@ import 'package:new_tazza_tv_flutter/Screens/Home/CategoryWiseSportsArticles/Cat
 import 'package:new_tazza_tv_flutter/Screens/Home/NewsDetails/NewsDetails.dart';
 import 'package:new_tazza_tv_flutter/Utils/AppColors.dart';
 import 'package:new_tazza_tv_flutter/Widgets/AddMobHelper.dart';
+import 'package:new_tazza_tv_flutter/Widgets/MyAppBar.dart';
 import 'package:new_tazza_tv_flutter/Widgets/MyCustomDrawer.dart';
 import 'package:provider/provider.dart';
 import 'package:get_storage/get_storage.dart';
@@ -152,8 +153,8 @@ class _HomeState extends State<Home> {
 
     /*_scrollController.animateTo(_scrollController.position.maxScrollExtent,
         duration: const Duration(milliseconds: 200), curve: Curves.easeOut);*/
-    final GlobalKey<ScaffoldState> _key = GlobalKey();
     final size = MediaQuery.of(context).size;
+    final GlobalKey<ScaffoldState> _key = GlobalKey();
     // final postModel = Provider.of<DataProvider>(context);
     // print("NEWS_RES : ${postModel.postModel?.articleList!.length}");
 
@@ -161,39 +162,7 @@ class _HomeState extends State<Home> {
         child: Scaffold(
       key: _key,
       endDrawer: const MyCustomDrawer(),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF196df9),
-        elevation: 0,
-        leading: Container(
-          margin: const EdgeInsets.only(left: 5),
-          child: Image.asset("assets/images/logo.png"),
-        ),
-        title: Center(
-            child: Text(
-          strState,
-          style: const TextStyle(color: Colors.white, fontSize: 16),
-          textAlign: TextAlign.center,
-        )),
-        actions: [
-          const Icon(
-            Icons.search,
-            color: Colors.white,
-            size: 28,
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          IconButton(
-            icon: const Icon(Icons.menu, color: Colors.white),
-            onPressed: () {
-              _key.currentState!.openEndDrawer();
-            },
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-        ],
-      ),
+      appBar: MyAppBar(strState: strState),
       body: Consumer<DataProvider>(
         builder: (context, value, child) {
           return value.isLoading
