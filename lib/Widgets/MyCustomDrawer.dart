@@ -4,6 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:new_tazza_tv_flutter/Providers/DataProvider.dart';
 import 'package:new_tazza_tv_flutter/Screens/Dashboard.dart';
+import 'package:new_tazza_tv_flutter/Screens/LikedNews/LikedNews.dart';
+import 'package:new_tazza_tv_flutter/Screens/SavedNews/SavedNews.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -236,7 +238,37 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
               // Update the state of the app
               // ...
               // Then close the drawer
-              Navigator.pop(context);
+              //Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                  builder: (context) =>
+                  const SavedNews()));
+            },
+          ),
+          ListTile(
+            title: const Text(
+              'Liked News',
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            leading: const Image(
+                image: AssetImage(
+                  "assets/images/like.png",
+                ),
+                width: 24,
+                height: 24,
+                color: Colors.black),
+            //const Icon(Icons.change,color: Colors.black,size: 24,),
+            onTap: () {
+              // Update the state of the app
+              // ...
+              // Then close the drawer
+              //Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                      const LikedNews()));
             },
           ),
           ListTile(

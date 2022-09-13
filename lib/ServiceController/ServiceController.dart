@@ -21,6 +21,8 @@ import 'package:new_tazza_tv_flutter/Screens/Home/StateNews/StateTopNews/StateFo
 import 'package:new_tazza_tv_flutter/Screens/Home/StateNews/StateTopNews/StateSecondTopNewsModel.dart';
 import 'package:new_tazza_tv_flutter/Screens/Home/StateNews/StateTopNews/StateThirdTopNewsModel.dart';
 import 'package:new_tazza_tv_flutter/Screens/Home/VideoNewsModel/VideoNewsModel.dart';
+import 'package:new_tazza_tv_flutter/Screens/LikedNews/LikedNewsModel.dart';
+import 'package:new_tazza_tv_flutter/Screens/SavedNews/SavedNewsModel.dart';
 
 import '../Screens/Home/BreakingNewsModel/BreakingNewsModel.dart';
 import '../Screens/Home/FourthTopNewsModel/FourthTopNewsModel.dart';
@@ -679,4 +681,85 @@ Future<Map<String,dynamic>> saveArticle(var userId, var articleId)async{
   print("<<<<<<<<<<<<<<<<<<<<<< response Save Artile");
   // print()
   return data;
+}
+
+Future<Map<String,dynamic>> likeArticle(var userId, var articleId)async{
+  print("Userid_LIKE=>${userId}");
+  print("Article_id_LIKE=>${articleId}");
+  Map<String, dynamic>body = {
+    'type':'LikeArticle',
+    'user_id':userId,
+    'article_id':articleId
+  };
+  var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  var data = jsonDecode(response.body);
+  print("<<<<<<<<<<<<<<<<<<<<<< response Like Artile");
+  print("LIKE_ARTICLE_DATA=>${data}");
+  return data;
+}
+
+Future<Map<String,dynamic>> checkLikedArticle(var userId, var articleId)async{
+
+  Map<String, dynamic>body = {
+    'type':'CheckLikedArticle',
+    'user_id':userId,
+    'article_id':articleId
+  };
+  var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  var data = jsonDecode(response.body);
+  print("<<<<<<<<<<<<<<<<<<<<<< response Save Artile");
+  // print()
+  return data;
+}
+
+Future<Map<String,dynamic>> checkSavedArticle(var userId, var articleId)async{
+
+  Map<String, dynamic>body = {
+    'type':'CheckSaveArticle',
+    'user_id':userId,
+    'article_id':articleId
+  };
+  var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  var data = jsonDecode(response.body);
+  print("<<<<<<<<<<<<<<<<<<<<<< response Save Artile");
+  // print()
+  return data;
+}
+
+Future<SavedNewsModel?> showAllSavedNews(var userId) async {
+  print("userId => $userId");
+  SavedNewsModel? savedNewsModel;
+  Map<String, dynamic> body = {
+    'type': 'ViewSaveArticle',
+    'user_id': userId,
+  };
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
+    print("TYPE => ${response.body}");
+    if (response.statusCode == 200) {
+      savedNewsModel = SavedNewsModel.fromJson(json.decode(response.body));
+    }
+  } catch (e) {
+
+  }
+  return savedNewsModel;
+}
+
+Future<LikedNewsModel?> showAllLikedNews(var userId) async {
+  print("userId => $userId");
+  LikedNewsModel? likedNewsModel;
+  Map<String, dynamic> body = {
+    'type': 'ViewLikeArticle',
+    'user_id': userId,
+  };
+  try {
+    var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
+    print("TYPE => ${response.body}");
+    if (response.statusCode == 200) {
+      likedNewsModel = LikedNewsModel.fromJson(json.decode(response.body));
+    }
+  } catch (e) {
+
+  }
+  return likedNewsModel;
 }

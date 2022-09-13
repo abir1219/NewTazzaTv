@@ -42,11 +42,11 @@ class _RegistrationState extends State<Registration> {
           _stateController.text.toString(),
           _passwordController.text.toString()) == "Y"){
         print("SIGNUP");
-        Fluttertoast.showToast(msg: provider.signupMsg);
+        Fluttertoast.showToast(msg: provider.message);
         Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (context) => Dashboard(indexing: 0,)));
       }else{
-        Fluttertoast.showToast(msg: provider.signupMsg);
+        Fluttertoast.showToast(msg: provider.message);
       }
     }
 

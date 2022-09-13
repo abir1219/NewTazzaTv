@@ -22,6 +22,8 @@ import 'package:new_tazza_tv_flutter/Screens/Home/StateNews/StateTopNews/StateTh
 import 'package:new_tazza_tv_flutter/Screens/Home/StateNews/StateTopNews/StateTopNewsModel.dart';
 import 'package:new_tazza_tv_flutter/Screens/Home/TopNewsModel/TopNewsModel.dart';
 import 'package:new_tazza_tv_flutter/Screens/Home/VideoNewsModel/VideoNewsModel.dart';
+import 'package:new_tazza_tv_flutter/Screens/LikedNews/LikedNewsModel.dart';
+import 'package:new_tazza_tv_flutter/Screens/SavedNews/SavedNewsModel.dart';
 import 'package:new_tazza_tv_flutter/ServiceController/ServiceController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -63,6 +65,8 @@ class DataProvider extends ChangeNotifier {
   CategoryWiseSportsArticlesModel? categoryWiseSportsArticlesModel;
   MenuModel? menuModel;
   ViewAllModel? viewAllModel;
+  SavedNewsModel? savedNewsModel;
+  LikedNewsModel? likedNewsModel;
 
   String strNews = "";
 
@@ -70,9 +74,7 @@ class DataProvider extends ChangeNotifier {
   bool isLoggedIn = false;
   bool isSignedUp = false;
 
-  var signupMsg = "";
-  var signinMsg = "";
-  var saveArticleMsg = "";
+  var message = "";
 
   getAllData() async {
     ////isLoading = true;
@@ -272,18 +274,18 @@ class DataProvider extends ChangeNotifier {
   }
 
   getNewsFromNewsId(String newsId) async {
-    //isLoading = true;
-    //notifyListeners();
+    isLoading = true;
+    notifyListeners();
     newsDetailsModel = await showNewsDetails(newsId);
-    //isLoading = false;
+    isLoading = false;
     notifyListeners();
   }
 
   getRelatedNewsId(String newsId) async {
-    isLoading = true;
-    notifyListeners();
+    //isLoading = true;
+    //notifyListeners();
     relatedNewsModel = await showRelatedNews(newsId);
-    isLoading = false;
+    //isLoading = false;
     notifyListeners();
   }
 
@@ -315,31 +317,16 @@ class DataProvider extends ChangeNotifier {
     isLoggedIn = true;
     notifyListeners();
     Map<String,dynamic>  response = await login(email, password);
-    /*if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      print("UID => ${data['user_id']}");
-      print("UNAME => ${data['username']}");
-
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setInt("uid",data['user_id']);
-      prefs.setString("uname",data['username']);
-
-      *//*GetStorage().write("uid",data['user_id']);
-      GetStorage().write("uname",data['username']);*//*
-      isLoggedIn = false;
-      notifyListeners();
-      return true;
-    }*/
     if (response['flag'] == "Y") {
       final prefs = await SharedPreferences.getInstance();
       prefs.setInt("uid",response['user_id']);
       prefs.setString("uname",response['username']);
-      signinMsg=response['flag'];
+      message=response['flag'];
       isLoggedIn = true;
       notifyListeners();
       notifyListeners();
     }
-    signinMsg=response['flag'];
+    message=response['flag'];
     notifyListeners();
     return response['flag'];
   }
@@ -363,11 +350,11 @@ class DataProvider extends ChangeNotifier {
       print('<<<<<<<<<<<<<<<<<<< ${GetStorage().read("uid").toString()}');
       //GetStorage().write("uname",response['username']);
       isSignedUp = false;
-      signupMsg = response['message'];
+      message = response['message'];
       print("MESSAGE => ${response['message']}");
       notifyListeners();
     }
-    signupMsg = response['message'];
+    message = response['message'];
     notifyListeners();
     return response['flag'];
   }
@@ -381,15 +368,86 @@ class DataProvider extends ChangeNotifier {
     Map<String,dynamic> response = await saveArticle(userId, articleId);
     if(response['flag'] == "Y"){
       isLoading = false;
-      saveArticleMsg = response['message'];
+      message = response['message'];
       print("MESSAGE => ${response['message']}");
       notifyListeners();
     }
     isLoading = false;
-    saveArticleMsg = response['message'];
+    message = response['message'];
     notifyListeners();
     return response['flag'];
   }
 
+  Future<String> likeArticleByUser(var userId, var articleId) async {
+    isLoading = true;
+    notifyListeners();
+    //   work left
+    print("<<<<<<<<<<<<<<<<<<<< ${userId}");
+    Map<String,dynamic> response = await likeArticle(userId, articleId);
+    if(response['flag'] == "Y"){
+      isLoading = false;
+      message = response['message'];
+      print("MESSAGE => ${response['message']}");
+      notifyListeners();
+    }
+    isLoading = false;
+    message = response['message'];
+    notifyListeners();
+    return response['flag'];
+  }
+
+  Future<String> checkLikedArticleByUser(var userId, var articleId) async {
+    //isLoading = true;
+    //notifyListeners();
+    //   work left
+    print("<<<<<<<<<<<<<<<<<<<< ${userId}");
+    Map<String,dynamic> response = await checkLikedArticle(userId, articleId);
+    if(response['flag'] == "Y"){
+      //isLoading = false;
+      message = response['message'];
+      print("MESSAGE => ${response['message']}");
+      notifyListeners();
+    }
+    //isLoading = false;
+    message = response['message'];
+    notifyListeners();
+    return response['flag'];
+  }
+
+  Future<String> checkSavedArticleByUser(var userId, var articleId) async {
+    //isLoading = true;
+    //notifyListeners();
+    //   work left
+    print("<<<<<<<<<<<<<<<<<<<< ${userId}");
+    Map<String,dynamic> response = await checkSavedArticle(userId, articleId);
+    if(response['flag'] == "Y"){
+      //isLoading = false;
+      message = response['message'];
+      print("MESSAGE => ${response['message']}");
+      notifyListeners();
+    }
+    //isLoading = false;
+    message = response['message'];
+    notifyListeners();
+    return response['flag'];
+  }
+
+  showAllSavedNewsList(var userId) async {
+    isLoading = true;
+    notifyListeners();
+    savedNewsModel = await showAllSavedNews(userId);
+    isLoading = false;
+    notifyListeners();
+  }
+
+  showAllLikedNewsList(var userId) async {
+    isLoading = true;
+    notifyListeners();
+    likedNewsModel = await showAllLikedNews(userId);
+    isLoading = false;
+    notifyListeners();
+  }
+
 }
-//categoryWiseSportsArticles
+
+//showAllLikedNews

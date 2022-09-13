@@ -34,11 +34,11 @@ class _LoginPageState extends State<LoginPage> {
     Future<void> _login() async{
       if(await provider.loginUser(_emailController.text.toString(), _passwordController.text.toString()) == "Y"){
         print("LOGIN");
-        Fluttertoast.showToast(msg: provider.signinMsg);
+        Fluttertoast.showToast(msg: provider.message);
         Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (context) => Dashboard(indexing: 0,)));
       }else{
-        Fluttertoast.showToast(msg: provider.signinMsg);
+        Fluttertoast.showToast(msg: provider.message);
       }
     }
 

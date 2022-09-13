@@ -1143,7 +1143,7 @@ class _HomeState extends State<Home> {
                                     return Align(
                                       alignment: Alignment.centerLeft,
                                       child: SizedBox(
-                                        height: size.height * .35,
+                                        height: size.height * .319,
                                         width: double.infinity,
                                         child: ListView.builder(
                                             //physics: const NeverScrollableScrollPhysics(),
@@ -1166,7 +1166,7 @@ class _HomeState extends State<Home> {
                                                       ));
                                                 },
                                                 child: SizedBox(
-                                                  width: size.width * .85,
+                                                  width: size.width * .65,
                                                   child: Card(
                                                     elevation: 2,
                                                     shadowColor: Colors.grey,
@@ -1352,114 +1352,131 @@ class _HomeState extends State<Home> {
                                   },
                                 ),
                                 const Gap(20),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children:  [
-                                    const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          "VIDEO NEWS",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                    InkWell(
-                                      onTap: (){
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => Dashboard(
-                                                indexing: 3,
+                                Container(
+                                  height: size.height * .42,
+                                  width: double.infinity,
+                                  color: const Color(0xFF196df9),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top:15.0),
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children:  [
+                                              const Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Text(
+                                                    "VIDEO NEWS",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.white,
+                                                        fontWeight: FontWeight.bold),
+                                                  )),
+                                              InkWell(
+                                                onTap: (){
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) => Dashboard(
+                                                          indexing: 3,
+                                                        ),
+                                                      ));
+                                                },
+                                                child: const Align(
+                                                    alignment: Alignment.centerRight,
+                                                    child: Text(
+                                                      "View More",
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.white,
+                                                        fontWeight: FontWeight.bold,
+                                                        decoration:
+                                                        TextDecoration.underline,
+                                                      ),
+                                                    )),
                                               ),
-                                            ));
-                                      },
-                                      child: const Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            "View More",
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                                const Gap(20),
-                                Consumer<DataProvider>(
-                                  builder: (context, value, child) {
-                                    return SizedBox(
-                                      height: size.height * .35,
-                                      width: double.infinity,
-                                      child: ListView.builder(
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                          itemBuilder: (context, index) {
-                                            String videoId;
-                                            videoId = YoutubePlayer.convertUrlToId(
-                                                value.videoNewsModel!.list![index].link)!;
-
+                                            ],
+                                          ),
+                                        ),
+                                        const Gap(20),
+                                        Consumer<DataProvider>(
+                                          builder: (context, value, child) {
                                             return SizedBox(
-                                              width: size.width * .75,
-                                              child: Card(
-                                                elevation: 2,
-                                                shadowColor: Colors.grey,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(12)),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                  MainAxisSize.min,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .start,
-                                                  children: [
-                                                    Container(
-                                                      height:
-                                                      size.height * .25,
-                                                      width: size.width,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                              12)),
-                                                      child: YoutubePlayer(
-                                                        controller: YoutubePlayerController(
-                                                            initialVideoId: videoId,
-                                                            flags: const YoutubePlayerFlags(
-                                                              autoPlay: false,
+                                              height: size.height * .339,
+                                              width: double.infinity,
+                                              child: ListView.builder(
+                                                shrinkWrap: true,
+                                                scrollDirection: Axis.horizontal,
+                                                itemBuilder: (context, index) {
+                                                  String videoId;
+                                                  videoId = YoutubePlayer.convertUrlToId(
+                                                      value.videoNewsModel!.list![index].link)!;
 
-                                                            )),
+                                                  return SizedBox(
+                                                    width: size.width * .65,
+                                                    child: Card(
+                                                      elevation: 2,
+                                                      shadowColor: Colors.grey,
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(12)),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                        MainAxisSize.min,
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                        children: [
+                                                          Container(
+                                                            height:
+                                                            size.height * .25,
+                                                            width: size.width,
+                                                            decoration: BoxDecoration(
+                                                                borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                    12)),
+                                                            child: YoutubePlayer(
+                                                              controller: YoutubePlayerController(
+                                                                  initialVideoId: videoId,
+                                                                  flags: const YoutubePlayerFlags(
+                                                                    autoPlay: false,
+
+                                                                  )),
+                                                            ),
+                                                          ),
+                                                          const Gap(18),
+                                                          Padding(
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal:
+                                                                8.0),
+                                                            child: Text(
+                                                              value.videoNewsModel!.list![index].title,
+                                                              maxLines: 5,
+                                                              style: const TextStyle(
+                                                                  fontSize: 14,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  color: Colors.black),
+                                                            ),
+                                                          ),
+                                                          const Gap(10),
+                                                        ],
                                                       ),
                                                     ),
-                                                    const Gap(18),
-                                                    Padding(
-                                                      padding:
-                                                      const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal:
-                                                          8.0),
-                                                      child: Text(
-                                                        value.videoNewsModel!.list![index].title,
-                                                        maxLines: 5,
-                                                        style: const TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight: FontWeight.bold,
-                                                            color: Colors.black),
-                                                      ),
-                                                    ),
-                                                    const Gap(10),
-                                                  ],
-                                                ),
+                                                  );
+                                                },
+                                                itemCount: value.videoNewsModel!.list!.length,
                                               ),
                                             );
                                           },
-                                        itemCount: value.videoNewsModel!.list!.length,
-                                      ),
-                                    );
-                                  },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                                 const Gap(20),
                                 Row(
@@ -1498,7 +1515,7 @@ class _HomeState extends State<Home> {
                                     return Align(
                                       alignment: Alignment.centerLeft,
                                       child: SizedBox(
-                                        height: size.height * .35,
+                                        height: size.height * .319,
                                         width: double.infinity,
                                         child: ListView.builder(
                                             //physics: const NeverScrollableScrollPhysics(),
@@ -1521,7 +1538,7 @@ class _HomeState extends State<Home> {
                                                       ));
                                                 },
                                                 child: SizedBox(
-                                                  width: size.width * .85,
+                                                  width: size.width * .65,
                                                   child: Card(
                                                     elevation: 2,
                                                     shadowColor: Colors.grey,
@@ -1615,182 +1632,205 @@ class _HomeState extends State<Home> {
                                   },
                                 ),
                                 const Gap(20),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children:  [
-                                    const Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          "ENTERTAINMENT NEWS",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                    InkWell(
-                                      onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) =>  const CategoryDetails(type:"Entertainment News", index: 0,),));
-                                      },
-                                      child: const Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            "View More",
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
-                                          )),
+                                Container(
+                                  height: size.height*1.8,
+                                  decoration: const BoxDecoration(
+                                    gradient:
+                                    LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: <Color>[
+                                        Color.fromARGB(188,211,254,1),
+                                        Color.fromARGB(118,167,188,1),
+                                        Color.fromARGB(79,120,120,1),
+                                        Color.fromARGB(54,74,63,1),
+                                        Color.fromARGB(28,31,22,1)
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                const Gap(20),
-                                Consumer<DataProvider>(
-                                  builder: (context, value, child) {
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top:15.0),
+                                    child: Column(
                                       children: [
-                                        InkWell(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      NewsDetails(
-                                                    newsId: value
-                                                        .topEntertainmentNewsModel!
-                                                        .list![0]
-                                                        .id
-                                                        .toString(),
-                                                  ),
-                                                ));
-                                          },
-                                          child: Container(
-                                            height: size.height * .25,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(12)),
-                                            child: SizedBox(
-                                              width: size.width,
-                                              child: Image.network(
-                                                value.topEntertainmentNewsModel!
-                                                    .list![0].image,
-                                                fit: BoxFit.cover,
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children:  [
+                                              const Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Text(
+                                                    "ENTERTAINMENT NEWS",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.bold),
+                                                  )),
+                                              InkWell(
+                                                onTap: (){
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  const CategoryDetails(type:"Entertainment News", index: 0,),));
+                                                },
+                                                child: const Align(
+                                                    alignment: Alignment.centerRight,
+                                                    child: Text(
+                                                      "View More",
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                        fontWeight: FontWeight.bold,
+                                                        decoration:
+                                                        TextDecoration.underline,
+                                                      ),
+                                                    )),
                                               ),
-                                            ),
+                                            ],
                                           ),
                                         ),
-                                        const Gap(10),
-                                        Text(
-                                          value.topEntertainmentNewsModel!
-                                              .list![0].createdOn,
-                                          style: const TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColors.smallTextColor),
-                                        ),
-                                        const Gap(10),
-                                        Text(
-                                          value.topEntertainmentNewsModel!
-                                              .list![0].title,
-                                          style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ),
-                                //Second Top Entertainment News place
-                                const Gap(5),
-                                Consumer<DataProvider>(
-                                  builder: (context, value, child) {
-                                    return value.isLoading
-                                        ? Center(
-                                            child: Container(),
-                                          )
-                                        : Consumer<DataProvider>(
-                                            builder: (context, value, child) {
-                                              return ListView.builder(
-                                                  shrinkWrap: true,
-                                                  physics:
-                                                      const NeverScrollableScrollPhysics(),
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return InkWell(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder:
-                                                                  (context) =>
-                                                                      NewsDetails(
+                                        const Gap(20),
+                                        Consumer<DataProvider>(
+                                          builder: (context, value, child) {
+                                            return Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              NewsDetails(
                                                                 newsId: value
-                                                                    .secondEntertainmentNewsModel!
-                                                                    .list![
-                                                                        index]
+                                                                    .topEntertainmentNewsModel!
+                                                                    .list![0]
                                                                     .id
                                                                     .toString(),
                                                               ),
-                                                            ));
-                                                      },
-                                                      child: SizedBox(
-                                                        height:
-                                                            100, //size.height * .15,
-                                                        child: Card(
-                                                          elevation: 2,
-                                                          shadowColor:
-                                                              Colors.grey,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(2.0),
-                                                            child: SizedBox(
-                                                              height: 80,
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .stretch,
-                                                                children: [
-                                                                  Expanded(
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .symmetric(
-                                                                          horizontal:
-                                                                              4.0),
+                                                        ));
+                                                  },
+                                                  child: Container(
+                                                    height: size.height * .25,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                        BorderRadius.circular(12)),
+                                                    child: SizedBox(
+                                                      width: size.width,
+                                                      child: Image.network(
+                                                        value.topEntertainmentNewsModel!
+                                                            .list![0].image,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                const Gap(10),
+                                                Text(
+                                                  value.topEntertainmentNewsModel!
+                                                      .list![0].createdOn,
+                                                  style: const TextStyle(
+                                                      fontSize: 13,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: AppColors.smallTextColor),
+                                                ),
+                                                const Gap(10),
+                                                Text(
+                                                  value.topEntertainmentNewsModel!
+                                                      .list![0].title,
+                                                  style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                        //Second Top Entertainment News place
+                                        const Gap(5),
+                                        Consumer<DataProvider>(
+                                          builder: (context, value, child) {
+                                            return value.isLoading
+                                                ? Center(
+                                              child: Container(),
+                                            )
+                                                : Consumer<DataProvider>(
+                                              builder: (context, value, child) {
+                                                return ListView.builder(
+                                                    shrinkWrap: true,
+                                                    physics:
+                                                    const NeverScrollableScrollPhysics(),
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return InkWell(
+                                                        onTap: () {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                    NewsDetails(
+                                                                      newsId: value
+                                                                          .secondEntertainmentNewsModel!
+                                                                          .list![
+                                                                      index]
+                                                                          .id
+                                                                          .toString(),
+                                                                    ),
+                                                              ));
+                                                        },
+                                                        child: SizedBox(
+                                                          height:
+                                                          100, //size.height * .15,
+                                                          child: Card(
+                                                            elevation: 2,
+                                                            shadowColor:
+                                                            Colors.grey,
+                                                            child: Padding(
+                                                              padding:
+                                                              const EdgeInsets
+                                                                  .all(2.0),
+                                                              child: SizedBox(
+                                                                height: 80,
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                                  crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .stretch,
+                                                                  children: [
+                                                                    Expanded(
                                                                       child:
-                                                                          Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Text(
-                                                                            value.secondEntertainmentNewsModel!.list![index].createdOn,
-                                                                            style: const TextStyle(
-                                                                                fontSize: 13,
-                                                                                fontWeight: FontWeight.bold,
-                                                                                color: AppColors.smallTextColor),
-                                                                          ),
-                                                                          const Gap(
-                                                                              15),
-                                                                          Text(
-                                                                            value.secondEntertainmentNewsModel!.list![index].title,
-                                                                            style:
-                                                                                const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                                                                          ),
-                                                                        ],
+                                                                      Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .symmetric(
+                                                                            horizontal:
+                                                                            4.0),
+                                                                        child:
+                                                                        Column(
+                                                                          mainAxisAlignment:
+                                                                          MainAxisAlignment.start,
+                                                                          crossAxisAlignment:
+                                                                          CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Text(
+                                                                              value.secondEntertainmentNewsModel!.list![index].createdOn,
+                                                                              style: const TextStyle(
+                                                                                  fontSize: 13,
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  color: AppColors.smallTextColor),
+                                                                            ),
+                                                                            const Gap(
+                                                                                15),
+                                                                            Text(
+                                                                              value.secondEntertainmentNewsModel!.list![index].title,
+                                                                              style:
+                                                                              const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                  /*ClipRRect(
+                                                                    /*ClipRRect(
                                                         borderRadius: BorderRadius.circular(8.0),
                                                         child: Image.network(
                                                           value.thirdTopNewsModel!.list![index].image ??
@@ -1799,262 +1839,266 @@ class _HomeState extends State<Home> {
                                                           width: 130,
                                                         ),
                                                       )*/
-                                                                ],
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    );
-                                                  },
-                                                  itemCount: value
-                                                      .secondEntertainmentNewsModel!
-                                                      .list!
-                                                      .length);
-                                            },
-                                          );
-                                  },
-                                ),
-                                const Gap(5),
-                                Consumer<DataProvider>(
-                                  builder: (context, value, child) {
-                                    return ListView.builder(
-                                        shrinkWrap: true,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemBuilder: (context, index) {
-                                          return InkWell(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        NewsDetails(
-                                                      newsId: value
-                                                          .thirdEntertainmentNewsModel!
-                                                          .list![index]
-                                                          .id
-                                                          .toString(),
-                                                    ),
-                                                  ));
-                                            },
-                                            child: SizedBox(
-                                              height: 100, //size.height * .15,
-                                              child: Card(
-                                                elevation: 2,
-                                                shadowColor: Colors.grey,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(2.0),
-                                                  child: SizedBox(
-                                                    height: 80,
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .stretch,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        4.0),
-                                                            child: Column(
+                                                      );
+                                                    },
+                                                    itemCount: value
+                                                        .secondEntertainmentNewsModel!
+                                                        .list!
+                                                        .length);
+                                              },
+                                            );
+                                          },
+                                        ),
+                                        const Gap(5),
+                                        Consumer<DataProvider>(
+                                          builder: (context, value, child) {
+                                            return ListView.builder(
+                                                shrinkWrap: true,
+                                                physics:
+                                                const NeverScrollableScrollPhysics(),
+                                                itemBuilder: (context, index) {
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                NewsDetails(
+                                                                  newsId: value
+                                                                      .thirdEntertainmentNewsModel!
+                                                                      .list![index]
+                                                                      .id
+                                                                      .toString(),
+                                                                ),
+                                                          ));
+                                                    },
+                                                    child: SizedBox(
+                                                      height: 100, //size.height * .15,
+                                                      child: Card(
+                                                        elevation: 2,
+                                                        shadowColor: Colors.grey,
+                                                        child: Padding(
+                                                          padding:
+                                                          const EdgeInsets.all(2.0),
+                                                          child: SizedBox(
+                                                            height: 80,
+                                                            child: Row(
                                                               mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
+                                                              MainAxisAlignment
+                                                                  .center,
                                                               crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
+                                                              CrossAxisAlignment
+                                                                  .stretch,
                                                               children: [
-                                                                Text(
-                                                                  value
-                                                                      .thirdEntertainmentNewsModel!
-                                                                      .list![
+                                                                Expanded(
+                                                                  child: Padding(
+                                                                    padding:
+                                                                    const EdgeInsets
+                                                                        .symmetric(
+                                                                        horizontal:
+                                                                        4.0),
+                                                                    child: Column(
+                                                                      mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                      crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                      children: [
+                                                                        Text(
+                                                                          value
+                                                                              .thirdEntertainmentNewsModel!
+                                                                              .list![
                                                                           index]
-                                                                      .createdOn,
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          13,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: AppColors
-                                                                          .smallTextColor),
-                                                                ),
-                                                                const Gap(15),
-                                                                Text(
-                                                                  value
-                                                                      .thirdEntertainmentNewsModel!
-                                                                      .list![
+                                                                              .createdOn,
+                                                                          style: const TextStyle(
+                                                                              fontSize:
+                                                                              13,
+                                                                              fontWeight:
+                                                                              FontWeight
+                                                                                  .bold,
+                                                                              color: AppColors
+                                                                                  .smallTextColor),
+                                                                        ),
+                                                                        const Gap(15),
+                                                                        Text(
+                                                                          value
+                                                                              .thirdEntertainmentNewsModel!
+                                                                              .list![
                                                                           index]
-                                                                      .title,
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          14,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
+                                                                              .title,
+                                                                          style: const TextStyle(
+                                                                              fontSize:
+                                                                              14,
+                                                                              fontWeight:
+                                                                              FontWeight
+                                                                                  .bold),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
                                                                 ),
+                                                                ClipRRect(
+                                                                  borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                      8.0),
+                                                                  child: Image.network(
+                                                                    value
+                                                                        .thirdEntertainmentNewsModel!
+                                                                        .list![
+                                                                    index]
+                                                                        .image ??
+                                                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJLICBu_i2rNNd8l9Zz-DUNSwFXR9xAzCutg&usqp=CAU",
+                                                                    fit: BoxFit.cover,
+                                                                    width: 130,
+                                                                  ),
+                                                                )
                                                               ],
                                                             ),
                                                           ),
                                                         ),
-                                                        ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                          child: Image.network(
-                                                            value
-                                                                    .thirdEntertainmentNewsModel!
-                                                                    .list![
-                                                                        index]
-                                                                    .image ??
-                                                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJLICBu_i2rNNd8l9Zz-DUNSwFXR9xAzCutg&usqp=CAU",
-                                                            fit: BoxFit.cover,
-                                                            width: 130,
-                                                          ),
-                                                        )
-                                                      ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                        itemCount: value
-                                            .thirdEntertainmentNewsModel!
-                                            .list!
-                                            .length);
-                                  },
-                                ),
-                                const Gap(5),
-                                Consumer<DataProvider>(
-                                  builder: (context, value, child) {
-                                    return Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: SizedBox(
-                                        height: size.height * .35,
-                                        width: double.infinity,
-                                        child: ListView.builder(
-                                            //physics: const NeverScrollableScrollPhysics(),
-                                            scrollDirection: Axis.horizontal,
-                                            shrinkWrap: true,
-                                            itemBuilder: (context, index) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            NewsDetails(
-                                                          newsId: value
-                                                              .fourthEntertainmentNewsModel!
-                                                              .list![index]
-                                                              .id
-                                                              .toString(),
-                                                        ),
-                                                      ));
+                                                  );
                                                 },
-                                                child: SizedBox(
-                                                  width: size.width * .85,
-                                                  child: Card(
-                                                    elevation: 2,
-                                                    shadowColor: Colors.grey,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
+                                                itemCount: value
+                                                    .thirdEntertainmentNewsModel!
+                                                    .list!
+                                                    .length);
+                                          },
+                                        ),
+                                        const Gap(5),
+                                        Consumer<DataProvider>(
+                                          builder: (context, value, child) {
+                                            return Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: SizedBox(
+                                                height: size.height * .329,
+                                                width: double.infinity,
+                                                child: ListView.builder(
+                                                  //physics: const NeverScrollableScrollPhysics(),
+                                                    scrollDirection: Axis.horizontal,
+                                                    shrinkWrap: true,
+                                                    itemBuilder: (context, index) {
+                                                      return InkWell(
+                                                        onTap: () {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                builder: (context) =>
+                                                                    NewsDetails(
+                                                                      newsId: value
+                                                                          .fourthEntertainmentNewsModel!
+                                                                          .list![index]
+                                                                          .id
+                                                                          .toString(),
+                                                                    ),
+                                                              ));
+                                                        },
+                                                        child: SizedBox(
+                                                          width: size.width * .65,
+                                                          child: Card(
+                                                            elevation: 2,
+                                                            shadowColor: Colors.grey,
+                                                            shape:
+                                                            RoundedRectangleBorder(
+                                                                borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        12)),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Container(
-                                                          height:
-                                                              size.height * .20,
-                                                          width: size.width,
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
+                                                                    12)),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                              MainAxisSize.min,
+                                                              crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                              children: [
+                                                                Container(
+                                                                  height:
+                                                                  size.height * .20,
+                                                                  width: size.width,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
                                                                           12)),
-                                                          child: Image.network(
-                                                            value
-                                                                .fourthEntertainmentNewsModel!
-                                                                .list![index]
-                                                                .image,
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        ),
-                                                        const Gap(10),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
+                                                                  child: Image.network(
+                                                                    value
+                                                                        .fourthEntertainmentNewsModel!
+                                                                        .list![index]
+                                                                        .image,
+                                                                    fit: BoxFit.cover,
+                                                                  ),
+                                                                ),
+                                                                const Gap(10),
+                                                                Padding(
+                                                                  padding:
+                                                                  const EdgeInsets
                                                                       .symmetric(
-                                                                  horizontal:
+                                                                      horizontal:
                                                                       4.0),
-                                                          child: Text(
-                                                            value
-                                                                .fourthEntertainmentNewsModel!
-                                                                .list![index]
-                                                                .createdOn,
-                                                            maxLines: 5,
-                                                            style: const TextStyle(
-                                                                fontSize: 13,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: AppColors
-                                                                    .smallTextColor),
-                                                          ),
-                                                        ),
-                                                        const Gap(10),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
+                                                                  child: Text(
+                                                                    value
+                                                                        .fourthEntertainmentNewsModel!
+                                                                        .list![index]
+                                                                        .createdOn,
+                                                                    maxLines: 5,
+                                                                    style: const TextStyle(
+                                                                        fontSize: 13,
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                        color: AppColors
+                                                                            .smallTextColor),
+                                                                  ),
+                                                                ),
+                                                                const Gap(10),
+                                                                Padding(
+                                                                  padding:
+                                                                  const EdgeInsets
                                                                       .symmetric(
-                                                                  horizontal:
+                                                                      horizontal:
                                                                       4.0),
-                                                          child: Text(
-                                                            value
-                                                                .fourthEntertainmentNewsModel!
-                                                                .list![index]
-                                                                .title,
-                                                            maxLines: 5,
-                                                            style: const TextStyle(
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .black),
+                                                                  child: Text(
+                                                                    value
+                                                                        .fourthEntertainmentNewsModel!
+                                                                        .list![index]
+                                                                        .title,
+                                                                    maxLines: 5,
+                                                                    style: const TextStyle(
+                                                                        fontSize: 14,
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                        color: Colors
+                                                                            .black),
+                                                                  ),
+                                                                ),
+                                                                const Gap(10),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
-                                                        const Gap(10),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                            itemCount: value
-                                                .fourthEntertainmentNewsModel!
-                                                .list!
-                                                .length),
-                                      ),
-                                    );
-                                  },
+                                                      );
+                                                    },
+                                                    itemCount: value
+                                                        .fourthEntertainmentNewsModel!
+                                                        .list!
+                                                        .length),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                                 const Gap(20),
                                 Row(

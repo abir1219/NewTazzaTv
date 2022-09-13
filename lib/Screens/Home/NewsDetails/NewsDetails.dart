@@ -26,7 +26,10 @@ class _NewsDetailsState extends State<NewsDetails> {
   var userId;
   var prefs;
 
-  Future<void> getUserId() async{
+  bool isSaved = false;
+  bool isLiked = false;
+
+  Future<void> getUserId() async {
     prefs = await SharedPreferences.getInstance();
     userId = prefs.getInt('uid');
     setState(() {});
@@ -34,14 +37,51 @@ class _NewsDetailsState extends State<NewsDetails> {
 
   final _commentController = TextEditingController();
 
+  /*var provider = Provider.of<DataProvider>(context, listen: false);
+  provider.getNewsFromNewsId(widget.newsId);
+  provider.getRelatedNewsId(widget.newsId);*/
+
   @override
   void initState() {
     super.initState();
     getUserId();
+    /*var provider = Provider.of<DataProvider>(context, listen: false);
+    checkIsLiked(provider);
+    checkIsSaved(provider);*/
+
     GetStorage().read("state") != null
         ? strState = GetStorage().read("state")
         : "West Bengal";
     setState(() {});
+  }
+
+  int likeLoopCount = 0;
+  int saveLoopCount = 0;
+
+  Future<void> checkIsLiked(DataProvider provider) async {
+    if (await provider.checkLikedArticleByUser(
+            userId.toString(), widget.newsId.toString()) == 'Y') {
+      isLiked = true;
+      likeLoopCount = 1;
+      setState(() {});
+    } else {
+      isLiked = false;
+      likeLoopCount = 2;
+      setState(() {});
+    }
+  }
+
+  Future<void> checkIsSaved(DataProvider provider) async {
+    if (await provider.checkSavedArticleByUser(
+            userId.toString(), widget.newsId.toString()) == 'Y') {
+      isSaved = true;
+      saveLoopCount = 1;
+      setState(() {});
+    } else {
+      isSaved = false;
+      saveLoopCount = 2;
+      setState(() {});
+    }
   }
 
   @override
@@ -50,20 +90,39 @@ class _NewsDetailsState extends State<NewsDetails> {
     provider.getNewsFromNewsId(widget.newsId);
     provider.getRelatedNewsId(widget.newsId);
 
+    likeLoopCount == 0 ? checkIsLiked(provider) : null;
+    saveLoopCount == 0 ? checkIsSaved(provider) : null;
+
     final GlobalKey<ScaffoldState> _key = GlobalKey();
     final size = MediaQuery.of(context).size;
 
-    Future<void> _saveArticle() async{
+    Future<void> _saveArticle() async {
+      saveLoopCount = 0;
       print("_USERID => $userId");
-      if(await provider.saveArticleByUser(userId.toString(), widget.newsId.toString())=='Y'){
-        Fluttertoast.showToast(msg: provider.saveArticleMsg);
-      }else{
-        Fluttertoast.showToast(msg: provider.saveArticleMsg);
+      if (await provider.saveArticleByUser(
+              userId.toString(), widget.newsId.toString()) ==
+          'Y') {
+        Fluttertoast.showToast(msg: provider.message);
+      } else {
+        Fluttertoast.showToast(msg: provider.message);
+      }
+    }
+
+    Future<void> _likeArticle() async {
+      likeLoopCount = 0;
+      print("_USERID => $userId");
+      if (await provider.likeArticleByUser(
+              userId.toString(), widget.newsId.toString()) ==
+          'Y') {
+        Fluttertoast.showToast(msg: provider.message);
+      } else {
+        Fluttertoast.showToast(msg: provider.message);
       }
     }
 
     return SafeArea(
         child: Scaffold(
+          key: _key,
       endDrawer: const MyCustomDrawer(),
       appBar: MyAppBar(strState: strState),
       body: Consumer<DataProvider>(
@@ -84,11 +143,6 @@ class _NewsDetailsState extends State<NewsDetails> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18),
                           ),
-                        ),
-                        HtmlWidget(
-                          value.newsDetailsModel!.list![0].shortDesc,
-                          textStyle: const TextStyle(
-                              color: Colors.black, fontSize: 15),
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -152,7 +206,9 @@ class _NewsDetailsState extends State<NewsDetails> {
                                   IconButton(
                                     icon: userId != null
                                         ? Image.asset(
-                                            "assets/images/before_save.png",
+                                            isSaved
+                                                ? "assets/images/after_save.png"
+                                                : "assets/images/before_save.png",
                                             height: 25,
                                           )
                                         : Container(
@@ -165,6 +221,14 @@ class _NewsDetailsState extends State<NewsDetails> {
                                 ],
                               )
                             ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: HtmlWidget(
+                            value.newsDetailsModel!.list![0].shortDesc,
+                            textStyle: const TextStyle(
+                                color: Colors.black, fontSize: 15),
                           ),
                         ),
                         Padding(
@@ -199,32 +263,50 @@ class _NewsDetailsState extends State<NewsDetails> {
                             ),
                           ),
                         ),
-                        userId != null ?
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              InkWell(
-                                onTap: (){
-                                  showCommentBox();
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF196df9),
-                                    borderRadius: BorderRadius.circular(8)
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 12.0,vertical: 8),
-                                    child: Text("Comment",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-                                  ),
+                        userId != null
+                            ? Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0, vertical: 8),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        showCommentBox();
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: const Color(0xFF196df9),
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                        child: const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 12.0, vertical: 8),
+                                          child: Text(
+                                            "Comment",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const Gap(10),
+                                    IconButton(
+                                      onPressed: () {
+                                        _likeArticle();
+                                      },
+                                      icon: Image.asset(
+                                        isLiked
+                                            ? "assets/images/after_like.png"
+                                            : "assets/images/before_like.png",
+                                        height: 25,
+                                      ),
+                                    )
+                                  ],
                                 ),
-                              ),
-                              const Gap(10),
-                              IconButton(onPressed: () {  }, icon: Image.asset("assets/images/before_like.png",height: 25,),)
-                            ],
-                          ),
-                        ):Container(),
+                              )
+                            : Container(),
                         const Gap(20),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -249,7 +331,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 8.0, vertical: 8.0),
                               child: SizedBox(
-                                height: size.height * .35,
+                                height: size.height * .345,
                                 width: double.infinity,
                                 child: ListView.builder(
                                     //physics: const NeverScrollableScrollPhysics(),
@@ -272,7 +354,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                                               ));
                                         },
                                         child: SizedBox(
-                                          width: size.width * .85,
+                                          width: size.width * .65,
                                           child: Card(
                                             elevation: 2,
                                             shadowColor: Colors.grey,
@@ -365,67 +447,75 @@ class _NewsDetailsState extends State<NewsDetails> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10)),
-            elevation: 16,
-            title: const Text("Write your comment",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15),),
-            content: Container(
-              height: 150,
-              decoration: BoxDecoration(
-                  border: Border.all(
-                      color: Colors.grey,
-                      width: 1.0
-                  ),
-                  borderRadius: BorderRadius.circular(8.0)
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              elevation: 16,
+              title: const Text(
+                "Write your comment",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: const InputDecoration.collapsed(
-                    hintText: "Write a comment",
-                  ),
-                  maxLines: 5,
-                  controller: _commentController,
-                ),
-              ),
-            ),
-            actions:[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: const Color(0xFF196df9),
-                      borderRadius: BorderRadius.circular(8)
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.0,vertical: 12),
-                    child: Text("Submit",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-                  ),
-                ),
-              ),
-              //const Gap(15),
-              InkWell(
-                onTap: (){
-                  _commentController.text = "";
-                  Navigator.pop(context);
-                },
+              content: Container(
+                height: 150,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 1.0),
+                    borderRadius: BorderRadius.circular(8.0)),
                 child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: const InputDecoration.collapsed(
+                      hintText: "Write a comment",
+                    ),
+                    maxLines: 5,
+                    controller: _commentController,
+                  ),
+                ),
+              ),
+              actions: [
+                Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     decoration: BoxDecoration(
                         color: const Color(0xFF196df9),
-                        borderRadius: BorderRadius.circular(8)
-                    ),
+                        borderRadius: BorderRadius.circular(8)),
                     child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15.0,vertical: 12),
-                      child: Text("Close",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15.0, vertical: 12),
+                      child: Text(
+                        "Submit",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ]
-          );
+                //const Gap(15),
+                InkWell(
+                  onTap: () {
+                    _commentController.text = "";
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: const Color(0xFF196df9),
+                          borderRadius: BorderRadius.circular(8)),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.0, vertical: 12),
+                        child: Text(
+                          "Close",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ]);
         });
   }
-
 }
