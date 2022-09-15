@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:new_tazza_tv_flutter/Screens/Dashboard.dart';
-import 'package:new_tazza_tv_flutter/Screens/LoginPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:new_tazza_tv_flutter/Screens/OptionSelection.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -13,8 +11,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin{
-
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   final _splashDelay = 3000;
   late AnimationController _animationController;
 
@@ -56,13 +54,15 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     redirect();
   }
 
-  Future<void> redirect() async{
-    print("GOO");
-    final prefs = await SharedPreferences.getInstance();
-    print("USER_ID => no");
+  Future<void> redirect() async {
+    // print("GOO");
+    // final prefs = await SharedPreferences.getInstance();
+    // print("USER_ID => no");
     Timer(const Duration(seconds: 3), () {
-      prefs.getInt("uid") != null ? Navigator.push(context, MaterialPageRoute(builder: (context) =>  Dashboard(indexing: 0,))):
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>  const LoginPage()));
+      // prefs.getInt("uid") != null ? Navigator.push(context, MaterialPageRoute(builder: (context) =>  Dashboard(indexing: 0,))):
+      // Navigator.push(context, MaterialPageRoute(builder: (context) =>  const LoginPage()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const OptionSelection()));
     });
   }
 
@@ -70,31 +70,68 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: Stack(
-        children: [
-          Center(
-            child: SizedBox(
-              width: double.infinity,
-              height: double.infinity,
-              child: ScaleTransition(
-                scale: _animationController,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Text("Welcome To",style:TextStyle(fontSize: 40,color: Colors.black,fontWeight: FontWeight.bold)),
-                      const Gap(15),
-                      Image.asset('assets/images/logo.png'),
-                    ],
-                  ),
-                ),
+          body: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/SplashScreenBackgroundImage.jpeg"),
+                fit: BoxFit.fill,
               ),
             ),
+            child: Stack(
+              children: [
+                Center(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: ScaleTransition(
+                      scale: _animationController,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            // GradientText(
+                            //   "Welcome To",
+                            //   colors: const [
+                            //     Color.fromARGB(255, 54, 24, 138),
+                            //     Color.fromARGB(255, 42, 168, 199),
+                            //     // Color.fromARGB(255, 42, 128, 199),
+                            //     Color.fromARGB(255, 73, 32, 188),
+                            //   ],
+                            //   style: const TextStyle(
+                            //     fontSize: 35,
+                            //     color: Colors.black,
+                            //     fontWeight: FontWeight.bold,
+                            //     shadows: [
+                            //       Shadow(
+                            //         blurRadius: 5.0,
+                            //         color: Color.fromARGB(75, 0, 0, 0),
+                            //         offset: Offset(4.0, 2.0),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            const Gap(250),
+                            Image.asset('assets/images/logo.png'),
+                            const Gap(250),
+                            const Text(
+                              "Welcome",
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.grey,
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
-    ));
+        ));
   }
 }

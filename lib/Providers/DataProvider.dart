@@ -141,6 +141,14 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  showStateListForOptionPage() async {
+    isLoading = true;
+    notifyListeners();
+    stateModel = await showStates();
+    isLoading = false;
+    notifyListeners();
+  }
+
   showstateTopNewsList(String state) async {
     print("ST_RES=>$state");
     ////isLoading = true;
@@ -316,26 +324,28 @@ class DataProvider extends ChangeNotifier {
   Future<String> loginUser(String email, String password) async {
     isLoggedIn = true;
     notifyListeners();
-    Map<String,dynamic>  response = await login(email, password);
+    Map<String, dynamic> response = await login(email, password);
     if (response['flag'] == "Y") {
       final prefs = await SharedPreferences.getInstance();
-      prefs.setInt("uid",response['user_id']);
-      prefs.setString("uname",response['username']);
-      message=response['flag'];
+      prefs.setInt("uid", response['user_id']);
+      prefs.setString("uname", response['username']);
+      message = response['flag'];
       isLoggedIn = true;
       notifyListeners();
       notifyListeners();
     }
-    message=response['flag'];
+    message = response['flag'];
     notifyListeners();
     return response['flag'];
   }
 
-  Future<String> signupUser(String name, String email, String number,String state, String password) async {
+  Future<String> signupUser(String name, String email, String number,
+      String state, String password) async {
     isSignedUp = true;
     notifyListeners();
     //   work left
-    Map<String,dynamic> response = await signup(name, email, number,state, password);
+    Map<String, dynamic> response =
+    await signup(name, email, number, state, password);
     print("RESPONSE_DATA_TYPE=>${response}");
     print("FLAG_RES => ${response['flag']}");
     if (response['flag'] == "Y") {
@@ -344,8 +354,8 @@ class DataProvider extends ChangeNotifier {
       print("UID => ${response['user_id']}");
       print("UNAME => ${response['username']}");
       final prefs = await SharedPreferences.getInstance();
-      prefs.setInt("uid",response['user_id']);
-      prefs.setString("uname",response['username']);
+      prefs.setInt("uid", response['user_id']);
+      prefs.setString("uname", response['username']);
       //GetStorage().write("uid",response['user_id']);
       print('<<<<<<<<<<<<<<<<<<< ${GetStorage().read("uid").toString()}');
       //GetStorage().write("uname",response['username']);
@@ -359,14 +369,13 @@ class DataProvider extends ChangeNotifier {
     return response['flag'];
   }
 
-
   Future<String> saveArticleByUser(var userId, var articleId) async {
     isLoading = true;
     notifyListeners();
     //   work left
     print("<<<<<<<<<<<<<<<<<<<< ${userId}");
-    Map<String,dynamic> response = await saveArticle(userId, articleId);
-    if(response['flag'] == "Y"){
+    Map<String, dynamic> response = await saveArticle(userId, articleId);
+    if (response['flag'] == "Y") {
       isLoading = false;
       message = response['message'];
       print("MESSAGE => ${response['message']}");
@@ -383,8 +392,8 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
     //   work left
     print("<<<<<<<<<<<<<<<<<<<< ${userId}");
-    Map<String,dynamic> response = await likeArticle(userId, articleId);
-    if(response['flag'] == "Y"){
+    Map<String, dynamic> response = await likeArticle(userId, articleId);
+    if (response['flag'] == "Y") {
       isLoading = false;
       message = response['message'];
       print("MESSAGE => ${response['message']}");
@@ -401,8 +410,8 @@ class DataProvider extends ChangeNotifier {
     //notifyListeners();
     //   work left
     print("<<<<<<<<<<<<<<<<<<<< ${userId}");
-    Map<String,dynamic> response = await checkLikedArticle(userId, articleId);
-    if(response['flag'] == "Y"){
+    Map<String, dynamic> response = await checkLikedArticle(userId, articleId);
+    if (response['flag'] == "Y") {
       //isLoading = false;
       message = response['message'];
       print("MESSAGE => ${response['message']}");
@@ -419,8 +428,8 @@ class DataProvider extends ChangeNotifier {
     //notifyListeners();
     //   work left
     print("<<<<<<<<<<<<<<<<<<<< ${userId}");
-    Map<String,dynamic> response = await checkSavedArticle(userId, articleId);
-    if(response['flag'] == "Y"){
+    Map<String, dynamic> response = await checkSavedArticle(userId, articleId);
+    if (response['flag'] == "Y") {
       //isLoading = false;
       message = response['message'];
       print("MESSAGE => ${response['message']}");
@@ -448,6 +457,41 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<String> commentByUser(
+      String review, String userId, String articleId) async {
+    print("++++++++++++++++++++++++");
+    isLoading = true;
+    notifyListeners();
+    Map<String, dynamic> response = await addComment(review, userId, articleId);
+    if (response['flag'] == "Y") {
+      isLoading = false;
+      message = response['message'];
+      print("MESSAGE => ${response['message']}");
+      notifyListeners();
+    }
+    isLoading = false;
+    message = response['message'];
+    notifyListeners();
+    return response['flag'];
+  }
+
+  Future<String> contactUs(
+      String name, String email, String message, String details) async {
+    isLoading = true;
+    notifyListeners();
+    Map<String, dynamic> response =
+    await addContactUs(name, email, message, details);
+    if (response['flag'] == "Y") {
+      isLoading = false;
+      message = response['message'];
+      print("MESSAGE => ${response['message']}");
+      notifyListeners();
+    }
+    isLoading = false;
+    message = response['message'];
+    notifyListeners();
+    return response['flag'];
+  }
 }
 
 //showAllLikedNews

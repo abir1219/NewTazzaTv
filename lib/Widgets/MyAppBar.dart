@@ -3,7 +3,8 @@ import 'package:new_tazza_tv_flutter/Screens/Dashboard.dart';
 
 class MyAppBar extends StatefulWidget  with PreferredSizeWidget{
   final strState;
-  const MyAppBar({Key? key, this.strState}) : super(key: key);
+  final key_state;
+  const MyAppBar({Key? key, this.strState, this.key_state}) : super(key: key);
 
   @override
   State<MyAppBar> createState() {
@@ -69,7 +70,7 @@ class _MyAppBarState extends State<MyAppBar> {
         IconButton(
           icon: const Icon(Icons.menu, color: Colors.white),
           onPressed: () {
-            _key.currentState!.openEndDrawer();
+            widget.key_state.currentState!.openEndDrawer();
           },
         ),
         const SizedBox(

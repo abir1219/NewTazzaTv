@@ -40,7 +40,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
     return SafeArea(child: Scaffold(
       key: _key,
       endDrawer: const MyCustomDrawer(),
-      appBar: MyAppBar(strState: strState),
+      appBar: MyAppBar(strState: strState,key_state: _key),
       body: Consumer<DataProvider>(
         builder: (context, value, child) {
           return RefreshIndicator(

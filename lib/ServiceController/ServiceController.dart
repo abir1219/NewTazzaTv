@@ -36,7 +36,6 @@ import '../Screens/Home/ThirdTopNewsModel/ThirdTopNewsModel.dart';
 import '../Screens/Home/TopNewsModel/TopNewsModel.dart';
 import '../Utils/Urls.dart';
 
-
 Future<AllNewsDataModel?> getAllNewsData() async {
   AllNewsDataModel? dataModel;
   try {
@@ -57,9 +56,7 @@ Future<AllNewsDataModel?> getAllNewsData() async {
 
 Future<List<StateListModel>> showAllStates() async {
   List<StateListModel> stateList = [];
-  Map<String, dynamic> body = {
-    'type': 'showstate'
-  };
+  Map<String, dynamic> body = {'type': 'showstate'};
   var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
   if (response.statusCode == 200) {
     var data = json.decode(response.body);
@@ -76,19 +73,14 @@ Future<List<StateListModel>> showAllStates() async {
 
 Future<BreakingNewsModel?> showBreakingNews() async {
   BreakingNewsModel? model;
-  Map<String, dynamic> body = {
-    'type': 'showbreaking',
-    'lang': 'en'
-  };
+  Map<String, dynamic> body = {'type': 'showbreaking', 'lang': 'en'};
   try {
     var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("BREAKING_NEWS_RES => ${response.body}");
     if (response.statusCode == 200) {
       model = BreakingNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return model;
 }
 
@@ -106,9 +98,7 @@ Future<TopNewsModel?> showTopNews() async {
     if (response.statusCode == 200) {
       topNewsModel = TopNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return topNewsModel;
 }
 
@@ -128,9 +118,7 @@ Future<SecondTopNewsModel?> showSecondTopNews() async {
       secondTopNewsModel =
           SecondTopNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return secondTopNewsModel;
 }
 
@@ -149,9 +137,7 @@ Future<ThirdTopNewsModel?> showThirdTopNews() async {
       thirdTopNewsModel =
           ThirdTopNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return thirdTopNewsModel;
 }
 
@@ -170,9 +156,7 @@ Future<FourthTopNewsModel?> showFourthTopNews() async {
       fourthTopNewsModel =
           FourthTopNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return fourthTopNewsModel;
 }
 
@@ -187,9 +171,7 @@ Future<StateModel?> showStates() async {
     if (response.statusCode == 200) {
       stateModel = StateModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return stateModel;
 }
 
@@ -209,9 +191,7 @@ Future<StateTopNewsModel?> showStatesTopNews(String state) async {
       stateTopNewsModel =
           StateTopNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return stateTopNewsModel;
 }
 
@@ -231,9 +211,7 @@ Future<StateSecondTopNewsModel?> showStatesSecondTopNews(String state) async {
       stateSecondTopNewsModel =
           StateSecondTopNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return stateSecondTopNewsModel;
 }
 
@@ -253,9 +231,7 @@ Future<StateThirdTopNewsModel?> showStatesThirdTopNews(String state) async {
       stateThirdTopNewsModel =
           StateThirdTopNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return stateThirdTopNewsModel;
 }
 
@@ -275,9 +251,7 @@ Future<StateFourthTopNewsModel?> showStatesFourthTopNews(String state) async {
       stateFourthTopNewsModel =
           StateFourthTopNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return stateFourthTopNewsModel;
 }
 
@@ -295,9 +269,7 @@ Future<ViewAllModel?> showViewAllNews(String type) async {
     if (response.statusCode == 200) {
       viewAllModel = ViewAllModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return viewAllModel;
 }
 
@@ -317,9 +289,7 @@ Future<TopNationalNewsModel?> showTopNatioalNews() async {
       topNationalNewsModel =
           TopNationalNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return topNationalNewsModel;
 }
 
@@ -339,9 +309,7 @@ Future<BelowNationalNewsModel?> showBelowNatioalNews() async {
       belowNationalNewsModel =
           BelowNationalNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return belowNationalNewsModel;
 }
 
@@ -361,9 +329,7 @@ Future<TopInternationalNewsModel?> showInternationalNews() async {
       topInternationalNewsModel =
           TopInternationalNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return topInternationalNewsModel;
 }
 
@@ -383,9 +349,7 @@ Future<TopEntertainmentNewsModel?> showTopEntertainmentNews() async {
       topEntertainmentNewsModel =
           TopEntertainmentNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return topEntertainmentNewsModel;
 }
 
@@ -405,9 +369,7 @@ Future<SecondEntertainmentNewsModel?> showSecondEntertainmentNews() async {
       secondEntertainmentNewsModel =
           SecondEntertainmentNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return secondEntertainmentNewsModel;
 }
 
@@ -427,9 +389,7 @@ Future<ThirdEntertainmentNewsModel?> showThirdEntertainmentNews() async {
       thirdEntertainmentNewsModel =
           ThirdEntertainmentNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return thirdEntertainmentNewsModel;
 }
 
@@ -449,9 +409,7 @@ Future<FourthEntertainmentNewsModel?> showFourthEntertainmentNews() async {
       fourthEntertainmentNewsModel =
           FourthEntertainmentNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return fourthEntertainmentNewsModel;
 }
 
@@ -471,9 +429,7 @@ Future<TopSportsNewsModel?> showTopSportsNews() async {
       topSportsNewsModel =
           TopSportsNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return topSportsNewsModel;
 }
 
@@ -493,9 +449,7 @@ Future<SecondSportsNewsModel?> showSecondSportsNews() async {
       secondSportsNewsModel =
           SecondSportsNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return secondSportsNewsModel;
 }
 
@@ -515,9 +469,7 @@ Future<ThirdSportsNewsModel?> showThirdSportsNews() async {
       thirdSportsNewsModel =
           ThirdSportsNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return thirdSportsNewsModel;
 }
 
@@ -535,9 +487,7 @@ Future<CateforyWiseSportsModel?> categoryWiseSports() async {
       cateforyWiseSportsModel =
           CateforyWiseSportsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return cateforyWiseSportsModel;
 }
 
@@ -553,9 +503,7 @@ Future<VideoNewsModel?> showAllVideoNews() async {
     if (response.statusCode == 200) {
       videoNewsModel = VideoNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return videoNewsModel;
 }
 
@@ -572,9 +520,7 @@ Future<NewsDetailsModel?> showNewsDetails(String newsId) async {
     if (response.statusCode == 200) {
       newsDetailsModel = NewsDetailsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return newsDetailsModel;
 }
 
@@ -591,9 +537,7 @@ Future<RelatedNewsModel?> showRelatedNews(String newsId) async {
     if (response.statusCode == 200) {
       relatedNewsModel = RelatedNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return relatedNewsModel;
 }
 
@@ -612,9 +556,7 @@ Future<CategoryWiseSportsArticlesModel?> showCategoryWiseSportsNews(
       categoryWiseSportsArticles =
           CategoryWiseSportsArticlesModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return categoryWiseSportsArticles;
 }
 
@@ -630,96 +572,93 @@ Future<MenuModel?> showMenu() async {
     if (response.statusCode == 200) {
       menuModel = MenuModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return menuModel;
 }
 
-Future<Map<String,dynamic>> login(String email, String password) async{
-  Map<String, dynamic>body = {
-    'type':'login',
-    'email':email,
-    'password':password,
+Future<Map<String, dynamic>> login(String email, String password) async {
+  Map<String, dynamic> body = {
+    'type': 'login',
+    'email': email,
+    'password': password,
   };
-  var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
   var data = jsonDecode(response.body);
 
   return data;
 }
 
-Future<Map<String,dynamic>> signup(String name, String email, String number,String state, String password)async{
+Future<Map<String, dynamic>> signup(String name, String email, String number,
+    String state, String password) async {
+  print(
+      'name: ${name} \n email: ${email} \n number: ${number} \n state: ${state} \n password: ${password} \n ');
 
-  print('name: ${name} \n email: ${email} \n number: ${number} \n state: ${state} \n password: ${password} \n ');
-
-  Map<String, dynamic>body = {
-    'type':'signup',
-    'name':name,
-    'email':email,
-    'mobile':number,
-    'state':state,
-    'password':password,
-    'confirm_password':password,
+  Map<String, dynamic> body = {
+    'type': 'signup',
+    'name': name,
+    'email': email,
+    'mobile': number,
+    'state': state,
+    'password': password,
+    'confirm_password': password,
   };
-  var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
   print(response);
   var data = jsonDecode(response.body);
   print("DATA_TYPE => ${jsonDecode(response.body).runtimeType}");
   return data;
 }
 
-
-Future<Map<String,dynamic>> saveArticle(var userId, var articleId)async{
-
-  Map<String, dynamic>body = {
-    'type':'SaveArticle',
-    'user_id':userId,
-    'article_id':articleId
+Future<Map<String, dynamic>> saveArticle(var userId, var articleId) async {
+  Map<String, dynamic> body = {
+    'type': 'SaveArticle',
+    'user_id': userId,
+    'article_id': articleId
   };
-  var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
   var data = jsonDecode(response.body);
   print("<<<<<<<<<<<<<<<<<<<<<< response Save Artile");
   // print()
   return data;
 }
 
-Future<Map<String,dynamic>> likeArticle(var userId, var articleId)async{
+Future<Map<String, dynamic>> likeArticle(var userId, var articleId) async {
   print("Userid_LIKE=>${userId}");
   print("Article_id_LIKE=>${articleId}");
-  Map<String, dynamic>body = {
-    'type':'LikeArticle',
-    'user_id':userId,
-    'article_id':articleId
+  Map<String, dynamic> body = {
+    'type': 'LikeArticle',
+    'user_id': userId,
+    'article_id': articleId
   };
-  var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
   var data = jsonDecode(response.body);
   print("<<<<<<<<<<<<<<<<<<<<<< response Like Artile");
   print("LIKE_ARTICLE_DATA=>${data}");
   return data;
 }
 
-Future<Map<String,dynamic>> checkLikedArticle(var userId, var articleId)async{
-
-  Map<String, dynamic>body = {
-    'type':'CheckLikedArticle',
-    'user_id':userId,
-    'article_id':articleId
+Future<Map<String, dynamic>> checkLikedArticle(
+    var userId, var articleId) async {
+  Map<String, dynamic> body = {
+    'type': 'CheckLikedArticle',
+    'user_id': userId,
+    'article_id': articleId
   };
-  var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
   var data = jsonDecode(response.body);
   print("<<<<<<<<<<<<<<<<<<<<<< response Save Artile");
   // print()
   return data;
 }
 
-Future<Map<String,dynamic>> checkSavedArticle(var userId, var articleId)async{
-
-  Map<String, dynamic>body = {
-    'type':'CheckSaveArticle',
-    'user_id':userId,
-    'article_id':articleId
+Future<Map<String, dynamic>> checkSavedArticle(
+    var userId, var articleId) async {
+  Map<String, dynamic> body = {
+    'type': 'CheckSaveArticle',
+    'user_id': userId,
+    'article_id': articleId
   };
-  var response = await http.post(Uri.parse(Urls.BASE_URL),body: body);
+  var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
   var data = jsonDecode(response.body);
   print("<<<<<<<<<<<<<<<<<<<<<< response Save Artile");
   // print()
@@ -739,9 +678,7 @@ Future<SavedNewsModel?> showAllSavedNews(var userId) async {
     if (response.statusCode == 200) {
       savedNewsModel = SavedNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return savedNewsModel;
 }
 
@@ -758,8 +695,36 @@ Future<LikedNewsModel?> showAllLikedNews(var userId) async {
     if (response.statusCode == 200) {
       likedNewsModel = LikedNewsModel.fromJson(json.decode(response.body));
     }
-  } catch (e) {
-
-  }
+  } catch (e) {}
   return likedNewsModel;
+}
+
+Future<Map<String, dynamic>> addComment(
+    String review, String userId, String articleId) async {
+  Map<String, dynamic> body = {
+    'type': 'Comments',
+    'reviews': review,
+    'user_id': userId,
+    'article_id': articleId
+  };
+  var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
+  print(response.body);
+  var data = jsonDecode(response.body);
+  return data;
+}
+
+Future<Map<String, dynamic>> addContactUs(
+    String name, String email, String message, String details) async {
+  Map<String, dynamic> body = {
+    'type': 'ContactUs',
+    'name': name,
+    'email': email,
+    'message': message,
+    'details': details
+  };
+
+  var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
+  print(response.body);
+  var data = jsonDecode(response.body);
+  return data;
 }

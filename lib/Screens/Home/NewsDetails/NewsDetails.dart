@@ -124,7 +124,7 @@ class _NewsDetailsState extends State<NewsDetails> {
         child: Scaffold(
           key: _key,
       endDrawer: const MyCustomDrawer(),
-      appBar: MyAppBar(strState: strState),
+      appBar: MyAppBar(strState: strState,key_state: _key),
       body: Consumer<DataProvider>(
         builder: (context, value, child) {
           return !value.isLoading

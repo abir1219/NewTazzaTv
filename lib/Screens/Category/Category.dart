@@ -14,13 +14,14 @@ class Category extends StatefulWidget {
 }
 
 class _CategoryState extends State<Category> {
-
   String strState = "West Bengal";
 
   @override
   void initState() {
     super.initState();
-    GetStorage().read("state")!=null ? strState = GetStorage().read("state") : "West Bengal";
+    GetStorage().read("state") != null
+        ? strState = GetStorage().read("state")
+        : "West Bengal";
     setState(() {});
   }
 
@@ -32,55 +33,81 @@ class _CategoryState extends State<Category> {
     final GlobalKey<ScaffoldState> _key = GlobalKey();
     final size = MediaQuery.of(context).size;
 
-
     return SafeArea(
       child: Scaffold(
         key: _key,
         endDrawer: const MyCustomDrawer(),
-        appBar: MyAppBar(strState: strState),
-        body: Consumer<DataProvider>(builder: (context, value, child) {
-          return !value.isLoading ?
-          RefreshIndicator(
-            color: const Color(0xFF196df9),
-            onRefresh: (){
-              return Future.delayed(const Duration(seconds: 1),(){
-                setState(() {
+        appBar: MyAppBar(strState: strState,key_state: _key),
+        body: Consumer<DataProvider>(
+          builder: (context, value, child) {
+            return !value.isLoading
+                ? RefreshIndicator(
+              color: const Color(0xFF196df9),
+              onRefresh: () {
+                return Future.delayed(const Duration(seconds: 1), () {
+                  setState(() {});
                 });
-              });
-            },
-            child: SingleChildScrollView(
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  CategoryDetails(type:value.menuModel!.list![index].name, index: 0,),));
-                  },
-                  child: SizedBox(
-                    height:100,// size.height * .15,
-                    child: Card(
-                      elevation: 2,
-                      shadowColor:
-                      Colors.grey,
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(value.menuModel!.list![index].name,style: const TextStyle(
-                            fontSize: 18,color: Colors.black,fontWeight: FontWeight.bold
-                          ),),
+              },
+              child: SingleChildScrollView(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CategoryDetails(
+                                type: value.menuModel!.list![index].name,
+                                index: 0,
+                              ),
+                            ));
+                      },
+                      child: SizedBox(
+                        height: 100, // size.height * .15,
+                        child: Card(
+                          elevation: 2,
+                          shadowColor: Colors.grey,
+                          child: Container(
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: <Color>[
+                                  Color.fromARGB(255, 255, 255, 255),
+                                  Color.fromARGB(255, 73, 32, 188)
+                                ],
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  value.menuModel!.list![index].name,
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                );
-              },itemCount: value.menuModel!.list!.length,),
-            ),
-          ) : const Center(
-            child: CircularProgressIndicator(),
-          );
-        },),
+                    );
+                  },
+                  itemCount: value.menuModel!.list!.length,
+                ),
+              ),
+            )
+                : const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
       ),
     );
   }

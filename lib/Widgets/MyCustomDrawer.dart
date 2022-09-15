@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:new_tazza_tv_flutter/Providers/DataProvider.dart';
+import 'package:new_tazza_tv_flutter/Screens/CitizenJournalist/CitizenJournalist.dart';
+import 'package:new_tazza_tv_flutter/Screens/Contact%20Us/ContactUs.dart';
 import 'package:new_tazza_tv_flutter/Screens/Dashboard.dart';
 import 'package:new_tazza_tv_flutter/Screens/LikedNews/LikedNews.dart';
 import 'package:new_tazza_tv_flutter/Screens/SavedNews/SavedNews.dart';
@@ -124,83 +126,6 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
                   ));
             },
           ),
-          /*ListTile(
-            title: const Text('Breaking News',style: TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Image(image: AssetImage("assets/images/global.png",),width: 24,height: 24,color: Colors.black),
-            //const Icon(Icons.change,color: Colors.black,size: 24,),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: const Text('National News',style: TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Image(image: AssetImage("assets/images/global.png",),width: 24,height: 24,color: Colors.black),
-            //const Icon(Icons.change,color: Colors.black,size: 24,),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: const Text('International News',style: TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Image(image: AssetImage("assets/images/global.png",),width: 24,height: 24,color: Colors.black),
-            //const Icon(Icons.change,color: Colors.black,size: 24,),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: const Text('Entertainment News',style: TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Image(image: AssetImage("assets/images/global.png",),width: 24,height: 24,color: Colors.black),
-            //const Icon(Icons.change,color: Colors.black,size: 24,),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: const Text('Sports News',style: TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Image(image: AssetImage("assets/images/global.png",),width: 24,height: 24,color: Colors.black),
-            //const Icon(Icons.change,color: Colors.black,size: 24,),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: const Text('Health News',style: TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Image(image: AssetImage("assets/images/global.png",),width: 24,height: 24,color: Colors.black),
-            //const Icon(Icons.change,color: Colors.black,size: 24,),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: const Text('Video News',style: TextStyle(color: Colors.black,fontSize: 16),),
-            leading: const Image(image: AssetImage("assets/images/global.png",),width: 24,height: 24,color: Colors.black),
-            //const Icon(Icons.change,color: Colors.black,size: 24,),
-            onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
-            },
-          ),*/
           ListTile(
             title: const Text(
               'About Us',
@@ -285,10 +210,11 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
                 color: Colors.black),
             //const Icon(Icons.change,color: Colors.black,size: 24,),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                      const ContactUs()));
             },
           ),
           ListTile(
@@ -313,6 +239,27 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
           ),
           ListTile(
             title: const Text(
+              'Citizen Journalist',
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            leading: const Image(
+                image: AssetImage(
+                  "assets/images/journalist.png",
+                ),
+                width: 24,
+                height: 24,
+                color: Colors.black),
+            //const Icon(Icons.change,color: Colors.black,size: 24,),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                      const CitizenJournalist()));
+            },
+          ),
+          ListTile(
+            title: const Text(
               'Logout',
               style: TextStyle(color: Colors.black, fontSize: 16),
             ),
@@ -325,10 +272,7 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
                 color: Colors.black),
             //const Icon(Icons.change,color: Colors.black,size: 24,),
             onTap: () {
-              // Update the state of the app
-              // ...
-              // Then close the drawer
-              Navigator.pop(context);
+              logout();
             },
           ),
         ],
@@ -419,5 +363,10 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
         );
       },
     );
+  }
+
+  void logout() async{
+    final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
   }
 }
