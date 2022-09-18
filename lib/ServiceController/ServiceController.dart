@@ -73,7 +73,7 @@ Future<List<StateListModel>> showAllStates() async {
 
 Future<BreakingNewsModel?> showBreakingNews() async {
   BreakingNewsModel? model;
-  Map<String, dynamic> body = {'type': 'showbreaking', 'lang': 'en'};
+  Map<String, dynamic> body = {'type': 'showbreaking', 'lang': GetStorage().read("lang").toString()};
   try {
     var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
     print("BREAKING_NEWS_RES => ${response.body}");
@@ -88,7 +88,7 @@ Future<TopNewsModel?> showTopNews() async {
   TopNewsModel? topNewsModel;
   Map<String, dynamic> body = {
     'type': 'showarticles2',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'state': GetStorage().read("state").toString(),
     //GetStorage().read('state'),
   };
@@ -107,7 +107,7 @@ Future<SecondTopNewsModel?> showSecondTopNews() async {
   SecondTopNewsModel? secondTopNewsModel;
   Map<String, dynamic> body = {
     'type': 'showarticles3',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'state': GetStorage().read("state").toString(),
     //GetStorage().read('state'),
   };
@@ -126,7 +126,7 @@ Future<ThirdTopNewsModel?> showThirdTopNews() async {
   ThirdTopNewsModel? thirdTopNewsModel;
   Map<String, dynamic> body = {
     'type': 'showarticles4',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'state': GetStorage().read("state").toString(),
     //GetStorage().read('state'),
   };
@@ -145,7 +145,7 @@ Future<FourthTopNewsModel?> showFourthTopNews() async {
   FourthTopNewsModel? fourthTopNewsModel;
   Map<String, dynamic> body = {
     'type': 'showarticles1',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'state': GetStorage().read("state").toString(),
     //GetStorage().read('state'),
   };
@@ -181,7 +181,7 @@ Future<StateTopNewsModel?> showStatesTopNews(String state) async {
   Map<String, dynamic> body = {
     'type': 'statewise',
     'state': state,
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'limit': "1"
   };
   try {
@@ -201,7 +201,7 @@ Future<StateSecondTopNewsModel?> showStatesSecondTopNews(String state) async {
   Map<String, dynamic> body = {
     'type': 'statewise',
     'state': state,
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'limit': "1,2"
   };
   try {
@@ -221,7 +221,7 @@ Future<StateThirdTopNewsModel?> showStatesThirdTopNews(String state) async {
   Map<String, dynamic> body = {
     'type': 'statewise',
     'state': state,
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'limit': "3,4"
   };
   try {
@@ -241,7 +241,7 @@ Future<StateFourthTopNewsModel?> showStatesFourthTopNews(String state) async {
   Map<String, dynamic> body = {
     'type': 'statewise',
     'state': state,
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'limit': "7,2"
   };
   try {
@@ -260,7 +260,7 @@ Future<ViewAllModel?> showViewAllNews(String type) async {
   ViewAllModel? viewAllModel;
   Map<String, dynamic> body = {
     'type': 'CategoryWiseNews',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'category': type,
   };
   try {
@@ -278,7 +278,7 @@ Future<TopNationalNewsModel?> showTopNatioalNews() async {
   TopNationalNewsModel? topNationalNewsModel;
   Map<String, dynamic> body = {
     'type': 'CategoryWiseNews',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'category': 'National',
     'limit': "4"
   };
@@ -298,7 +298,7 @@ Future<BelowNationalNewsModel?> showBelowNatioalNews() async {
   BelowNationalNewsModel? belowNationalNewsModel;
   Map<String, dynamic> body = {
     'type': 'CategoryWiseNews',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'category': 'National',
     'limit': "4,3"
   };
@@ -318,7 +318,7 @@ Future<TopInternationalNewsModel?> showInternationalNews() async {
   TopInternationalNewsModel? topInternationalNewsModel;
   Map<String, dynamic> body = {
     'type': 'CategoryWiseNews',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'category': 'International',
     'limit': "3"
   };
@@ -338,7 +338,7 @@ Future<TopEntertainmentNewsModel?> showTopEntertainmentNews() async {
   TopEntertainmentNewsModel? topEntertainmentNewsModel;
   Map<String, dynamic> body = {
     'type': 'CategoryWiseNews',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'category': 'Entertainment',
     'limit': "1"
   };
@@ -358,7 +358,7 @@ Future<SecondEntertainmentNewsModel?> showSecondEntertainmentNews() async {
   SecondEntertainmentNewsModel? secondEntertainmentNewsModel;
   Map<String, dynamic> body = {
     'type': 'CategoryWiseNews',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'category': 'Entertainment',
     'limit': "1,3"
   };
@@ -378,7 +378,7 @@ Future<ThirdEntertainmentNewsModel?> showThirdEntertainmentNews() async {
   ThirdEntertainmentNewsModel? thirdEntertainmentNewsModel;
   Map<String, dynamic> body = {
     'type': 'CategoryWiseNews',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'category': 'Entertainment',
     'limit': "4,5"
   };
@@ -398,7 +398,7 @@ Future<FourthEntertainmentNewsModel?> showFourthEntertainmentNews() async {
   FourthEntertainmentNewsModel? fourthEntertainmentNewsModel;
   Map<String, dynamic> body = {
     'type': 'CategoryWiseNews',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'category': 'Entertainment',
     'limit': "9,3"
   };
@@ -418,7 +418,7 @@ Future<TopSportsNewsModel?> showTopSportsNews() async {
   TopSportsNewsModel? topSportsNewsModel;
   Map<String, dynamic> body = {
     'type': 'CategoryWiseNews',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'category': 'Sports',
     'limit': "2"
   };
@@ -438,7 +438,7 @@ Future<SecondSportsNewsModel?> showSecondSportsNews() async {
   SecondSportsNewsModel? secondSportsNewsModel;
   Map<String, dynamic> body = {
     'type': 'CategoryWiseNews',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'category': 'Sports',
     'limit': "2,4"
   };
@@ -458,7 +458,7 @@ Future<ThirdSportsNewsModel?> showThirdSportsNews() async {
   ThirdSportsNewsModel? thirdSportsNewsModel;
   Map<String, dynamic> body = {
     'type': 'CategoryWiseNews',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
     'category': 'Sports',
     'limit': "6,1"
   };
@@ -478,7 +478,7 @@ Future<CateforyWiseSportsModel?> categoryWiseSports() async {
   CateforyWiseSportsModel? cateforyWiseSportsModel;
   Map<String, dynamic> body = {
     'type': 'categorywisesports',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
   };
   try {
     var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
@@ -529,7 +529,7 @@ Future<RelatedNewsModel?> showRelatedNews(String newsId) async {
   Map<String, dynamic> body = {
     'type': 'relatedArticles',
     'id': newsId,
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
   };
   try {
     var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
@@ -547,7 +547,7 @@ Future<CategoryWiseSportsArticlesModel?> showCategoryWiseSportsNews(
   Map<String, dynamic> body = {
     'type': 'subcategorywise',
     'sub_category': catName,
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
   };
   try {
     var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
@@ -564,7 +564,7 @@ Future<MenuModel?> showMenu() async {
   MenuModel? menuModel;
   Map<String, dynamic> body = {
     'type': 'showmenu',
-    'lang': 'en',
+    'lang': GetStorage().read("lang").toString(),
   };
   try {
     var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
@@ -728,3 +728,29 @@ Future<Map<String, dynamic>> addContactUs(
   var data = jsonDecode(response.body);
   return data;
 }
+
+Future<Map<String, dynamic>> addArticleByUser(
+    String title,
+    String shortNote,
+    String description,
+    String category,
+    String subCategory,
+    String state,
+    String language) async {
+  Map<String, dynamic> body = {
+    'type': 'ContactUs',
+    'title': title,
+    'shortNote': shortNote,
+    'description': description,
+    'category': category,
+    'subCategory': subCategory,
+    'state': state,
+    'language': language
+  };
+
+  var response = await http.post(Uri.parse(Urls.BASE_URL), body: body);
+  print(response.body);
+  var data = jsonDecode(response.body);
+  return data;
+}
+

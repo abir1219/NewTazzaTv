@@ -492,6 +492,38 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
     return response['flag'];
   }
+
+  Future<String> addYourArticle(
+      String title,
+      String shortNote,
+      String description,
+      String category,
+      String subCategory,
+      String state,
+      String language) async {
+    isLoading = true;
+    notifyListeners();
+    Map<String, dynamic> response = await addArticleByUser(
+      title,
+      shortNote,
+      description,
+      category,
+      subCategory,
+      state,
+      language,
+    );
+    if (response['flag'] == "Y") {
+      isLoading = false;
+      message = response['message'];
+      print("MESSAGE => ${response['message']}");
+      notifyListeners();
+    }
+    isLoading = false;
+    message = response['message'];
+    notifyListeners();
+    return response['flag'];
+  }
+
 }
 
 //showAllLikedNews

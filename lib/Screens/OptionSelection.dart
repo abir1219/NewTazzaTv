@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:new_tazza_tv_flutter/Providers/DataProvider.dart';
@@ -26,17 +27,22 @@ class _OptionSelectionState extends State<OptionSelection> {
   void onClickNext() async {
     print("GOO");
     final prefs = await SharedPreferences.getInstance();
-    print("USER_ID => no");
+    print("State => ${GetStorage().read("state")}");
+    print("Language => ${GetStorage().read("lang")}");
 
-    prefs.getInt("uid") != null
-        ? Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Dashboard(
-              indexing: 0,
-            )))
-        : Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const LoginPage()));
+    if(GetStorage().read("state")!=null && GetStorage().read("lang")!=null){
+      prefs.getInt("uid") != null
+          ? Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Dashboard(
+                indexing: 0,
+              )))
+          : Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const LoginPage()));
+    }else{
+      Fluttertoast.showToast(msg: "Please select both State and Language first");
+    }
   }
 
   @override
@@ -124,6 +130,9 @@ class _OptionSelectionState extends State<OptionSelection> {
                                   return InkWell(
                                     onTap: () {
                                       strLang = languageList[index];
+                                      print("strLang=>$strLang");
+                                      strLang=="Hindi"?GetStorage().write("lang","hin"):
+                                      strLang=="English"?GetStorage().write("lang","en"):"en";
                                       Navigator.pop(context);
                                       setState(() {});
                                     },
@@ -178,7 +187,7 @@ class _OptionSelectionState extends State<OptionSelection> {
                         onClickNext();
                       },
                       style: ElevatedButton.styleFrom(
-                        //primary: Colors.grey[400],
+                        backgroundColor:const Color(0xFF196df9),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                       child: const Padding(
@@ -301,11 +310,14 @@ class _OptionSelectionState extends State<OptionSelection> {
                     onTap: () {
                       print(
                           "STATE_NAME=>${value.stateModel!.list![index].name}");
-                      GetStorage().write(
-                          "state", value.stateModel!.list![index].name);
                       strState = value.stateModel!.list![index].name;
+                      setState(() {
+                        GetStorage().write(
+                            "state", strState);
+
+                        print("SELECT_STATE => ${GetStorage().read("state")}");
+                      });
                       Navigator.pop(context);
-                      setState(() {});
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

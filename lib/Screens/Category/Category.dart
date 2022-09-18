@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:new_tazza_tv_flutter/Providers/DataProvider.dart';
 import 'package:new_tazza_tv_flutter/Screens/Category/CategoryDetails.dart';
+import 'package:new_tazza_tv_flutter/Screens/Dashboard.dart';
 import 'package:new_tazza_tv_flutter/Widgets/MyAppBar.dart';
 import 'package:new_tazza_tv_flutter/Widgets/MyCustomDrawer.dart';
 import 'package:provider/provider.dart';

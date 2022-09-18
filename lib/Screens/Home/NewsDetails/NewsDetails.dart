@@ -133,17 +133,6 @@ class _NewsDetailsState extends State<NewsDetails> {
                   children: [
                     Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 10),
-                          child: Text(
-                            value.newsDetailsModel!.list![0].title,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18),
-                          ),
-                        ),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           height: size.height * .35,
@@ -161,10 +150,21 @@ class _NewsDetailsState extends State<NewsDetails> {
                                 placeholder: (context, url) =>
                                     Image.asset("assets/images/loader.png"),
                                 errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
+                                const Icon(Icons.error),
                                 fit: BoxFit.cover,
                               ),
                             ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 10),
+                          child: Text(
+                            value.newsDetailsModel!.list![0].title,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
                           ),
                         ),
                         Padding(

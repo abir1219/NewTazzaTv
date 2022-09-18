@@ -464,6 +464,15 @@ class _HomeState extends State<Home> {
                                                                     CrossAxisAlignment
                                                                         .stretch,
                                                                 children: [
+                                                                  ClipRRect(
+                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                    child: Image.network(
+                                                                      value.thirdTopNewsModel!.list![index].image ??
+                                                                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJLICBu_i2rNNd8l9Zz-DUNSwFXR9xAzCutg&usqp=CAU",
+                                                                      fit: BoxFit.cover,
+                                                                      width: 130,
+                                                                    ),
+                                                                  ),
                                                                   Expanded(
                                                                     child:
                                                                         Padding(
@@ -496,15 +505,6 @@ class _HomeState extends State<Home> {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  /*ClipRRect(
-                                                        borderRadius: BorderRadius.circular(8.0),
-                                                        child: Image.network(
-                                                          value.thirdTopNewsModel!.list![index].image ??
-                                                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJLICBu_i2rNNd8l9Zz-DUNSwFXR9xAzCutg&usqp=CAU",
-                                                          fit: BoxFit.cover,
-                                                          width: 130,
-                                                        ),
-                                                      )*/
                                                                 ],
                                                               ),
                                                             ),

@@ -92,38 +92,38 @@ class _DashboardState extends State<Dashboard> {
             BottomNavigationBarItem(
                 icon: Image.asset(
                   "assets/images/play-button.png",
-                  height: 40,
-                  width: 40,
+                  height: 45,
+                  width: 45,
                 ),
                 activeIcon: Image.asset(
                   "assets/images/play-button.png",
-                  height: 40,
-                  width: 40,
+                  height: 45,
+                  width: 45,
                 ),
                 label: ""),
             BottomNavigationBarItem(
                 icon: Image.asset(
                   "assets/images/video.png",
-                  height: 40,
-                  width: 40,
+                  height: 50,
+                  width: 50,
                 ),
                 activeIcon: Image.asset(
                   "assets/images/video.png",
-                  height: 40,
-                  width: 40,
+                  height: 50,
+                  width: 50,
                 ),
                 label: ""),
             BottomNavigationBarItem(
                 icon: Image.asset(
 
                   "assets/images/microphone.png",
-                  height: 40,
-                  width: 40,
+                  height: 50,
+                  width: 50,
                 ),
                 activeIcon: Image.asset(
                   "assets/images/microphone.png",
-                  height: 40,
-                  width: 40,
+                  height: 50,
+                  width: 50,
                 ),
                 label: ""),
           ],

@@ -51,91 +51,98 @@ class _CategoryDetailsState extends State<CategoryDetails> {
           return !value.isLoading ? RefreshIndicator(
             color: const Color(0xFF196df9),
               child: SingleChildScrollView(
-                child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    NewsDetails(
-                                      newsId: value.viewAllModel!.list![index].id.toString(),
+                child: Column(
+                  children: [
+                    const Gap(15),
+                    Text(widget.type,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18),),
+                    const Gap(15),
+                    ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NewsDetails(
+                                          newsId: value.viewAllModel!.list![index].id.toString(),
+                                        ),
+                                  ));
+                            },
+                            child: SizedBox(
+                              width: size.width * .85,
+                              child: Card(
+                                elevation: 2,
+                                shadowColor: Colors.grey,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(
+                                        12)),
+                                child: Column(
+                                  mainAxisSize:
+                                  MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height:
+                                      size.height * .20,
+                                      width: size.width,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius
+                                              .circular(
+                                              12)),
+                                      child: CachedNetworkImage(
+                                        imageUrl: value.viewAllModel!.list![index].image,
+                                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
-                              ));
-                        },
-                        child: SizedBox(
-                          width: size.width * .85,
-                          child: Card(
-                            elevation: 2,
-                            shadowColor: Colors.grey,
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(
-                                    12)),
-                            child: Column(
-                              mainAxisSize:
-                              MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height:
-                                  size.height * .20,
-                                  width: size.width,
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                      BorderRadius
-                                          .circular(
-                                          12)),
-                                  child: CachedNetworkImage(
-                                    imageUrl: value.viewAllModel!.list![index].image,
-                                    errorWidget: (context, url, error) => const Icon(Icons.error),
-                                    fit: BoxFit.cover,
-                                  ),
+                                    const Gap(10),
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets
+                                          .symmetric(
+                                          horizontal:
+                                          4.0),
+                                      child: Text(
+                                        value.viewAllModel!.list![index].createdOn,
+                                        maxLines: 5,
+                                        style: const TextStyle(
+                                            fontSize: 13,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                            color: AppColors.smallTextColor),
+                                      ),
+                                    ),
+                                    const Gap(10),
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.symmetric(horizontal: 4.0),
+                                      child: Text(
+                                        value.viewAllModel!.list![index].title,
+                                        maxLines: 5,
+                                        style:
+                                        const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                    ),
+                                    const Gap(10),
+                                  ],
                                 ),
-                                const Gap(10),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets
-                                      .symmetric(
-                                      horizontal:
-                                      4.0),
-                                  child: Text(
-                                    value.viewAllModel!.list![index].createdOn,
-                                    maxLines: 5,
-                                    style: const TextStyle(
-                                        fontSize: 13,
-                                        fontWeight:
-                                        FontWeight.bold,
-                                        color: AppColors.smallTextColor),
-                                  ),
-                                ),
-                                const Gap(10),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.symmetric(horizontal: 4.0),
-                                  child: Text(
-                                    value.viewAllModel!.list![index].title,
-                                    maxLines: 5,
-                                    style:
-                                    const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight:
-                                        FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                                const Gap(10),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    },
-                    itemCount: value.viewAllModel!.list!.length),
+                          );
+                        },
+                        itemCount: value.viewAllModel!.list!.length),
+                  ],
+                ),
               ),
               onRefresh: (){
             return Future.delayed(const Duration(seconds: 1),(){setState(() {
@@ -143,6 +150,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
           }) : const Center(child: CircularProgressIndicator(),);
         },
       ),
+          //bottomNavigationBar: Dashboard(),
     ));
   }
 }
