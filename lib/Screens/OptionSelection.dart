@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:new_tazza_tv_flutter/Providers/DataProvider.dart';
 import 'package:new_tazza_tv_flutter/Screens/LoginPage.dart';
+import 'package:new_tazza_tv_flutter/Screens/PermissionScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,7 +40,7 @@ class _OptionSelectionState extends State<OptionSelection> {
                 indexing: 0,
               )))
           : Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const LoginPage()));
+          MaterialPageRoute(builder: (context) => const PermissionScreen()));
     }else{
       Fluttertoast.showToast(msg: "Please select both State and Language first");
     }
@@ -214,84 +215,6 @@ class _OptionSelectionState extends State<OptionSelection> {
     ),
   );
 
-  /*void showStateDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Consumer<DataProvider>(
-          builder: (context, value, child) {
-            return StatefulBuilder(
-              builder: (context, setState) {
-                return Dialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  elevation: 16,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      print("LOGO->${value.stateModel!.list![index].logo}");
-                      return InkWell(
-                        onTap: () {
-                          print(
-                              "STATE_NAME=>${value.stateModel!.list![index].name}");
-                          GetStorage().write(
-                              "state", value.stateModel!.list![index].name);
-                          strState = value.stateModel!.list![index].name;
-                          Navigator.pop(context);
-                          setState(() {});
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.network(
-                                      value.stateModel!.list![index].logo ??
-                                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJLICBu_i2rNNd8l9Zz-DUNSwFXR9xAzCutg&usqp=CAU",
-                                      fit: BoxFit.cover,
-                                      width: 80,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      child: Text(
-                                        value.stateModel!.list![index].name,
-                                        style: const TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const Gap(5),
-                              const Divider(
-                                height: 1,
-                                color: Colors.black,
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    itemCount: value.stateModel!.list!.length,
-                  ),
-                );
-              },
-            );
-          },
-        );
-      },
-    );
-  }*/
 
   void openStateBottomSheetDialog(DataProvider provider) {
     provider.showStateListForOptionPage();
@@ -313,8 +236,7 @@ class _OptionSelectionState extends State<OptionSelection> {
                       strState = value.stateModel!.list![index].name;
                       setState(() {
                         GetStorage().write(
-                            "state", strState);
-
+                            "state", value.stateModel!.list![index].name);
                         print("SELECT_STATE => ${GetStorage().read("state")}");
                       });
                       Navigator.pop(context);

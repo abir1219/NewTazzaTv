@@ -7,6 +7,8 @@ import 'package:new_tazza_tv_flutter/Screens/CitizenJournalist/CitizenJournalist
 import 'package:new_tazza_tv_flutter/Screens/Contact%20Us/ContactUs.dart';
 import 'package:new_tazza_tv_flutter/Screens/Dashboard.dart';
 import 'package:new_tazza_tv_flutter/Screens/LikedNews/LikedNews.dart';
+import 'package:new_tazza_tv_flutter/Screens/LoginPage.dart';
+import 'package:new_tazza_tv_flutter/Screens/OptionSelection.dart';
 import 'package:new_tazza_tv_flutter/Screens/SavedNews/SavedNews.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -368,5 +370,9 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
   void logout() async{
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const OptionSelection()));
   }
 }

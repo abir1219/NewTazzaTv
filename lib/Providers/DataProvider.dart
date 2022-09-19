@@ -329,7 +329,7 @@ class DataProvider extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       prefs.setInt("uid", response['user_id']);
       prefs.setString("uname", response['username']);
-      message = response['flag'];
+      message = response['message'];
       isLoggedIn = true;
       notifyListeners();
       notifyListeners();

@@ -6,8 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:new_tazza_tv_flutter/Providers/DataProvider.dart';
 import 'package:new_tazza_tv_flutter/Screens/Dashboard.dart';
-import 'package:new_tazza_tv_flutter/Screens/OtpVerification.dart';
-import 'package:new_tazza_tv_flutter/Screens/OptionSelection.dart';
 import 'package:new_tazza_tv_flutter/Screens/Registration.dart';
 import 'package:new_tazza_tv_flutter/Utils/AppColors.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +45,8 @@ class _LoginPageState extends State<LoginPage> {
     return SafeArea(
       child: Scaffold(
         body: Consumer<DataProvider>(builder: (context, value, child) {
+          print("IsLoggedIn  => ${value.isLoggedIn}");
+
           return value.isLoggedIn ? const Center(child: CircularProgressIndicator(),) : SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),

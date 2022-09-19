@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:new_tazza_tv_flutter/Screens/LoginPage.dart';
+import 'package:new_tazza_tv_flutter/Screens/Privacy%20Policy/PrivacyPolicy.dart';
+import 'package:new_tazza_tv_flutter/Screens/Terms%20&%20Conditions/TermsCondition.dart';
 import 'package:new_tazza_tv_flutter/Utils/AppColors.dart';
 
 class PermissionScreen extends StatefulWidget {
@@ -158,28 +160,38 @@ class _PermissionScreenState extends State<PermissionScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Row(
-                          children: const [
-                            Text(
-                              "Privacy Policy",
-                              style: TextStyle(
-                                  color: AppColors.blueColor,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
+                          children:  [
+                            InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const PrivacyPolicy()));
+                              },
+                              child: const Text(
+                                "Privacy Policy",
+                                style: TextStyle(
+                                    color: AppColors.blueColor,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                            Gap(3),
-                            Text(
+                            const Gap(3),
+                            const Text(
                               "and",
                               style: TextStyle(
                                   color: AppColors.smallTextColor,
                                   fontSize: 15),
                             ),
-                            Gap(3),
-                            Text(
-                              "Terms and Conditions",
-                              style: TextStyle(
-                                  color: AppColors.blueColor,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
+                            const Gap(3),
+                            InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const TermsCondition()));
+                              },
+                              child: const Text(
+                                "Terms and Conditions",
+                                style: TextStyle(
+                                    color: AppColors.blueColor,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ],
                         ),
@@ -193,7 +205,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                             child: ElevatedButton(onPressed: (){
                               Navigator.push(context, MaterialPageRoute(builder: (context) =>  const LoginPage()/*Dashboard(indexing: 0,)*/,));
                             },style: ElevatedButton.styleFrom(
-                                primary: Colors.grey[400],
+                                backgroundColor: Colors.grey[400],
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)
                                 )
