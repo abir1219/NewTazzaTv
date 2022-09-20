@@ -2,7 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:new_tazza_tv_flutter/Screens/Dashboard.dart';
+import 'package:new_tazza_tv_flutter/Screens/LoginPage.dart';
 import 'package:new_tazza_tv_flutter/Screens/OptionSelection.dart';
+import 'package:new_tazza_tv_flutter/Screens/PermissionScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -56,13 +60,21 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<void> redirect() async {
     // print("GOO");
-    // final prefs = await SharedPreferences.getInstance();
-    // print("USER_ID => no");
+    final prefs = await SharedPreferences.getInstance();
+    print('USER_ID => ${prefs.getInt("uid")}');
     Timer(const Duration(seconds: 3), () {
-      // prefs.getInt("uid") != null ? Navigator.push(context, MaterialPageRoute(builder: (context) =>  Dashboard(indexing: 0,))):
-      // Navigator.push(context, MaterialPageRoute(builder: (context) =>  const LoginPage()));
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const OptionSelection()));
+      prefs.getInt("uid") != null
+          ? Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const OptionSelection(),
+          ))
+          : Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const PermissionScreen()));
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (context) => const LoginPage()));
     });
   }
 
@@ -113,7 +125,7 @@ class _SplashScreenState extends State<SplashScreen>
                             //   ),
                             // ),
                             const Gap(250),
-                            Image.asset('assets/images/logo.png'),
+                            Image.asset('assets/images/logo.png', scale: 3),
                             const Gap(250),
                             const Text(
                               "Welcome",

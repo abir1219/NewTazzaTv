@@ -45,9 +45,9 @@ class _NewsDetailsState extends State<NewsDetails> {
   void initState() {
     super.initState();
     getUserId();
-    /*var provider = Provider.of<DataProvider>(context, listen: false);
+    var provider = Provider.of<DataProvider>(context, listen: false);
     checkIsLiked(provider);
-    checkIsSaved(provider);*/
+    checkIsSaved(provider);
 
     GetStorage().read("state") != null
         ? strState = GetStorage().read("state")
@@ -60,7 +60,8 @@ class _NewsDetailsState extends State<NewsDetails> {
 
   Future<void> checkIsLiked(DataProvider provider) async {
     if (await provider.checkLikedArticleByUser(
-            userId.toString(), widget.newsId.toString()) == 'Y') {
+        userId.toString(), widget.newsId.toString()) ==
+        'Y') {
       isLiked = true;
       likeLoopCount = 1;
       setState(() {});
@@ -73,7 +74,8 @@ class _NewsDetailsState extends State<NewsDetails> {
 
   Future<void> checkIsSaved(DataProvider provider) async {
     if (await provider.checkSavedArticleByUser(
-            userId.toString(), widget.newsId.toString()) == 'Y') {
+        userId.toString(), widget.newsId.toString()) ==
+        'Y') {
       isSaved = true;
       saveLoopCount = 1;
       setState(() {});
@@ -100,7 +102,7 @@ class _NewsDetailsState extends State<NewsDetails> {
       saveLoopCount = 0;
       print("_USERID => $userId");
       if (await provider.saveArticleByUser(
-              userId.toString(), widget.newsId.toString()) ==
+          userId.toString(), widget.newsId.toString()) ==
           'Y') {
         Fluttertoast.showToast(msg: provider.message);
       } else {
@@ -112,7 +114,7 @@ class _NewsDetailsState extends State<NewsDetails> {
       likeLoopCount = 0;
       print("_USERID => $userId");
       if (await provider.likeArticleByUser(
-              userId.toString(), widget.newsId.toString()) ==
+          userId.toString(), widget.newsId.toString()) ==
           'Y') {
         Fluttertoast.showToast(msg: provider.message);
       } else {
@@ -123,323 +125,323 @@ class _NewsDetailsState extends State<NewsDetails> {
     return SafeArea(
         child: Scaffold(
           key: _key,
-      endDrawer: const MyCustomDrawer(),
-      appBar: MyAppBar(strState: strState,key_state: _key),
-      body: Consumer<DataProvider>(
-        builder: (context, value, child) {
-          return !value.isLoading
-              ? SingleChildScrollView(
+          endDrawer: const MyCustomDrawer(),
+          appBar: MyAppBar(strState: strState, key_state: _key),
+          body: Consumer<DataProvider>(
+            builder: (context, value, child) {
+              return !value.isLoading
+                  ? SingleChildScrollView(
                   child: Column(
-                  children: [
-                    Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          height: size.height * .35,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12)),
-                          child: Card(
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            height: size.height * .35,
+                            decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12)),
-                            child: SizedBox(
-                              width: size.width,
-                              child: CachedNetworkImage(
-                                imageUrl: value
-                                    .newsDetailsModel!.list![0].bannerImage,
-                                placeholder: (context, url) =>
-                                    Image.asset("assets/images/loader.png"),
-                                errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                                fit: BoxFit.cover,
+                            child: Card(
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12)),
+                              child: SizedBox(
+                                width: size.width,
+                                child: CachedNetworkImage(
+                                  imageUrl: value
+                                      .newsDetailsModel!.list![0].bannerImage,
+                                  placeholder: (context, url) =>
+                                      Image.asset("assets/images/loader.png"),
+                                  errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 10),
-                          child: Text(
-                            value.newsDetailsModel!.list![0].title,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0, vertical: 10),
+                            child: Text(
+                              value.newsDetailsModel!.list![0].title,
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: Row(
-                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                value.newsDetailsModel!.list![0].createdOn,
-                                style: const TextStyle(
-                                    fontSize: 13,
-                                    color: AppColors.smallTextColor),
-                              ),
-                              const Spacer(),
-                              Row(
-                                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  IconButton(
-                                    icon: Image.asset(
-                                      "assets/images/facebook.png",
-                                      height: 25,
-                                    ),
-                                    onPressed: () {},
-                                  ),
-                                  IconButton(
-                                    icon: Image.asset(
-                                      "assets/images/whatsapp.png",
-                                      height: 25,
-                                    ),
-                                    onPressed: () {},
-                                  ),
-                                  IconButton(
-                                    icon: Image.asset(
-                                      "assets/images/twitter.png",
-                                      height: 25,
-                                    ),
-                                    onPressed: () {},
-                                  ),
-                                  IconButton(
-                                    icon: userId != null
-                                        ? Image.asset(
-                                            isSaved
-                                                ? "assets/images/after_save.png"
-                                                : "assets/images/before_save.png",
-                                            height: 25,
-                                          )
-                                        : Container(
-                                            width: 0,
-                                          ),
-                                    onPressed: () {
-                                      _saveArticle();
-                                    },
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: HtmlWidget(
-                            value.newsDetailsModel!.list![0].shortDesc,
-                            textStyle: const TextStyle(
-                                color: Colors.black, fontSize: 15),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 10),
-                          child: HtmlWidget(
-                            value.newsDetailsModel!.list![0].description,
-                            textStyle: const TextStyle(fontSize: 16),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Dashboard(
-                                      indexing: 0,
-                                    ),
-                                  ));
-                            },
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: const [
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
                                 Text(
-                                  "Tags:  ",
-                                  style: TextStyle(fontSize: 13),
+                                  value.newsDetailsModel!.list![0].createdOn,
+                                  style: const TextStyle(
+                                      fontSize: 13,
+                                      color: AppColors.smallTextColor),
                                 ),
-                                //Flexible(child: Text(value.newsDetailsModel!.list![0].tags,style: TextStyle(color: Colors.blue[800],fontSize: 13,decoration: TextDecoration.underline),maxLines: 3,overflow: TextOverflow.ellipsis,)),
+                                const Spacer(),
+                                Row(
+                                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    IconButton(
+                                      icon: Image.asset(
+                                        "assets/images/facebook.png",
+                                        height: 25,
+                                      ),
+                                      onPressed: () {},
+                                    ),
+                                    IconButton(
+                                      icon: Image.asset(
+                                        "assets/images/whatsapp.png",
+                                        height: 25,
+                                      ),
+                                      onPressed: () {},
+                                    ),
+                                    IconButton(
+                                      icon: Image.asset(
+                                        "assets/images/twitter.png",
+                                        height: 25,
+                                      ),
+                                      onPressed: () {},
+                                    ),
+                                    IconButton(
+                                      icon: userId != null
+                                          ? Image.asset(
+                                        isSaved
+                                            ? "assets/images/after_save.png"
+                                            : "assets/images/before_save.png",
+                                        height: 25,
+                                      )
+                                          : Container(
+                                        width: 0,
+                                      ),
+                                      onPressed: () {
+                                        _saveArticle();
+                                      },
+                                    )
+                                  ],
+                                )
                               ],
                             ),
                           ),
-                        ),
-                        userId != null
-                            ? Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12.0, vertical: 8),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        showCommentBox();
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: const Color(0xFF196df9),
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        child: const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 12.0, vertical: 8),
-                                          child: Text(
-                                            "Comment",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            child: HtmlWidget(
+                              value.newsDetailsModel!.list![0].shortDesc,
+                              textStyle: const TextStyle(
+                                  color: Colors.black, fontSize: 15),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0, vertical: 10),
+                            child: HtmlWidget(
+                              value.newsDetailsModel!.list![0].description,
+                              textStyle: const TextStyle(fontSize: 16),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Dashboard(
+                                        indexing: 0,
+                                      ),
+                                    ));
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: const [
+                                  Text(
+                                    "Tags:  ",
+                                    style: TextStyle(fontSize: 13),
+                                  ),
+                                  //Flexible(child: Text(value.newsDetailsModel!.list![0].tags,style: TextStyle(color: Colors.blue[800],fontSize: 13,decoration: TextDecoration.underline),maxLines: 3,overflow: TextOverflow.ellipsis,)),
+                                ],
+                              ),
+                            ),
+                          ),
+                          userId != null
+                              ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12.0, vertical: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    showCommentBox();
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFF196df9),
+                                        borderRadius:
+                                        BorderRadius.circular(8)),
+                                    child: const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 12.0, vertical: 8),
+                                      child: Text(
+                                        "Comment",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                    const Gap(10),
-                                    IconButton(
-                                      onPressed: () {
-                                        _likeArticle();
-                                      },
-                                      icon: Image.asset(
-                                        isLiked
-                                            ? "assets/images/after_like.png"
-                                            : "assets/images/before_like.png",
-                                        height: 25,
-                                      ),
-                                    )
-                                  ],
+                                  ),
                                 ),
-                              )
-                            : Container(),
-                        const Gap(20),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    "Other Relevant Stories",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                            ],
+                                const Gap(10),
+                                IconButton(
+                                  onPressed: () {
+                                    _likeArticle();
+                                  },
+                                  icon: Image.asset(
+                                    isLiked
+                                        ? "assets/images/after_like.png"
+                                        : "assets/images/before_like.png",
+                                    height: 25,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                              : Container(),
+                          const Gap(20),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "Other Relevant Stories",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              ],
+                            ),
                           ),
-                        ),
-                        const Gap(20),
-                        Consumer<DataProvider>(
-                          builder: (context, value, child) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 8.0),
-                              child: SizedBox(
-                                height: size.height * .345,
-                                width: double.infinity,
-                                child: ListView.builder(
+                          const Gap(20),
+                          Consumer<DataProvider>(
+                            builder: (context, value, child) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 8.0),
+                                child: SizedBox(
+                                  height: size.height * .345,
+                                  width: double.infinity,
+                                  child: ListView.builder(
                                     //physics: const NeverScrollableScrollPhysics(),
-                                    scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      return InkWell(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    NewsDetails(
-                                                  newsId: value
-                                                      .relatedNewsModel!
-                                                      .list![index]
-                                                      .id
-                                                      .toString(),
-                                                ),
-                                              ));
-                                        },
-                                        child: SizedBox(
-                                          width: size.width * .65,
-                                          child: Card(
-                                            elevation: 2,
-                                            shadowColor: Colors.grey,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(12)),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  height: size.height * .20,
-                                                  width: size.width,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12)),
-                                                  child: CachedNetworkImage(
-                                                    imageUrl: value
-                                                        .relatedNewsModel!
-                                                        .list![index]
-                                                        .image,
-                                                    errorWidget: (context, url,
-                                                            error) =>
-                                                        const Icon(Icons.error),
-                                                    fit: BoxFit.cover,
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      NewsDetails(
+                                                        newsId: value
+                                                            .relatedNewsModel!
+                                                            .list![index]
+                                                            .id
+                                                            .toString(),
+                                                      ),
+                                                ));
+                                          },
+                                          child: SizedBox(
+                                            width: size.width * .65,
+                                            child: Card(
+                                              elevation: 2,
+                                              shadowColor: Colors.grey,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(12)),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    height: size.height * .20,
+                                                    width: size.width,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                        BorderRadius.circular(
+                                                            12)),
+                                                    child: CachedNetworkImage(
+                                                      imageUrl: value
+                                                          .relatedNewsModel!
+                                                          .list![index]
+                                                          .image,
+                                                      errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.error),
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
-                                                ),
-                                                const Gap(10),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 4.0),
-                                                  child: Text(
-                                                    value.relatedNewsModel!
-                                                        .list![index].createdOn,
-                                                    maxLines: 5,
-                                                    style: const TextStyle(
-                                                        fontSize: 13,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: AppColors
-                                                            .smallTextColor),
+                                                  const Gap(10),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 4.0),
+                                                    child: Text(
+                                                      value.relatedNewsModel!
+                                                          .list![index].createdOn,
+                                                      maxLines: 5,
+                                                      style: const TextStyle(
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                          FontWeight.bold,
+                                                          color: AppColors
+                                                              .smallTextColor),
+                                                    ),
                                                   ),
-                                                ),
-                                                const Gap(10),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 4.0),
-                                                  child: Text(
-                                                    value.relatedNewsModel!
-                                                        .list![index].title,
-                                                    maxLines: 5,
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.black),
+                                                  const Gap(10),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 4.0),
+                                                    child: Text(
+                                                      value.relatedNewsModel!
+                                                          .list![index].title,
+                                                      maxLines: 5,
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                          FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
                                                   ),
-                                                ),
-                                                const Gap(10),
-                                              ],
+                                                  const Gap(10),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                    itemCount:
-                                        value.relatedNewsModel!.list!.length),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    )
-                  ],
-                ))
-              : const Center(
-                  child: CircularProgressIndicator(),
-                );
-        },
-      ),
-    ));
+                                        );
+                                      },
+                                      itemCount:
+                                      value.relatedNewsModel!.list!.length),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  ))
+                  : const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
+        ));
   }
 
   void showCommentBox() {
@@ -482,7 +484,7 @@ class _NewsDetailsState extends State<NewsDetails> {
                         borderRadius: BorderRadius.circular(8)),
                     child: const Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 15.0, vertical: 12),
+                      EdgeInsets.symmetric(horizontal: 15.0, vertical: 12),
                       child: Text(
                         "Submit",
                         style: TextStyle(

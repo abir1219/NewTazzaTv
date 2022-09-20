@@ -26,7 +26,6 @@ class _SavedNewsState extends State<SavedNews> {
   @override
   void initState() {
     super.initState();
-    getUserId();
     /*var provider = Provider.of<DataProvider>(context, listen: false);
     checkIsLiked(provider);
     checkIsSaved(provider);*/
@@ -34,7 +33,9 @@ class _SavedNewsState extends State<SavedNews> {
     GetStorage().read("state") != null
         ? strState = GetStorage().read("state")
         : "West Bengal";
-    setState(() {});
+
+    getUserId();
+    //setState(() {});
   }
 
   Future<void> getUserId() async {
@@ -54,6 +55,7 @@ class _SavedNewsState extends State<SavedNews> {
 
     return SafeArea(
         child: Scaffold(
+          key: _key,
           endDrawer: const MyCustomDrawer(),
           appBar: MyAppBar(strState: strState,key_state: _key),
           body: Consumer<DataProvider>(

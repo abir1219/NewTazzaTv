@@ -6,10 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:new_tazza_tv_flutter/Providers/DataProvider.dart';
-import 'package:new_tazza_tv_flutter/Screens/Dashboard.dart';
-import 'package:new_tazza_tv_flutter/Screens/OtpVerification.dart';
 import 'package:new_tazza_tv_flutter/Screens/OptionSelection.dart';
 import 'package:new_tazza_tv_flutter/Screens/Registration.dart';
 import 'package:new_tazza_tv_flutter/Utils/AppColors.dart';
@@ -43,10 +40,13 @@ class _LoginPageState extends State<LoginPage> {
           "Y") {
         print("LOGIN");
         Fluttertoast.showToast(msg: provider.message);
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => Dashboard(
-              indexing: 0,
-            )));
+        // Navigator.of(context).pushReplacement(
+        //     MaterialPageRoute(builder: (context) => OptionSelection()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const OptionSelection(),
+            ));
       } else {
         Fluttertoast.showToast(msg: provider.message);
       }
@@ -221,7 +221,8 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             const Gap(10),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceEvenly,
                               children: [
                                 Align(
                                   alignment: Alignment.center,
@@ -242,20 +243,26 @@ class _LoginPageState extends State<LoginPage> {
                                                 borderRadius:
                                                 BorderRadius.circular(
                                                     10))),
-                                        child:  Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Image.asset("assets/images/google.png",width: 22,height: 22,),
-                                              Text(
-                                                "Google",
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                            ],
-                                          )
-                                        ),
+                                        child: Padding(
+                                            padding: EdgeInsets.all(10.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .spaceEvenly,
+                                              children: [
+                                                Image.asset(
+                                                  "assets/images/google.png",
+                                                  width: 22,
+                                                  height: 22,
+                                                ),
+                                                Text(
+                                                  "Google",
+                                                  style: TextStyle(
+                                                      color:
+                                                      Colors.black),
+                                                ),
+                                              ],
+                                            )),
                                       ),
                                     ),
                                   ),
@@ -270,29 +277,37 @@ class _LoginPageState extends State<LoginPage> {
                                         onPressed: () {
                                           FirebaseAuthMethodes(
                                               FirebaseAuth.instance)
-                                              .signInWithFacebook(context);
+                                              .signInWithFacebook(
+                                              context);
                                           //Navigator.push(context, MaterialPageRoute(builder: (context) =>  const OtpVerification()/*const OptionSelection() / Dashboard(indexing: 0,)*/,));
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            backgroundColor:  Colors.white,
+                                            backgroundColor: Colors.white,
                                             shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    10),)),
-                                        child:  Padding(
-                                          padding: EdgeInsets.all(10.0),
-                                          child:Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Image.asset("assets/images/facebook.png",width: 22,height: 22,),
-                                              Text(
-                                                "Facebook",
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                            ],
-                                          )
-                                        ),
+                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  10),
+                                            )),
+                                        child: Padding(
+                                            padding: EdgeInsets.all(10.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .spaceEvenly,
+                                              children: [
+                                                Image.asset(
+                                                  "assets/images/facebook.png",
+                                                  width: 22,
+                                                  height: 22,
+                                                ),
+                                                Text(
+                                                  "Facebook",
+                                                  style: TextStyle(
+                                                      color:
+                                                      Colors.black),
+                                                ),
+                                              ],
+                                            )),
                                       ),
                                     ),
                                   ),
@@ -301,9 +316,6 @@ class _LoginPageState extends State<LoginPage> {
                             )
 
                             //const Gap(10),
-
-
-
 
                             /*InkWell(
                               onTap: () {

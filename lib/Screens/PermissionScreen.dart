@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:new_tazza_tv_flutter/Screens/LoginPage.dart';
+import 'package:new_tazza_tv_flutter/Screens/OptionSelection.dart';
 import 'package:new_tazza_tv_flutter/Screens/Privacy%20Policy/PrivacyPolicy.dart';
 import 'package:new_tazza_tv_flutter/Screens/Terms%20&%20Conditions/TermsCondition.dart';
 import 'package:new_tazza_tv_flutter/Utils/AppColors.dart';
@@ -15,7 +17,7 @@ class PermissionScreen extends StatefulWidget {
 }
 
 class _PermissionScreenState extends State<PermissionScreen> {
-  bool? isChecked = false;
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                       ),
                       Gap(5),
                       Text(
-                        "To approve and disburse your loan quickly,\nWe need the following permissions.",
+                        "To make your app experience even better,\nWe need the following permissions.",
                         style: TextStyle(
                             fontSize: 14, color: AppColors.smallTextColor),
                       ),
@@ -134,36 +136,64 @@ class _PermissionScreenState extends State<PermissionScreen> {
                       ),
                       Row(
                         children: [
-                          Checkbox(
-                            value: isChecked,
-                            onChanged: (value) {
-                              print("changed");
-                              isChecked = value;
-                              setState(() {});
-                              Timer(const Duration(milliseconds: 500), () {
-                                /*Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoginPage()));*/
-                              });
-                            },
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: isChecked,
+                                onChanged: (value) {
+                                  print("changed");
+                                  isChecked = value ?? false;
+                                  setState(() {});
+                                  Timer(const Duration(milliseconds: 500), () {
+                                    /*Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const LoginPage()));*/
+                                  });
+                                },
+                              ),
+                              const Text(
+                                "I hereby agree to the",
+                                style: TextStyle(
+                                    color: AppColors.smallTextColor,
+                                    fontSize: 15),
+                              )
+                            ],
                           ),
-                          //const Gap(5),
-                          const Text(
-                            "I hereby agree to the",
-                            style: TextStyle(
-                                color: AppColors.smallTextColor, fontSize: 15),
-                          )
+                          Spacer(),
+                          ElevatedButton(
+                            onPressed: () {
+                              print("Open Option Selection");
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                    const LoginPage(),
+                                  ));
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blueAccent,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10))),
+                            child: const Text(
+                              "Skip Now",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
                         ],
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Row(
-                          children:  [
+                          children: [
                             InkWell(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const PrivacyPolicy()));
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                        const PrivacyPolicy()));
                               },
                               child: const Text(
                                 "Privacy Policy",
@@ -182,8 +212,12 @@ class _PermissionScreenState extends State<PermissionScreen> {
                             ),
                             const Gap(3),
                             InkWell(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const TermsCondition()));
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                        const TermsCondition()));
                               },
                               child: const Text(
                                 "Terms and Conditions",
@@ -197,23 +231,37 @@ class _PermissionScreenState extends State<PermissionScreen> {
                         ),
                       ),
                       Align(
-                        alignment:Alignment.center,
+                        alignment: Alignment.center,
                         child: SizedBox(
                           width: Size.width * .8,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: ElevatedButton(onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) =>  const LoginPage()/*Dashboard(indexing: 0,)*/,));
-                            },style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.grey[400],
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)
-                                )
-                            ),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                isChecked
+                                    ? Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                      const LoginPage() /*Dashboard(indexing: 0,)*/,
+                                    ))
+                                    : Fluttertoast.showToast(
+                                    msg: "Please select Agree");
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: isChecked
+                                      ? const Color(0xFF196df9)
+                                      : Colors.grey[400],
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
                               child: const Padding(
                                 padding: EdgeInsets.all(10.0),
-                                child: Text("Next",style: TextStyle(color: Colors.white),),
-                              ),),
+                                child: Text(
+                                  "Next",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),

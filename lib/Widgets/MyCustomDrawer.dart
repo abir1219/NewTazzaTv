@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get_storage/get_storage.dart';
@@ -7,9 +6,9 @@ import 'package:new_tazza_tv_flutter/Screens/CitizenJournalist/CitizenJournalist
 import 'package:new_tazza_tv_flutter/Screens/Contact%20Us/ContactUs.dart';
 import 'package:new_tazza_tv_flutter/Screens/Dashboard.dart';
 import 'package:new_tazza_tv_flutter/Screens/LikedNews/LikedNews.dart';
-import 'package:new_tazza_tv_flutter/Screens/LoginPage.dart';
 import 'package:new_tazza_tv_flutter/Screens/OptionSelection.dart';
 import 'package:new_tazza_tv_flutter/Screens/SavedNews/SavedNews.dart';
+import 'package:new_tazza_tv_flutter/Screens/Terms%20&%20Conditions/TermsCondition.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,7 +23,7 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
   var name = "";
   var language = "Hindi";
 
-  Future<void> getName() async{
+  Future<void> getName() async {
     final prefs = await SharedPreferences.getInstance();
     name = prefs.getString("uname")!;
     setState(() {});
@@ -118,6 +117,9 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
               } else if (language == "English") {
                 GetStorage().write("lang", "en");
               }
+              setState(() {
+
+              });
               Navigator.pop(context);
               Navigator.push(
                   context,
@@ -166,11 +168,8 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
               // ...
               // Then close the drawer
               //Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                  builder: (context) =>
-                  const SavedNews()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const SavedNews()));
             },
           ),
           ListTile(
@@ -191,11 +190,8 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
               // ...
               // Then close the drawer
               //Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                      const LikedNews()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const LikedNews()));
             },
           ),
           ListTile(
@@ -212,11 +208,8 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
                 color: Colors.black),
             //const Icon(Icons.change,color: Colors.black,size: 24,),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                      const ContactUs()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ContactUs()));
             },
           ),
           ListTile(
@@ -236,7 +229,10 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
               // Update the state of the app
               // ...
               // Then close the drawer
-              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const TermsCondition()));
             },
           ),
           ListTile(
@@ -256,8 +252,7 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                      const CitizenJournalist()));
+                      builder: (context) => const CitizenJournalist()));
             },
           ),
           ListTile(
@@ -367,12 +362,10 @@ class _MyCustomDrawerState extends State<MyCustomDrawer> {
     );
   }
 
-  void logout() async{
+  void logout() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const OptionSelection()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const OptionSelection()));
   }
 }

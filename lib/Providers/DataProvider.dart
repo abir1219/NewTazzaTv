@@ -442,6 +442,7 @@ class DataProvider extends ChangeNotifier {
   }
 
   showAllSavedNewsList(var userId) async {
+    print("USER_ID_RES=>$userId");
     isLoading = true;
     notifyListeners();
     savedNewsModel = await showAllSavedNews(userId);

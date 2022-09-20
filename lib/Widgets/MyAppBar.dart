@@ -54,7 +54,7 @@ class _MyAppBarState extends State<MyAppBar> {
       ),
       title: Center(
           child: Text(
-            widget.strState,
+            widget.strState??"",
             style: const TextStyle(color: Colors.white, fontSize: 16),
             textAlign: TextAlign.center,
           )),

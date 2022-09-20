@@ -22,8 +22,36 @@ class _OptionSelectionState extends State<OptionSelection> {
   final languageList = ['Hindi', 'English'];
   String? value;
   String? langValue;
-  String strState = "Select State";
-  String strLang = "Select Language";
+  late String strState = "West Bengal";
+  late String strLang = "English";
+
+
+  @override
+  void initState() {
+    super.initState();
+    GetStorage().write("state", "West Bengal");
+    GetStorage().write("lang", "en");
+  }
+
+  void ognClickNext() async {
+    final prefs = await SharedPreferences.getInstance();
+    print("State => ${GetStorage().read("state")}");
+    print("Language => ${GetStorage().read("lang")}");
+
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => Dashboard(
+    //       indexing: 0,
+    //     ),
+    //   ),
+    // );
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => Dashboard(
+        indexing: 0,
+      ),
+    ));
+  }
 
   void onClickNext() async {
     print("GOO");
@@ -31,19 +59,19 @@ class _OptionSelectionState extends State<OptionSelection> {
     print("State => ${GetStorage().read("state")}");
     print("Language => ${GetStorage().read("lang")}");
 
-    if(GetStorage().read("state")!=null && GetStorage().read("lang")!=null){
-      prefs.getInt("uid") != null
-          ? Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Dashboard(
-                indexing: 0,
-              )))
-          : Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const PermissionScreen()));
-    }else{
-      Fluttertoast.showToast(msg: "Please select both State and Language first");
+    if (GetStorage().read("state") == null) {
+      GetStorage().write("state", "west bengal");
     }
+
+    if (GetStorage().read("lang") == null) {
+      GetStorage().write("lang", "en");
+    }
+
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => Dashboard(
+        indexing: 0,
+      ),
+    ));
   }
 
   @override
@@ -100,10 +128,10 @@ class _OptionSelectionState extends State<OptionSelection> {
                   ),
                 ),
               ),
-              const Padding(
+               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12),
                 child: Text(
-                  "Select Language",
+                  GetStorage().read("state") ?? "Select State",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -132,8 +160,11 @@ class _OptionSelectionState extends State<OptionSelection> {
                                     onTap: () {
                                       strLang = languageList[index];
                                       print("strLang=>$strLang");
-                                      strLang=="Hindi"?GetStorage().write("lang","hin"):
-                                      strLang=="English"?GetStorage().write("lang","en"):"en";
+                                      strLang == "Hindi"
+                                          ? GetStorage().write("lang", "hin")
+                                          : strLang == "English"
+                                          ? GetStorage().write("lang", "en")
+                                          : "en";
                                       Navigator.pop(context);
                                       setState(() {});
                                     },
@@ -170,7 +201,7 @@ class _OptionSelectionState extends State<OptionSelection> {
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: Colors.black, width: 1)),
                     child: Text(
-                      strLang,
+                      GetStorage().read("lang") == "en" ? "English" :GetStorage().read("lang") == "hin"? "Hindi" : "Select Language",
                       style: const TextStyle(fontSize: 15, color: Colors.black),
                     ),
                   ),
@@ -188,7 +219,7 @@ class _OptionSelectionState extends State<OptionSelection> {
                         onClickNext();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:const Color(0xFF196df9),
+                          backgroundColor: const Color(0xFF196df9),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                       child: const Padding(
@@ -215,7 +246,6 @@ class _OptionSelectionState extends State<OptionSelection> {
     ),
   );
 
-
   void openStateBottomSheetDialog(DataProvider provider) {
     provider.showStateListForOptionPage();
     showModalBottomSheet(
@@ -224,8 +254,8 @@ class _OptionSelectionState extends State<OptionSelection> {
         builder: (BuildContext context) {
           return Consumer<DataProvider>(
             builder: (context, value, child) {
-              return !value.isLoading ?
-                ListView.builder(
+              return !value.isLoading
+                  ? ListView.builder(
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   print("LOGO->${value.stateModel!.list![index].logo}");
@@ -237,7 +267,8 @@ class _OptionSelectionState extends State<OptionSelection> {
                       setState(() {
                         GetStorage().write(
                             "state", value.stateModel!.list![index].name);
-                        print("SELECT_STATE => ${GetStorage().read("state")}");
+                        print(
+                            "SELECT_STATE => ${GetStorage().read("state")}");
                       });
                       Navigator.pop(context);
                     },
@@ -284,7 +315,10 @@ class _OptionSelectionState extends State<OptionSelection> {
                   );
                 },
                 itemCount: value.stateModel!.list!.length,
-              ) : const Center(child: CircularProgressIndicator(),);
+              )
+                  : const Center(
+                child: CircularProgressIndicator(),
+              );
             },
           );
         });

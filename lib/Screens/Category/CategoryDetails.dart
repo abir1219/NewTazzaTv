@@ -14,7 +14,8 @@ class CategoryDetails extends StatefulWidget {
   final type;
   final index;
 
-  const CategoryDetails({Key? key, required this.type,required  this.index}) : super(key: key);
+  const CategoryDetails({Key? key, required this.type, required this.index})
+      : super(key: key);
 
   @override
   State<CategoryDetails> createState() => _CategoryDetailsState();
@@ -44,113 +45,136 @@ class _CategoryDetailsState extends State<CategoryDetails> {
 
     return SafeArea(
         child: Scaffold(
-      endDrawer: const MyCustomDrawer(),
-      appBar: MyAppBar(strState: strState,key_state: _key),
-      body: Consumer<DataProvider>(
-        builder: (context, value, child) {
-          return !value.isLoading ? RefreshIndicator(
-            color: const Color(0xFF196df9),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const Gap(15),
-                    Text(widget.type,style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18),),
-                    const Gap(15),
-                    ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        NewsDetails(
-                                          newsId: value.viewAllModel!.list![index].id.toString(),
-                                        ),
-                                  ));
-                            },
-                            child: SizedBox(
-                              width: size.width * .85,
-                              child: Card(
-                                elevation: 2,
-                                shadowColor: Colors.grey,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadius.circular(
-                                        12)),
-                                child: Column(
-                                  mainAxisSize:
-                                  MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      height:
-                                      size.height * .20,
-                                      width: size.width,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius
-                                              .circular(
-                                              12)),
-                                      child: CachedNetworkImage(
-                                        imageUrl: value.viewAllModel!.list![index].image,
-                                        errorWidget: (context, url, error) => const Icon(Icons.error),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    const Gap(10),
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets
-                                          .symmetric(
-                                          horizontal:
-                                          4.0),
-                                      child: Text(
-                                        value.viewAllModel!.list![index].createdOn,
-                                        maxLines: 5,
-                                        style: const TextStyle(
-                                            fontSize: 13,
-                                            fontWeight:
-                                            FontWeight.bold,
-                                            color: AppColors.smallTextColor),
-                                      ),
-                                    ),
-                                    const Gap(10),
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(horizontal: 4.0),
-                                      child: Text(
-                                        value.viewAllModel!.list![index].title,
-                                        maxLines: 5,
-                                        style:
-                                        const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight:
-                                            FontWeight.bold,
-                                            color: Colors.black),
-                                      ),
-                                    ),
-                                    const Gap(10),
-                                  ],
-                                ),
-                              ),
+          key: _key,
+          endDrawer: const MyCustomDrawer(),
+          appBar: MyAppBar(strState: strState, key_state: _key),
+          body: Consumer<DataProvider>(
+            builder: (context, value, child) {
+              return !value.isLoading
+                  ? RefreshIndicator(
+                  color: const Color(0xFF196df9),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        // const Gap(15),
+                        Row(
+                          children: [
+                            IconButton(
+                              iconSize: 27,
+                              padding: EdgeInsets.all(0),
+                              icon: const Icon(Icons.arrow_back,
+                                  color: Colors.black),
+                              onPressed: () {
+                                Navigator.pop(context);
+                                // widget.key_state.currentState!.openEndDrawer();
+                              },
                             ),
-                          );
-                        },
-                        itemCount: value.viewAllModel!.list!.length),
-                  ],
-                ),
-              ),
-              onRefresh: (){
-            return Future.delayed(const Duration(seconds: 1),(){setState(() {
-            });});
-          }) : const Center(child: CircularProgressIndicator(),);
-        },
-      ),
+                            Text(
+                              widget.type,
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
+                          ],
+                        ),
+                        // const Gap(15),
+                        ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => NewsDetails(
+                                          newsId: value
+                                              .viewAllModel!.list![index].id
+                                              .toString(),
+                                        ),
+                                      ));
+                                },
+                                child: SizedBox(
+                                  width: size.width * .85,
+                                  child: Card(
+                                    elevation: 2,
+                                    shadowColor: Colors.grey,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(12)),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height: size.height * .20,
+                                          width: size.width,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(12)),
+                                          child: CachedNetworkImage(
+                                            imageUrl: value.viewAllModel!
+                                                .list![index].image,
+                                            errorWidget:
+                                                (context, url, error) =>
+                                            const Icon(Icons.error),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        const Gap(10),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 4.0),
+                                          child: Text(
+                                            value.viewAllModel!.list![index]
+                                                .createdOn,
+                                            maxLines: 5,
+                                            style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold,
+                                                color:
+                                                AppColors.smallTextColor),
+                                          ),
+                                        ),
+                                        const Gap(10),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 4.0),
+                                          child: Text(
+                                            value.viewAllModel!.list![index]
+                                                .title,
+                                            maxLines: 5,
+                                            style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                        ),
+                                        const Gap(10),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            itemCount: value.viewAllModel!.list!.length),
+                      ],
+                    ),
+                  ),
+                  onRefresh: () {
+                    return Future.delayed(const Duration(seconds: 1), () {
+                      setState(() {});
+                    });
+                  })
+                  : const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
           //bottomNavigationBar: Dashboard(),
-    ));
+        ));
   }
 }

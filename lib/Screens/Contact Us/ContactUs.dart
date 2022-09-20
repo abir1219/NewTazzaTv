@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:new_tazza_tv_flutter/Providers/DataProvider.dart';
 import 'package:new_tazza_tv_flutter/ServiceController/ServiceController.dart';
+import 'package:new_tazza_tv_flutter/Widgets/MyAppBar.dart';
 import 'package:provider/provider.dart';
 
 class ContactUs extends StatefulWidget {
@@ -19,6 +20,8 @@ class _ContactUsState extends State<ContactUs> {
   final _detailsController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -27,6 +30,21 @@ class _ContactUsState extends State<ContactUs> {
 
     return SafeArea(
         child: Scaffold(
+          appBar: AppBar(
+            title: const Text("CONTACT US"),
+            flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: <Color>[
+                    Color.fromARGB(255, 255, 255, 255),
+                    Color.fromARGB(255, 73, 32, 188)
+                  ],
+                ),
+              ),
+            ),
+          ),
           body: SingleChildScrollView(
             child: Form(
               key: _formKey,
@@ -37,14 +55,14 @@ class _ContactUsState extends State<ContactUs> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     // crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Gap(50),
-                      const Text(
-                        "CONTACT US",
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Color.fromARGB(255, 34, 34, 34),
-                            fontWeight: FontWeight.w900),
-                      ),
+                      // const Gap(50),
+                      // const Text(
+                      //   "CONTACT US",
+                      //   style: TextStyle(
+                      //       fontSize: 20,
+                      //       color: Color.fromARGB(255, 34, 34, 34),
+                      //       fontWeight: FontWeight.w900),
+                      // ),
                       const Gap(25),
                       Padding(
                         padding: EdgeInsets.only(left: 12.0, right: 12.0),

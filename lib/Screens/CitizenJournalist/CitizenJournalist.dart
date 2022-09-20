@@ -138,7 +138,7 @@ class _CitizenJournalistState extends State<CitizenJournalist> {
                         children: const [
                           Gap(10),
                           Text(
-                            "Welcome to Taaza TV's Citizen Journalist section. Here, we enc \nourage collection, dissemination, and analysis of news and info\nrmation by the general public. We fact-check the authenticity of the news sent by you and help raise your voice to the authorities.",
+                            "Welcome to Taaza TV's Citizen Journalist section. Here, we enc \nourage collection, dissemination, and analysis of news and info\nrmation by the general public. We fact-check the authenticity of \nthe news sent by you and help raise your voice to the authorities.",
                             style: TextStyle(
                                 color: AppColors.smallTextColor, fontSize: 12),
                           ),

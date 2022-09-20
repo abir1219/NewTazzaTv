@@ -26,15 +26,14 @@ class _LikedNewsState extends State<LikedNews> {
   @override
   void initState() {
     super.initState();
+    GetStorage().read("state") != null
+        ? strState = GetStorage().read("state")
+        : "West Bengal";
     getUserId();
     /*var provider = Provider.of<DataProvider>(context, listen: false);
     checkIsLiked(provider);
     checkIsSaved(provider);*/
-
-    GetStorage().read("state") != null
-        ? strState = GetStorage().read("state")
-        : "West Bengal";
-    setState(() {});
+    //setState(() {});
   }
 
   Future<void> getUserId() async {
@@ -45,7 +44,6 @@ class _LikedNewsState extends State<LikedNews> {
 
   @override
   Widget build(BuildContext context) {
-
     var provider = Provider.of<DataProvider>(context, listen: false);
     provider.showAllLikedNewsList(userId.toString());
 
@@ -54,6 +52,7 @@ class _LikedNewsState extends State<LikedNews> {
 
     return SafeArea(
         child: Scaffold(
+          key: _key,
           endDrawer: const MyCustomDrawer(),
           appBar: MyAppBar(strState: strState,key_state: _key),
           body: Consumer<DataProvider>(

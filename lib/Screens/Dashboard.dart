@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:new_tazza_tv_flutter/Screens/Category/Category.dart';
+import 'package:new_tazza_tv_flutter/Screens/CitizenJournalist/CitizenJournalist.dart';
 import 'package:new_tazza_tv_flutter/Screens/Home/Home.dart';
+import 'package:new_tazza_tv_flutter/Screens/LiveVideo/LiveVideo.dart';
 import 'package:new_tazza_tv_flutter/Screens/VideoPlayer/VideoPlayer.dart';
 
 class Dashboard extends StatefulWidget {
@@ -23,13 +25,15 @@ class _DashboardState extends State<Dashboard> {
   static final List<Widget> _widgetOptions = [
     const Home(),
     const Category(),
-    const Center(
+    const LiveVideo(),
+    /*Center(
       child: Text("Live Streaming"),
-    ),
+    ),*/
     const VideoPlayer(),
-    const Center(
+    const CitizenJournalist()
+    /*Center(
       child: Text("Reporter Journal"),
-    ),
+    ),*/
     /*const Meetup(),
     const ActionPage(),
     const MessagePage(),

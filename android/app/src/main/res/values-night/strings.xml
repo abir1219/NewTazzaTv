@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Tazza TV</string>
-    <string name="facebook_app_id">657303878883642</string>
-    <string name="fb_login_protocol_scheme">fb657303878883642</string>
-    <string name="facebook_client_token">d7cebc4270209a72e69aaf1d6b67cd98</string>
-</resources>
