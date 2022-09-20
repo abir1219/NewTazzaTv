@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "337731428754",
+    "project_id": "e-client",
+    "storage_bucket": "e-client.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:337731428754:android:3ca622a16a05e28c46a14b",
+        "android_client_info": {
+          "package_name": "com.example.new_tazza_tv_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "337731428754-eusaosvv3i9sts0gsoptg5nka1a14d1v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.new_tazza_tv_flutter",
+            "certificate_hash": "d48a2a87515a93db9d8cbbba6ff976b9cb0f95e5"
+          }
+        },
+        {
+          "client_id": "337731428754-rr3bnuhd4rrg41dm3usq6kef2a5eifhv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9ATa6yyCICYG4mBEsllBIRGHxpAvUoac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "337731428754-rr3bnuhd4rrg41dm3usq6kef2a5eifhv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

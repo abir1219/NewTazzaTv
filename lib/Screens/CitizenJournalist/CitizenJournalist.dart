@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:new_tazza_tv_flutter/Providers/DataProvider.dart';
 import 'package:new_tazza_tv_flutter/ServiceController/ServiceController.dart';
+import 'package:new_tazza_tv_flutter/Utils/AppColors.dart';
 import 'package:provider/provider.dart';
 
 class CitizenJournalist extends StatefulWidget {
@@ -110,509 +111,561 @@ class _CitizenJournalistState extends State<CitizenJournalist> {
 
     return SafeArea(
         child: Scaffold(
+          appBar: AppBar(
+            title: const Text("ADD YOUR ARTICLE"),
+            flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: <Color>[
+                    Color.fromARGB(255, 255, 255, 255),
+                    Color.fromARGB(255, 73, 32, 188)
+                  ],
+                ),
+              ),
+            ),
+          ),
           body: SingleChildScrollView(
             child: Form(
               key: _formKey,
               child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Gap(50),
-                      const Text(
-                        "ADD YOUR ARTICLE",
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Color.fromARGB(255, 22, 57, 118),
-                            fontWeight: FontWeight.w900),
-                      ),
-                      const Gap(15),
-                      TextFormField(
-                        controller: _titleController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                            hintText: "Title", focusColor: Colors.grey),
-                        keyboardType: TextInputType.emailAddress,
-                        onChanged: (value) {
-                          setState(() {});
-                        },
-                      ),
-                      const Gap(15),
-                      TextFormField(
-                        controller: _shortNoteController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                            hintText: "Short Note", focusColor: Colors.grey),
-                        keyboardType: TextInputType.emailAddress,
-                        onChanged: (value) {
-                          setState(() {});
-                        },
-                      ),
-                      const Gap(15),
-                      TextFormField(
-                        controller: _descriptionController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                            hintText: "Description", focusColor: Colors.grey),
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 3,
-                        onChanged: (value) {
-                          setState(() {});
-                        },
-                      ),
-                      const Gap(15),
-                      Row(
-                        children: [
-                          Text("Category"),
-                          Spacer(),
-                          Align(
-                            alignment: Alignment.center,
-                            child: InkWell(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return Dialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10)),
-                                      elevation: 16,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 14.0, vertical: 10),
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          itemBuilder: (context, index) {
-                                            return InkWell(
-                                              onTap: () {
-                                                _articleCategory =
-                                                articleCategoryList[index];
-                                                Navigator.pop(context);
-                                                setState(() {});
-                                              },
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.all(8.0),
-                                                    child: Text(
-                                                        articleCategoryList[index],
-                                                        style: const TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                            FontWeight.bold,
-                                                            color: Colors.black)),
-                                                  ),
-                                                  const Gap(5),
-                                                  const Divider(
-                                                    height: 1,
-                                                    color: Colors.black,
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                          itemCount: articleCategoryList.length,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                // alignment: Alignment.centerRight,transformAlignment: ,
-                                width: selectBoxWidth,
-                                // margin: const EdgeInsets.all(16),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    border:
-                                    Border.all(color: Colors.black, width: 1)),
-                                child: Text(
-                                  _articleCategory,
-                                  style: const TextStyle(
-                                      fontSize: 15, color: Colors.black),
-                                ),
-                              ),
-                            ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 19),
+                      child: Column(
+                        children: const [
+                          Gap(10),
+                          Text(
+                            "Welcome to Taaza TV's Citizen Journalist section. Here, we enc \nourage collection, dissemination, and analysis of news and info\nrmation by the general public. We fact-check the authenticity of the news sent by you and help raise your voice to the authorities.",
+                            style: TextStyle(
+                                color: AppColors.smallTextColor, fontSize: 12),
                           ),
                         ],
                       ),
-                      const Gap(15),
-                      Row(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("SubCategory"),
-                          Spacer(),
-                          Align(
-                            alignment: Alignment.center,
-                            child: InkWell(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return Dialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10)),
-                                      elevation: 16,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 14.0, vertical: 10),
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          itemBuilder: (context, index) {
-                                            return InkWell(
-                                              onTap: () {
-                                                _articleSubCategory =
-                                                articleSubCategoryList[index];
-                                                Navigator.pop(context);
-                                                setState(() {});
-                                              },
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.all(8.0),
-                                                    child: Text(
-                                                        articleSubCategoryList[
-                                                        index],
-                                                        style: const TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                            FontWeight.bold,
-                                                            color: Colors.black)),
-                                                  ),
-                                                  const Gap(5),
-                                                  const Divider(
-                                                    height: 1,
-                                                    color: Colors.black,
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                          itemCount: articleSubCategoryList.length,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                width: selectBoxWidth,
-                                // margin: const EdgeInsets.all(16),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    border:
-                                    Border.all(color: Colors.black, width: 1)),
-                                child: Text(
-                                  _articleSubCategory,
-                                  style: const TextStyle(
-                                      fontSize: 15, color: Colors.black),
-                                ),
-                              ),
-                            ),
+                          // const Gap(10),
+                          // const Text(
+                          //   "ADD YOUR ARTICLE",
+                          //   style: TextStyle(
+                          //       fontSize: 20,
+                          //       color: Color.fromARGB(255, 22, 57, 118),
+                          //       fontWeight: FontWeight.w900),
+                          // ),
+                          const Gap(5),
+                          TextFormField(
+                            controller: _titleController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                                hintText: "Title", focusColor: Colors.grey),
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) {
+                              setState(() {});
+                            },
                           ),
-                        ],
-                      ),
-                      const Gap(15),
-                      Row(
-                        children: [
-                          Text("State"),
-                          Spacer(),
-                          Align(
-                            alignment: Alignment.center,
-                            child: InkWell(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return Dialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10)),
-                                      elevation: 16,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 14.0, vertical: 10),
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          itemBuilder: (context, index) {
-                                            return InkWell(
-                                              onTap: () {
-                                                _selectState =
-                                                selectStateList[index];
-                                                Navigator.pop(context);
-                                                setState(() {});
-                                              },
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.all(8.0),
-                                                    child: Text(
-                                                        selectStateList[index],
-                                                        style: const TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                            FontWeight.bold,
-                                                            color: Colors.black)),
-                                                  ),
-                                                  const Gap(5),
-                                                  const Divider(
-                                                    height: 1,
-                                                    color: Colors.black,
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                          itemCount: selectStateList.length,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                width: selectBoxWidth,
-                                // margin: const EdgeInsets.all(16),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    border:
-                                    Border.all(color: Colors.black, width: 1)),
-                                child: Text(
-                                  _selectState,
-                                  style: const TextStyle(
-                                      fontSize: 15, color: Colors.black),
-                                ),
-                              ),
-                            ),
+                          const Gap(15),
+                          TextFormField(
+                            controller: _shortNoteController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                                hintText: "Short Note", focusColor: Colors.grey),
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) {
+                              setState(() {});
+                            },
                           ),
-                        ],
-                      ),
-                      const Gap(15),
-                      Row(
-                        children: [
-                          Text("Language"),
-                          Spacer(),
-                          Align(
-                            alignment: Alignment.center,
-                            child: InkWell(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return Dialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10)),
-                                      elevation: 16,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 14.0, vertical: 10),
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          itemBuilder: (context, index) {
-                                            return InkWell(
-                                              onTap: () {
-                                                _selectLanguage =
-                                                selectLanguageList[index];
-                                                Navigator.pop(context);
-                                                setState(() {});
-                                              },
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.all(8.0),
-                                                    child: Text(
-                                                        selectLanguageList[index],
-                                                        style: const TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                            FontWeight.bold,
-                                                            color: Colors.black)),
-                                                  ),
-                                                  const Gap(5),
-                                                  const Divider(
-                                                    height: 1,
-                                                    color: Colors.black,
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                          itemCount: selectLanguageList.length,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              child: Container(
-                                width: selectBoxWidth,
-                                // margin: const EdgeInsets.all(16),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    border:
-                                    Border.all(color: Colors.black, width: 1)),
-                                child: Text(
-                                  _selectLanguage,
-                                  style: const TextStyle(
-                                      fontSize: 15, color: Colors.black),
-                                ),
-                              ),
-                            ),
+                          const Gap(15),
+                          TextFormField(
+                            controller: _descriptionController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                                hintText: "Description", focusColor: Colors.grey),
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 3,
+                            onChanged: (value) {
+                              setState(() {});
+                            },
                           ),
-                        ],
-                      ),
-                      const Gap(15),
-                      Row(
-                        children: [
-                          Text("Image"),
-                          Spacer(),
-                          InkWell(
-                            onTap: () async {
-                              return showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return Dialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10)),
-                                      elevation: 16,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 30.0, vertical: 20),
-                                        child: Row(children: [
-                                          InkWell(
-                                            onTap: () {
-                                              _cameraPick();
-                                              Navigator.pop(context);
-                                            },
-                                            child: Image.asset(
-                                              'assets/images/dslr-camera.png',
-                                              height: 100,
+                          const Gap(15),
+                          Row(
+                            children: [
+                              Text("Category"),
+                              Spacer(),
+                              Align(
+                                alignment: Alignment.center,
+                                child: InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10)),
+                                          elevation: 16,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 14.0, vertical: 10),
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              itemBuilder: (context, index) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    _articleCategory =
+                                                    articleCategoryList[index];
+                                                    Navigator.pop(context);
+                                                    setState(() {});
+                                                  },
+                                                  child: Column(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                        child: Text(
+                                                            articleCategoryList[
+                                                            index],
+                                                            style: const TextStyle(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                FontWeight.bold,
+                                                                color:
+                                                                Colors.black)),
+                                                      ),
+                                                      const Gap(5),
+                                                      const Divider(
+                                                        height: 1,
+                                                        color: Colors.black,
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              itemCount: articleCategoryList.length,
                                             ),
                                           ),
-                                          const Spacer(),
-                                          InkWell(
-                                            onTap: () {
-                                              _imagePick();
-                                              Navigator.pop(context);
-                                            },
-                                            child: Image.asset(
-                                              'assets/images/image-gallery.png',
-                                              height: 100,
-                                            ),
-                                          )
-                                        ]),
-                                      ),
+                                        );
+                                      },
                                     );
-                                  });
-
-                              // ! Image Picker
-                              // _pickFile();
-                              // print("object");
-                              // var picked = await FilePicker.platform.pickFiles();
-
-                              // if (picked != null) {
-                              //   print(picked.files.first.name);
-                              // }
-                            },
-                            child: Container(
-                              width: 130,
-                              height: 130,
-                              child: _isImageSelected
-                                  ? Image.file(imageFileOBJ)
-                                  : Image.asset('assets/images/gallery.png'),
-                            ),
+                                  },
+                                  child: Container(
+                                    // alignment: Alignment.centerRight,transformAlignment: ,
+                                    width: selectBoxWidth,
+                                    // margin: const EdgeInsets.all(16),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                            color: Colors.black, width: 1)),
+                                    child: Text(
+                                      _articleCategory,
+                                      style: const TextStyle(
+                                          fontSize: 15, color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      // const Gap(5),
-                      Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          width: size.width * .8,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                if (!_isAllFill()) {
-                                  Fluttertoast.showToast(msg: "It's incomplete");
-                                  return;
-                                }
+                          const Gap(15),
+                          Row(
+                            children: [
+                              Text("SubCategory"),
+                              Spacer(),
+                              Align(
+                                alignment: Alignment.center,
+                                child: InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10)),
+                                          elevation: 16,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 14.0, vertical: 10),
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              itemBuilder: (context, index) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    _articleSubCategory =
+                                                    articleSubCategoryList[
+                                                    index];
+                                                    Navigator.pop(context);
+                                                    setState(() {});
+                                                  },
+                                                  child: Column(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                        child: Text(
+                                                            articleSubCategoryList[
+                                                            index],
+                                                            style: const TextStyle(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                FontWeight.bold,
+                                                                color:
+                                                                Colors.black)),
+                                                      ),
+                                                      const Gap(5),
+                                                      const Divider(
+                                                        height: 1,
+                                                        color: Colors.black,
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              itemCount:
+                                              articleSubCategoryList.length,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Container(
+                                    width: selectBoxWidth,
+                                    // margin: const EdgeInsets.all(16),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                            color: Colors.black, width: 1)),
+                                    child: Text(
+                                      _articleSubCategory,
+                                      style: const TextStyle(
+                                          fontSize: 15, color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Gap(15),
+                          Row(
+                            children: [
+                              Text("State"),
+                              Spacer(),
+                              Align(
+                                alignment: Alignment.center,
+                                child: InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10)),
+                                          elevation: 16,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 14.0, vertical: 10),
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              itemBuilder: (context, index) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    _selectState =
+                                                    selectStateList[index];
+                                                    Navigator.pop(context);
+                                                    setState(() {});
+                                                  },
+                                                  child: Column(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                        child: Text(
+                                                            selectStateList[index],
+                                                            style: const TextStyle(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                FontWeight.bold,
+                                                                color:
+                                                                Colors.black)),
+                                                      ),
+                                                      const Gap(5),
+                                                      const Divider(
+                                                        height: 1,
+                                                        color: Colors.black,
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              itemCount: selectStateList.length,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Container(
+                                    width: selectBoxWidth,
+                                    // margin: const EdgeInsets.all(16),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                            color: Colors.black, width: 1)),
+                                    child: Text(
+                                      _selectState,
+                                      style: const TextStyle(
+                                          fontSize: 15, color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Gap(15),
+                          Row(
+                            children: [
+                              Text("Language"),
+                              Spacer(),
+                              Align(
+                                alignment: Alignment.center,
+                                child: InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10)),
+                                          elevation: 16,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 14.0, vertical: 10),
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              itemBuilder: (context, index) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    _selectLanguage =
+                                                    selectLanguageList[index];
+                                                    Navigator.pop(context);
+                                                    setState(() {});
+                                                  },
+                                                  child: Column(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                        child: Text(
+                                                            selectLanguageList[
+                                                            index],
+                                                            style: const TextStyle(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                FontWeight.bold,
+                                                                color:
+                                                                Colors.black)),
+                                                      ),
+                                                      const Gap(5),
+                                                      const Divider(
+                                                        height: 1,
+                                                        color: Colors.black,
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              itemCount: selectLanguageList.length,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Container(
+                                    width: selectBoxWidth,
+                                    // margin: const EdgeInsets.all(16),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                            color: Colors.black, width: 1)),
+                                    child: Text(
+                                      _selectLanguage,
+                                      style: const TextStyle(
+                                          fontSize: 15, color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Gap(15),
+                          Row(
+                            children: [
+                              Text("Image"),
+                              Spacer(),
+                              InkWell(
+                                onTap: () async {
+                                  return showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10)),
+                                          elevation: 16,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 30.0, vertical: 20),
+                                            child: Row(children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  _cameraPick();
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Image.asset(
+                                                  'assets/images/dslr-camera.png',
+                                                  height: 100,
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              InkWell(
+                                                onTap: () {
+                                                  _imagePick();
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Image.asset(
+                                                  'assets/images/image-gallery.png',
+                                                  height: 100,
+                                                ),
+                                              )
+                                            ]),
+                                          ),
+                                        );
+                                      });
 
-                                var title = _titleController.text.toString();
-                                var shortNote =
-                                _shortNoteController.text.toString();
-                                var description =
-                                _descriptionController.text.toString();
+                                  // ! Image Picker
+                                  // _pickFile();
+                                  // print("object");
+                                  // var picked = await FilePicker.platform.pickFiles();
 
-                                var category = _articleCategory.toString();
-                                var subCategory = _articleSubCategory.toString();
-                                var state = _selectState.toString();
-                                var language = _selectLanguage.toString();
+                                  // if (picked != null) {
+                                  //   print(picked.files.first.name);
+                                  // }
+                                },
+                                child: Container(
+                                  width: 130,
+                                  height: 130,
+                                  child: _isImageSelected
+                                      ? Image.file(imageFileOBJ)
+                                      : Image.asset('assets/images/gallery.png'),
+                                ),
+                              ),
+                            ],
+                          ),
+                          // const Gap(5),
+                          Align(
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                              width: size.width * .8,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    if (!_isAllFill()) {
+                                      Fluttertoast.showToast(
+                                          msg: "It's incomplete");
+                                      return;
+                                    }
 
-                                print(
-                                    ' title: $title  shortNote: $shortNote  description: $description category: $category  subCategory: $subCategory  state: $state   language: $language    ');
-                                var provider = Provider.of<DataProvider>(context,
-                                    listen: false);
+                                    var title = _titleController.text.toString();
+                                    var shortNote =
+                                    _shortNoteController.text.toString();
+                                    var description =
+                                    _descriptionController.text.toString();
 
-                                if (await provider.addYourArticle(
-                                    title,
-                                    shortNote,
-                                    description,
-                                    category,
-                                    subCategory,
-                                    state,
-                                    language) ==
-                                    'Y') {
-                                  Fluttertoast.showToast(msg: provider.message);
-                                } else {
-                                  Fluttertoast.showToast(msg: provider.message);
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: _isAllFill()
-                                      ? const Color(0xFF196df9)
-                                      : Colors.grey[400],
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10))),
-                              child: const Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: Text(
-                                  "SUBMIT",
-                                  style: TextStyle(color: Colors.white),
+                                    var category = _articleCategory.toString();
+                                    var subCategory =
+                                    _articleSubCategory.toString();
+                                    var state = _selectState.toString();
+                                    var language = _selectLanguage.toString();
+
+                                    print(
+                                        ' title: $title  shortNote: $shortNote  description: $description category: $category  subCategory: $subCategory  state: $state   language: $language    ');
+                                    var provider = Provider.of<DataProvider>(
+                                        context,
+                                        listen: false);
+
+                                    if (await provider.addYourArticle(
+                                        title,
+                                        shortNote,
+                                        description,
+                                        category,
+                                        subCategory,
+                                        state,
+                                        language) ==
+                                        'Y') {
+                                      Fluttertoast.showToast(msg: provider.message);
+                                    } else {
+                                      Fluttertoast.showToast(msg: provider.message);
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: _isAllFill()
+                                          ? const Color(0xFF196df9)
+                                          : Colors.grey[400],
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10))),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Text(
+                                      "SUBMIT",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
